@@ -1,6 +1,7 @@
 import RiemannHypothesisLean.Statement
 import RiemannHypothesisLean.ZeroTaxonomy
 import RiemannHypothesisLean.Symmetry
+import RiemannHypothesisLean.Conjugation
 import RiemannHypothesisLean.Orbit
 
 /-!

@@ -21,6 +21,10 @@ example : CriticalStripLocalization ↔ PositiveRealPartForNontrivialZeros :=
 example (s : ℂ) : IsCompletedZetaZero (criticalReflection s) ↔ IsCompletedZetaZero s :=
   completedZetaZero_criticalReflection_iff s
 
+example {s : ℂ} (hs : 1 < s.re) :
+    riemannZeta (star s) = star (riemannZeta s) :=
+  riemannZeta_conjugation_of_one_lt_re hs
+
 example : Statement ↔ NontrivialZerosFixedByDualSymmetry :=
   statement_iff_nontrivialZerosFixedByDualSymmetry
 

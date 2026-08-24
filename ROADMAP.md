@@ -25,7 +25,8 @@ Each gate must end in a clean `lake build` and an updated formalization audit.
 - [x] Prove conditional conjugation transport from that bridge.
 - [x] Prove ordinary-zeta reflection for zeros already in the critical strip.
 - [x] Derive the expected four-point zeta-zero orbit conditionally on the two remaining bridges.
-- [ ] Prove ordinary-zeta conjugation compatibility unconditionally.
+- [x] Prove ordinary-zeta conjugation compatibility on `1 < re(s)` from the Dirichlet series.
+- [ ] Extend ordinary-zeta conjugation compatibility through analytic continuation.
 - [x] Isolate precisely why setwise symmetry does not imply the critical-line claim.
 - [x] Reformulate RH as pointwise fixation under `s ↦ 1 - conj(s)`.
 

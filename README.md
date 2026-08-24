@@ -25,12 +25,13 @@ This is a dependency reduction, not a proof of RH or of critical-strip localizat
 
 The Gate 2 foundation checks the completed-zeta reflection, identifies the critical line as the
 fixed-point set of `s ↦ 1 - conj(s)`, and separates setwise zero symmetry from the stronger
-pointwise-fixation claim equivalent to RH. Ordinary-zeta conjugation remains an explicit unproved
-bridge in the pinned dependency surface.
+pointwise-fixation claim equivalent to RH. Ordinary zeta is now proved to commute with conjugation
+on the half-plane `1 < re(s)`, directly from its Dirichlet series. Extending that identity through
+analytic continuation remains an explicit bridge.
 
 The four-point orbit of an ordinary nontrivial zeta zero is now derived conditionally rather than
 assumed. The completed functional equation proves its reflection leg inside the critical strip;
-the remaining inputs are the positive-real-part condition and ordinary-zeta conjugation.
+the remaining inputs are the positive-real-part condition and global ordinary-zeta conjugation.
 
 ## Reproducible build
 
@@ -49,6 +50,7 @@ completes successfully, the project has instead built its dependencies from sour
 - `RiemannHypothesisLean/Statement.lean`: zero predicates, critical strip, critical line, and RH.
 - `RiemannHypothesisLean/ZeroTaxonomy.lean`: checked zero facts and localization dependency.
 - `RiemannHypothesisLean/Symmetry.lean`: checked transformations and symmetry dependency audit.
+- `RiemannHypothesisLean/Conjugation.lean`: termwise conjugation on `1 < re(s)`.
 - `RiemannHypothesisLean/Orbit.lean`: reflection proof and conditional four-point zero orbit.
 - `RiemannHypothesisLean/SmokeTest.lean`: compilation-level interface checks.
 - `FORMALIZATION.md`: the exact formal boundary and dependency audit.

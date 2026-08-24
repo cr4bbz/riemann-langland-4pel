@@ -89,4 +89,33 @@ example (eta : ℂ → ℂ) (hcompat : EtaZetaZeroCompatibleOnCriticalStrip eta)
     ExactBridge analyticStatementFormulation (analyticEtaFormulation eta) :=
   statement_eta_exactBridge hcompat
 
+example :
+    ExactSupportTranslation miniSourceTheory miniTargetTheory :=
+  miniExactSupportTranslation
+
+example :
+    fourSupportValue miniSourceTheory .theorem = .trueOnly :=
+  mini_theorem_value
+
+example :
+    fourSupportValue miniSourceTheory .refutation = .falseOnly :=
+  mini_refutation_value
+
+example :
+    fourSupportValue miniSourceTheory .conflict = .glut :=
+  mini_conflict_value
+
+example :
+    fourSupportValue miniSourceTheory .undecided = .gap :=
+  mini_undecided_value
+
+example (sentence : MiniSourceSentence) :
+    fourSupportValue miniTargetTheory (miniSentenceMap sentence) =
+      fourSupportValue miniSourceTheory sentence :=
+  miniTranslation_preserves_fourSupportValue sentence
+
+example {Sentence : Type} (theory : BilateralTheory Sentence) :
+    ¬AddsInformationBeyondSupportChannels theory (fourSupportValue theory) :=
+  fourSupportValue_not_addsInformation theory
+
 end RiemannHypothesisLean

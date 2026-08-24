@@ -50,6 +50,12 @@ connected conditionally through the explicit obligation that eta and Mathlib zet
 zeros in the critical strip. Spectral and classical positivity rows remain unformalized because
 their essential operators, test spaces, and correspondence theorems have not been selected.
 
+Gate 6 tests a minimal 4PEL layer on a finite correspondence before touching the RH graph. Separate
+positive and negative derivability, all four support profiles, and channel-preserving translation
+are checked. The verdict is deliberately negative on novelty: the induced four-value classifier is
+fully determined by the two support channels and therefore adds no further information. A richer
+4PEL proposal must pass the documented small-case criterion before integration resumes.
+
 ## Reproducible build
 
 The project pins Lean and Mathlib to `v4.30.0`.
@@ -72,9 +78,11 @@ completes successfully, the project has instead built its dependencies from sour
 - `RiemannHypothesisLean/Finiteness.lean`: compact finiteness and verification boundary.
 - `RiemannHypothesisLean/EquivalentCriteria.lean`: equivalent one-sided zero-free criteria.
 - `RiemannHypothesisLean/BridgeAudit.lean`: typed formulation nodes and exact translation edges.
+- `RiemannHypothesisLean/FourPELFeasibility.lean`: bilateral support and falsifiable novelty test.
 - `RiemannHypothesisLean/SmokeTest.lean`: compilation-level interface checks.
 - `FORMALIZATION.md`: the exact formal boundary and dependency audit.
 - `BRIDGE_AUDIT.md`: formulation availability, checked graph, and smallest open bridge.
+- `FOURPEL_FEASIBILITY.md`: small-case test, negative novelty result, and acceptance criterion.
 - `ROADMAP.md`: research gates without pretending that a proof route is known.
 - `SCOPE.md`: separation between established mathematics and the later 4PEL research hypothesis.
 

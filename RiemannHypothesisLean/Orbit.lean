@@ -4,9 +4,8 @@ import RiemannHypothesisLean.Conjugation
 # Four-point zero orbit
 
 This module proves the ordinary-zeta reflection step inside the critical strip by passing through
-the completed zeta function. Analytic continuation now supplies conjugation transport
-unconditionally for project-level nontrivial zeros, so the only remaining input for the full
-four-point orbit is critical-strip localization (equivalently, its positive-real-part boundary).
+the completed zeta function. Critical-strip localization and conjugation transport are both now
+checked, so every project-level nontrivial zero has the full four-point zeta-zero orbit.
 -/
 
 open Complex
@@ -64,7 +63,7 @@ structure RiemannZetaZeroOrbit (s : ℂ) : Prop where
   dual : riemannZeta (dualSymmetry s) = 0
 
 /-- Critical-strip localization produces the full four-point orbit of every project-level
-nontrivial zero. Conjugation no longer appears as a hypothesis. -/
+nontrivial zero. -/
 theorem riemannZetaZeroOrbit_of_localization
     (hloc : CriticalStripLocalization) {s : ℂ}
     (hs : IsNontrivialZero s) : RiemannZetaZeroOrbit s := by
@@ -78,13 +77,17 @@ theorem riemannZetaZeroOrbit_of_localization
   refine ⟨hs.riemannZeta_eq_zero, hzConjugate, hzReflected, ?_⟩
   simpa [criticalReflection, conjugationPoint, dualSymmetry] using hzDual
 
-/-- Gate 1 reduced localization to the positive-real-part condition, so this is the smallest
-remaining dependency surface for the four-point orbit. -/
+/-- The positive-real-part formulation is an equivalent input interface for the orbit theorem. -/
 theorem riemannZetaZeroOrbit_of_positiveRealPart
     (hpos : PositiveRealPartForNontrivialZeros) {s : ℂ}
     (hs : IsNontrivialZero s) : RiemannZetaZeroOrbit s :=
   riemannZetaZeroOrbit_of_localization
     (criticalStripLocalization_iff_positiveRealPart.mpr hpos) hs
+
+/-- Every project-level nontrivial zero has the expected four-point zeta-zero orbit. -/
+theorem IsNontrivialZero.riemannZetaZeroOrbit {s : ℂ}
+    (hs : IsNontrivialZero s) : RiemannZetaZeroOrbit s :=
+  riemannZetaZeroOrbit_of_localization criticalStripLocalization hs
 
 end
 

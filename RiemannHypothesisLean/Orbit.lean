@@ -1,12 +1,12 @@
-import RiemannHypothesisLean.Symmetry
+import RiemannHypothesisLean.Conjugation
 
 /-!
-# Conditional four-point zero orbit
+# Four-point zero orbit
 
 This module proves the ordinary-zeta reflection step inside the critical strip by passing through
-the completed zeta function. It then derives the familiar four-point orbit conditionally on the
-two dependencies that remain explicit in the project: critical-strip localization and ordinary
-zeta's compatibility with complex conjugation.
+the completed zeta function. Analytic continuation now supplies conjugation transport
+unconditionally for project-level nontrivial zeros, so the only remaining input for the full
+four-point orbit is critical-strip localization (equivalently, its positive-real-part boundary).
 -/
 
 open Complex
@@ -63,15 +63,14 @@ structure RiemannZetaZeroOrbit (s : ℂ) : Prop where
   reflected : riemannZeta (criticalReflection s) = 0
   dual : riemannZeta (dualSymmetry s) = 0
 
-/-- Critical-strip localization plus conjugation compatibility produces the full four-point orbit
-of every project-level nontrivial zero. Both unresolved dependencies remain explicit arguments. -/
-theorem riemannZetaZeroOrbit_of_localization_and_conjugation
-    (hloc : CriticalStripLocalization)
-    (hconj : RiemannZetaConjugationCompatibility) {s : ℂ}
+/-- Critical-strip localization produces the full four-point orbit of every project-level
+nontrivial zero. Conjugation no longer appears as a hypothesis. -/
+theorem riemannZetaZeroOrbit_of_localization
+    (hloc : CriticalStripLocalization) {s : ℂ}
     (hs : IsNontrivialZero s) : RiemannZetaZeroOrbit s := by
   have hstrip : InCriticalStrip s := hloc s hs
   have hzConjugate : riemannZeta (conjugationPoint s) = 0 :=
-    riemannZeta_eq_zero_conjugationPoint hconj hs.riemannZeta_eq_zero
+    hs.riemannZeta_conjugationPoint_eq_zero
   have hzReflected : riemannZeta (criticalReflection s) = 0 :=
     riemannZetaZero_criticalReflection hs.riemannZeta_eq_zero hstrip
   have hzDual : riemannZeta (criticalReflection (conjugationPoint s)) = 0 :=
@@ -79,14 +78,13 @@ theorem riemannZetaZeroOrbit_of_localization_and_conjugation
   refine ⟨hs.riemannZeta_eq_zero, hzConjugate, hzReflected, ?_⟩
   simpa [criticalReflection, conjugationPoint, dualSymmetry] using hzDual
 
-/-- Gate 1 reduced localization to the positive-real-part condition, so the four-point orbit has
-the same smaller dependency surface. -/
-theorem riemannZetaZeroOrbit_of_positiveRealPart_and_conjugation
-    (hpos : PositiveRealPartForNontrivialZeros)
-    (hconj : RiemannZetaConjugationCompatibility) {s : ℂ}
+/-- Gate 1 reduced localization to the positive-real-part condition, so this is the smallest
+remaining dependency surface for the four-point orbit. -/
+theorem riemannZetaZeroOrbit_of_positiveRealPart
+    (hpos : PositiveRealPartForNontrivialZeros) {s : ℂ}
     (hs : IsNontrivialZero s) : RiemannZetaZeroOrbit s :=
-  riemannZetaZeroOrbit_of_localization_and_conjugation
-    (criticalStripLocalization_iff_positiveRealPart.mpr hpos) hconj hs
+  riemannZetaZeroOrbit_of_localization
+    (criticalStripLocalization_iff_positiveRealPart.mpr hpos) hs
 
 end
 

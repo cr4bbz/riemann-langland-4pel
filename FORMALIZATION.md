@@ -64,21 +64,24 @@ right-hand inequality, while the positive-real-part condition remains open in th
 | `s ↦ 1 - conj(s)` is an involution | `dualSymmetry_involutive` | checked |
 | Fixed points of the dual symmetry form the critical line | `dualSymmetry_fixed_iff_onCriticalLine` | checked |
 | Completed-zeta zeros reflect under `s ↦ 1 - s` | `completedZetaZero_criticalReflection_iff` | checked |
-| Ordinary zeta commutes with conjugation globally | `RiemannZetaConjugationCompatibility` | named bridge, not proved |
-| Conjugation transports ordinary zeros | `riemannZeta_eq_zero_conjugationPoint` | checked conditionally on the bridge |
+| Totalized conjugation including `s = 1` | `RiemannZetaConjugationCompatibility` | stronger named proposition, not needed for RH |
+| Transport from totalized compatibility | `riemannZeta_eq_zero_conjugationPoint` | checked conditionally |
 | RH is pointwise fixation under the dual symmetry | `statement_iff_nontrivialZerosFixedByDualSymmetry` | checked reformulation |
 | Setwise symmetry alone need not imply pointwise fixation | `setwiseDualInvariant_not_pointwiseFixed` | checked generic counterexample |
 
-`RiemannHypothesisLean.Conjugation` proves the first analytic stage:
+`RiemannHypothesisLean.Conjugation` closes the natural analytic-domain bridge:
 
 | Claim | Lean declaration | Status |
 |---|---|---|
 | Zeta commutes with conjugation on `1 < re(s)` | `riemannZeta_conjugation_of_one_lt_re` | checked from the Dirichlet series |
-| Same result through the project transformation | `riemannZeta_conjugationPoint_of_one_lt_re` | checked |
+| Zeta commutes with conjugation on `s ≠ 1` | `riemannZeta_conjugation_of_ne_one` | checked by the identity principle |
+| Project-facing form on `s ≠ 1` | `riemannZeta_conjugationPoint_of_ne_one` | checked |
+| Conjugation transports nontrivial zeros | `IsNontrivialZero.riemannZeta_conjugationPoint_eq_zero` | checked unconditionally |
 
-The proof moves conjugation through Mathlib's convergent `tsum` and checks every Dirichlet term
-using conjugation of complex powers. The remaining step is an identity-theorem argument on the
-analytically continued function away from its pole; it is not silently assumed here.
+The first proof moves conjugation through Mathlib's convergent `tsum` and checks every Dirichlet
+term using conjugation of complex powers. The second proves analyticity of
+`z ↦ conj (ζ (conj z))` and applies the identity principle on the connected set `ℂ \ {1}`.
+The excluded point is the pole and cannot be a project-level nontrivial zero.
 
 The completed functional equation therefore supplies a genuine checked transport theorem. Even
 after setwise closure is established, RH would still require proving that every nontrivial zero is
@@ -93,13 +96,13 @@ individually fixed by the combined symmetry.
 | Positive-real-part zeta zeros are completed-zeta zeros | `completedZetaZero_of_riemannZetaZero_of_re_pos` | checked |
 | Critical-strip zeta zeros reflect under `s ↦ 1 - s` | `riemannZetaZero_criticalReflection` | checked |
 | The four orbit points are zeta zeros | `RiemannZetaZeroOrbit` | project structure |
-| Localization and conjugation yield the orbit | `riemannZetaZeroOrbit_of_localization_and_conjugation` | checked conditionally |
-| Positive real part and conjugation yield the orbit | `riemannZetaZeroOrbit_of_positiveRealPart_and_conjugation` | checked conditionally |
+| Localization yields the orbit | `riemannZetaZeroOrbit_of_localization` | checked conditionally on localization only |
+| Positive real part yields the orbit | `riemannZetaZeroOrbit_of_positiveRealPart` | checked conditionally on Gate 1 only |
 
-Thus the reflection leg of the ordinary-zeta orbit is no longer an independent bridge. It follows
-from the completed functional equation once a zero is known to lie in the critical strip. The
-remaining orbit dependencies are exactly the positive-real-part condition from Gate 1 and the
-global ordinary-zeta conjugation compatibility named in Gate 2.
+Thus neither reflection nor conjugation remains an independent orbit bridge. Once a nontrivial
+zero is known to have positive real part, Gate 1 supplies the critical strip and the full
+four-point orbit follows. This orbit closure is still only setwise information and does not imply
+the pointwise fixation equivalent to RH.
 
 ## Non-goals of the first milestone
 

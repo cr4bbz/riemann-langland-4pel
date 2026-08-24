@@ -21,12 +21,12 @@ Each gate must end in a clean `lake build` and an updated formalization audit.
 
 - [x] Define the conjugation and reflection transformations as involutions.
 - [x] Package the `s ↦ 1 - s` symmetry for completed-zeta zeros.
-- [x] Name ordinary-zeta conjugation compatibility as an explicit unproved bridge.
-- [x] Prove conditional conjugation transport from that bridge.
+- [x] Record totalized all-input conjugation as an explicit stronger proposition.
 - [x] Prove ordinary-zeta reflection for zeros already in the critical strip.
-- [x] Derive the expected four-point zeta-zero orbit conditionally on the two remaining bridges.
 - [x] Prove ordinary-zeta conjugation compatibility on `1 < re(s)` from the Dirichlet series.
-- [ ] Extend ordinary-zeta conjugation compatibility through analytic continuation.
+- [x] Extend conjugation compatibility to `ℂ \ {1}` by analytic continuation.
+- [x] Remove the conjugation hypothesis from the nontrivial-zero orbit.
+- [x] Derive the four-point orbit from critical-strip localization alone.
 - [x] Isolate precisely why setwise symmetry does not imply the critical-line claim.
 - [x] Reformulate RH as pointwise fixation under `s ↦ 1 - conj(s)`.
 

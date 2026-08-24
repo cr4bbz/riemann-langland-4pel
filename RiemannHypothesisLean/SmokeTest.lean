@@ -25,11 +25,23 @@ example {s : ℂ} (hs : 1 < s.re) :
     riemannZeta (star s) = star (riemannZeta s) :=
   riemannZeta_conjugation_of_one_lt_re hs
 
+example {s : ℂ} (hs : s ≠ 1) :
+    riemannZeta (star s) = star (riemannZeta s) :=
+  riemannZeta_conjugation_of_ne_one hs
+
+example {s : ℂ} (hs : IsNontrivialZero s) :
+    riemannZeta (conjugationPoint s) = 0 :=
+  hs.riemannZeta_conjugationPoint_eq_zero
+
 example : Statement ↔ NontrivialZerosFixedByDualSymmetry :=
   statement_iff_nontrivialZerosFixedByDualSymmetry
 
 example {s : ℂ} (hz : riemannZeta s = 0) (hs : InCriticalStrip s) :
     riemannZeta (criticalReflection s) = 0 :=
   riemannZetaZero_criticalReflection hz hs
+
+example (hloc : CriticalStripLocalization) {s : ℂ} (hs : IsNontrivialZero s) :
+    RiemannZetaZeroOrbit s :=
+  riemannZetaZeroOrbit_of_localization hloc hs
 
 end RiemannHypothesisLean

@@ -118,4 +118,24 @@ example {Sentence : Type} (theory : BilateralTheory Sentence) :
     ¬AddsInformationBeyondSupportChannels theory (fourSupportValue theory) :=
   fourSupportValue_not_addsInformation theory
 
+example {s : ℂ} (hs : InCriticalStrip s) :
+    dirichletEtaFactor s ≠ 0 :=
+  dirichletEtaFactor_ne_zero_of_inCriticalStrip hs
+
+example {s : ℂ} (hs : InCriticalStrip s) :
+    dirichletEta s = 0 ↔ riemannZeta s = 0 :=
+  dirichletEta_eq_zero_iff_riemannZeta_eq_zero_of_inCriticalStrip hs
+
+example :
+    EtaZetaZeroCompatibleOnCriticalStrip dirichletEta :=
+  dirichletEta_zetaZeroCompatible
+
+example :
+    ExactBridge analyticStatementFormulation (analyticEtaFormulation dirichletEta) :=
+  statement_dirichletEta_exactBridge
+
+example :
+    Statement ↔ EtaCriticalStripCriterion dirichletEta :=
+  statement_iff_dirichletEtaCriticalStripCriterion
+
 end RiemannHypothesisLean

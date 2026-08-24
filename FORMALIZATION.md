@@ -45,13 +45,18 @@ The initial objective is complete **specification**, not a claimed proof:
 |---|---|---|
 | Every named trivial zero is a zeta zero | `IsTrivialZero.riemannZeta_eq_zero` | checked |
 | A nontrivial zero is not the pole location | `IsNontrivialZero.ne_one` | checked |
+| A nontrivial zero is not zero | `IsNontrivialZero.ne_zero` | checked |
+| The real Gamma factor is nonzero there | `IsNontrivialZero.Gammaℝ_ne_zero` | checked |
 | A nontrivial zero satisfies `re(s) < 1` | `IsNontrivialZero.re_lt_one` | checked |
-| Full localization in `0 < re(s) < 1` | `CriticalStripLocalization` | named proposition, not proved |
-| Remaining left boundary `0 < re(s)` | `PositiveRealPartForNontrivialZeros` | named proposition, not proved |
+| A nontrivial zero satisfies `0 < re(s)` | `IsNontrivialZero.re_pos` | checked |
+| Positive-real-part proposition | `positiveRealPartForNontrivialZeros` | checked |
+| Full localization in `0 < re(s) < 1` | `criticalStripLocalization` | checked |
 | Reduction of localization to left boundary | `criticalStripLocalization_iff_positiveRealPart` | checked |
 
-The last equivalence is a dependency reduction, not a proof of localization: Mathlib supplies the
-right-hand inequality, while the positive-real-part condition remains open in this formalization.
+For the left boundary, Mathlib's `Gammaℝ_eq_zero_iff` identifies the only obstruction to lifting
+a zeta zero to the completed function. Those points are either `0` or the named trivial zeros.
+The completed functional equation then reflects any remaining hypothetical zero with
+`re(s) ≤ 0` to a zero with `re(1-s) ≥ 1`, contradicting Mathlib's nonvanishing theorem.
 
 ## Gate 2: symmetry boundary
 
@@ -96,13 +101,13 @@ individually fixed by the combined symmetry.
 | Positive-real-part zeta zeros are completed-zeta zeros | `completedZetaZero_of_riemannZetaZero_of_re_pos` | checked |
 | Critical-strip zeta zeros reflect under `s ↦ 1 - s` | `riemannZetaZero_criticalReflection` | checked |
 | The four orbit points are zeta zeros | `RiemannZetaZeroOrbit` | project structure |
-| Localization yields the orbit | `riemannZetaZeroOrbit_of_localization` | checked conditionally on localization only |
-| Positive real part yields the orbit | `riemannZetaZeroOrbit_of_positiveRealPart` | checked conditionally on Gate 1 only |
+| Localization yields the orbit | `riemannZetaZeroOrbit_of_localization` | checked |
+| Positive real part yields the orbit | `riemannZetaZeroOrbit_of_positiveRealPart` | checked |
+| Every nontrivial zero has the orbit | `IsNontrivialZero.riemannZetaZeroOrbit` | checked unconditionally |
 
-Thus neither reflection nor conjugation remains an independent orbit bridge. Once a nontrivial
-zero is known to have positive real part, Gate 1 supplies the critical strip and the full
-four-point orbit follows. This orbit closure is still only setwise information and does not imply
-the pointwise fixation equivalent to RH.
+Reflection, conjugation, and critical-strip localization are now all discharged for project-level
+nontrivial zeros, so the full four-point orbit is checked without hypotheses. This orbit closure is
+still only setwise information and does not imply the pointwise fixation equivalent to RH.
 
 ## Non-goals of the first milestone
 

@@ -18,10 +18,11 @@ This repository **does not prove the Riemann hypothesis**. Mathlib already conta
 - the canonical proposition `RiemannHypothesis`.
 
 The foundation exposes these ingredients under explicit names and proves
-`RiemannHypothesisLean.Statement ↔ RiemannHypothesis`. Gate 1 connects the project's zero taxonomy
-to Mathlib, proves `re(s) < 1` for every project-level nontrivial zero, and checks that full
-critical-strip localization now reduces exactly to the still-unproved condition `0 < re(s)`.
-This is a dependency reduction, not a proof of RH or of critical-strip localization.
+`RiemannHypothesisLean.Statement ↔ RiemannHypothesis`. Gate 1 now proves the classical
+localization `0 < re(s) < 1` for every project-level nontrivial zero. The left boundary follows
+by classifying zeros of the real Gamma factor, applying the completed functional equation, and
+reflecting a hypothetical left-half-plane zero into Mathlib's zero-free half-plane. This is an
+established prerequisite for RH, not the critical-line claim itself.
 
 The Gate 2 foundation checks the completed-zeta reflection, identifies the critical line as the
 fixed-point set of `s ↦ 1 - conj(s)`, and separates setwise zero symmetry from the stronger
@@ -29,9 +30,9 @@ pointwise-fixation claim equivalent to RH. Ordinary zeta is now proved to commut
 on its natural analytic domain `s ≠ 1`: first from the Dirichlet series on `1 < re(s)`, then
 throughout `ℂ \ {1}` by the identity principle.
 
-The four-point orbit of an ordinary nontrivial zeta zero now follows from critical-strip
-localization alone. Conjugation is no longer an assumed input; Gate 1's positive-real-part
-condition is the remaining dependency.
+Every project-level nontrivial zeta zero now has the checked four-point orbit
+`s`, `conj(s)`, `1 - s`, and `1 - conj(s)`. This is setwise symmetry; RH remains the
+strictly stronger claim that every such zero is individually fixed by `s ↦ 1 - conj(s)`.
 
 ## Reproducible build
 
@@ -48,10 +49,10 @@ completes successfully, the project has instead built its dependencies from sour
 ## Repository map
 
 - `RiemannHypothesisLean/Statement.lean`: zero predicates, critical strip, critical line, and RH.
-- `RiemannHypothesisLean/ZeroTaxonomy.lean`: checked zero facts and localization dependency.
+- `RiemannHypothesisLean/ZeroTaxonomy.lean`: checked zero facts and critical-strip localization.
 - `RiemannHypothesisLean/Symmetry.lean`: checked transformations and symmetry dependency audit.
 - `RiemannHypothesisLean/Conjugation.lean`: conjugation on `ℂ \ {1}` by analytic continuation.
-- `RiemannHypothesisLean/Orbit.lean`: reflection proof and reduced four-point zero orbit.
+- `RiemannHypothesisLean/Orbit.lean`: unconditional four-point orbit for nontrivial zeros.
 - `RiemannHypothesisLean/SmokeTest.lean`: compilation-level interface checks.
 - `FORMALIZATION.md`: the exact formal boundary and dependency audit.
 - `ROADMAP.md`: research gates without pretending that a proof route is known.

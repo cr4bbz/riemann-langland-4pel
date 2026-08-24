@@ -18,4 +18,10 @@ example {s : ℂ} (hs : IsNontrivialZero s) : s.re < 1 :=
 example : CriticalStripLocalization ↔ PositiveRealPartForNontrivialZeros :=
   criticalStripLocalization_iff_positiveRealPart
 
+example (s : ℂ) : IsCompletedZetaZero (criticalReflection s) ↔ IsCompletedZetaZero s :=
+  completedZetaZero_criticalReflection_iff s
+
+example : Statement ↔ NontrivialZerosFixedByDualSymmetry :=
+  statement_iff_nontrivialZerosFixedByDualSymmetry
+
 end RiemannHypothesisLean

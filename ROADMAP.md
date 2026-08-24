@@ -80,3 +80,18 @@ Gate 6 therefore has a mixed verdict: bilateral transport is feasible, but the m
 adds no information beyond the two channels from which it is computed. Any renewed 4PEL
 integration must supply rule-governed structure and a nontrivial invariant, obstruction, or
 consequence that survives exact translation.
+
+## Gate 7 — Concrete Dirichlet eta interoperability
+
+- [x] Define the eta factor `1 - 2 ^ (1 - s)`.
+- [x] Define a concrete factorized Dirichlet eta function with the removable value at `s = 1`.
+- [x] Prove points in the open critical strip are distinct from the pole location.
+- [x] Prove the eta factor is nonzero throughout the open critical strip.
+- [x] Prove eta and zeta have exactly the same zero predicate there.
+- [x] Discharge `EtaZetaZeroCompatibleOnCriticalStrip dirichletEta`.
+- [x] Instantiate the unconditional exact bridge to the eta RH criterion.
+- [x] Keep alternating-series agreement and global analyticity outside the claimed Gate 7 surface.
+
+Gate 7 closes the smallest interoperability obligation identified in Gate 5. It creates no proof
+of either equivalent RH formulation.
+

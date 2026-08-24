@@ -130,6 +130,48 @@ theorem realAlternatingEtaSeries_converges_of_pos {x : ℝ} (hx : 0 < x) :
       apply tendsto_atTop_add_const_right
       exact tendsto_natCast_atTop_atTop)
 
+
+/-- The first `N` natural-order partial sums of the classical complex eta series. -/
+def complexAlternatingEtaPartialSum (s : ℂ) (N : ℕ) : ℂ :=
+  ∑ n ∈ Finset.range N, (-1 : ℂ) ^ n * ((n : ℂ) + 1) ^ (-s)
+
+/-- Ordinary sequential convergence of the complex alternating eta series at `s`. -/
+def ComplexAlternatingEtaSeriesConvergesAt (s : ℂ) : Prop :=
+  ∃ l : ℂ, Filter.Tendsto (complexAlternatingEtaPartialSum s) Filter.atTop (nhds l)
+
+/-- A complex eta term at a real exponent is the complex embedding of the corresponding
+real eta term. -/
+theorem complexAlternatingEtaTerm_ofReal (x : ℝ) (n : ℕ) :
+    (-1 : ℂ) ^ n * ((n : ℂ) + 1) ^ (-(x : ℂ)) =
+      (((-1 : ℝ) ^ n * ((n : ℝ) + 1) ^ (-x) : ℝ) : ℂ) := by
+  rw [Complex.ofReal_mul, Complex.ofReal_pow,
+    Complex.ofReal_cpow (show 0 ≤ (n : ℝ) + 1 by positivity)]
+  norm_num
+
+/-- The complex and real partial-sum constructions agree on the embedded real axis. -/
+theorem complexAlternatingEtaPartialSum_ofReal (x : ℝ) (N : ℕ) :
+    complexAlternatingEtaPartialSum (x : ℂ) N =
+      (realAlternatingEtaPartialSum x N : ℂ) := by
+  unfold complexAlternatingEtaPartialSum realAlternatingEtaPartialSum
+  calc
+    (∑ n ∈ Finset.range N, (-1 : ℂ) ^ n * ((n : ℂ) + 1) ^ (-(x : ℂ))) =
+        ∑ n ∈ Finset.range N,
+          (((-1 : ℝ) ^ n * ((n : ℝ) + 1) ^ (-x) : ℝ) : ℂ) := by
+      apply Finset.sum_congr rfl
+      intro n hn
+      exact complexAlternatingEtaTerm_ofReal x n
+    _ = ((∑ n ∈ Finset.range N,
+          (-1 : ℝ) ^ n * ((n : ℝ) + 1) ^ (-x) : ℝ) : ℂ) := by
+      norm_cast
+
+/-- The complex partial sums converge at every positive point of the embedded real axis. -/
+theorem complexAlternatingEtaSeries_converges_of_pos_real {x : ℝ} (hx : 0 < x) :
+    ComplexAlternatingEtaSeriesConvergesAt (x : ℂ) := by
+  obtain ⟨l, hl⟩ := realAlternatingEtaSeries_converges_of_pos hx
+  refine ⟨(l : ℂ), ?_⟩
+  simpa only [complexAlternatingEtaPartialSum_ofReal] using
+    (Complex.continuous_ofReal.tendsto l).comp hl
+
 end
 
 end RiemannHypothesisLean

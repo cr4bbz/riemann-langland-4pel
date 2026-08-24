@@ -166,4 +166,14 @@ example {x : ℝ} (hx : 0 < x) :
     RealAlternatingEtaSeriesConvergesAt x :=
   realAlternatingEtaSeries_converges_of_pos hx
 
+
+example (x : ℝ) (N : ℕ) :
+    complexAlternatingEtaPartialSum (x : ℂ) N =
+      (realAlternatingEtaPartialSum x N : ℂ) :=
+  complexAlternatingEtaPartialSum_ofReal x N
+
+example {x : ℝ} (hx : 0 < x) :
+    ComplexAlternatingEtaSeriesConvergesAt (x : ℂ) :=
+  complexAlternatingEtaSeries_converges_of_pos_real hx
+
 end RiemannHypothesisLean

@@ -177,11 +177,11 @@ positivity formulations remain classified but have no node: the project has not 
 self-adjoint operator/spectral encoding or a test-function space/positive functional. This absence
 is recorded rather than replaced by an arbitrary proposition.
 
-For a supplied Dirichlet eta function, the smallest current interoperability obligation is equality
-of its zero predicate with Mathlib's zeta zero predicate throughout the open critical strip.
+For a supplied Dirichlet eta function, Gate 5 isolates equality of its zero predicate with
+Mathlib's zeta zero predicate throughout the open critical strip.
 `statement_eta_exactBridge` proves that this obligation is sufficient for both criterion
-translations. It does not prove the compatibility or RH. See `BRIDGE_AUDIT.md` for the full
-availability table and source record.
+translations. Gate 7 discharges it for the concrete project eta definition. See
+`BRIDGE_AUDIT.md` for the current graph and source record.
 
 ## Gate 6: 4PEL feasibility result
 
@@ -211,6 +211,33 @@ A richer proposal must first provide rule-governed derivability and a justified 
 observation or consequence that distinguishes cases with the same bilateral support profile and is
 preserved across translations. See `FOURPEL_FEASIBILITY.md` for the acceptance criterion and
 research interpretation.
+
+## Gate 7: concrete Dirichlet eta bridge
+
+`RiemannHypothesisLean.DirichletEta` closes the parameterized Gate 5 obligation for a concrete
+factorized eta function:
+
+| Claim | Lean declaration | Status |
+|---|---|---|
+| Eta factor `1 - 2^(1-s)` | `dirichletEtaFactor` | defined |
+| Concrete eta with value `log 2` at `s = 1` | `dirichletEta` | defined |
+| Critical-strip points avoid `s = 1` | `InCriticalStrip.ne_one` | checked |
+| Complex `log 2` is real | `complexLog_two` | checked |
+| Exponent has positive real part | `log_two_mul_one_sub_re_pos` | checked |
+| Eta factor is nonzero in the strip | `dirichletEtaFactor_ne_zero_of_inCriticalStrip` | checked |
+| Eta zero iff zeta zero in the strip | `dirichletEta_eq_zero_iff_riemannZeta_eq_zero_of_inCriticalStrip` | checked |
+| Concrete zero-set compatibility | `dirichletEta_zetaZeroCompatible` | checked |
+| Unconditional exact RH/eta bridge | `statement_dirichletEta_exactBridge` | checked |
+| Proposition-level equivalence | `statement_iff_dirichletEtaCriticalStripCriterion` | checked |
+
+The nonvanishing proof reduces a hypothetical `2^(1-s) = 1` to equality of norms. Mathlib's
+complex exponential norm formula gives
+`exp (log 2 * (1 - re(s))) = 1`, contradicting positivity of both factors when `re(s) < 1`.
+
+The function is defined through the factorized analytic continuation, with the removable value
+specified at one. Gate 7 does not construct eta independently from the alternating series, prove
+agreement with that series, or prove global analyticity. It also does not prove either equivalent
+RH statement.
 
 ## Non-goals of the first milestone
 

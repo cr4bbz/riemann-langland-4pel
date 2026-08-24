@@ -138,4 +138,19 @@ example :
     Statement ↔ EtaCriticalStripCriterion dirichletEta :=
   statement_iff_dirichletEtaCriticalStripCriterion
 
+example : alternatingEtaCoefficient 1 = 1 :=
+  alternatingEtaCoefficient_one
+
+example {s : ℂ} (hs : 1 < s.re) :
+    LSeriesSummable alternatingEtaCoefficient s :=
+  alternatingDirichletEtaSeries_summable_of_one_lt_re hs
+
+example {s : ℂ} (hs : 1 < s.re) :
+    alternatingDirichletEtaContinuation s = alternatingDirichletEtaSeries s :=
+  alternatingDirichletEtaContinuation_eq_series_of_one_lt_re hs
+
+example {s : ℂ} (hs : s ≠ 1) :
+    DifferentiableAt ℂ alternatingDirichletEtaContinuation s :=
+  differentiableAt_alternatingDirichletEtaContinuation hs
+
 end RiemannHypothesisLean

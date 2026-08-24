@@ -7,13 +7,15 @@ Each gate must end in a clean `lake build` and an updated formalization audit.
 - [x] Pin Lean 4 and Mathlib.
 - [x] Define the project-facing statement.
 - [x] Connect it to Mathlib's canonical `RiemannHypothesis`.
-- [ ] Confirm the first GitHub Actions build.
+- [x] Confirm the first GitHub Actions build.
 
 ## Gate 1 — Zero taxonomy
 
-- [ ] Relate `IsTrivialZero` to Mathlib's trivial-zero theorem.
-- [ ] Prove that a nontrivial zero is distinct from the pole.
-- [ ] State the critical-strip localization theorem with an honest dependency status.
+- [x] Relate `IsTrivialZero` to Mathlib's trivial-zero theorem (forward direction).
+- [x] Prove that a nontrivial zero is distinct from the pole.
+- [x] State critical-strip localization with an honest dependency status.
+- [x] Derive `re(s) < 1` from Mathlib's nonvanishing theorem.
+- [x] Reduce full localization to the still-unproved condition `0 < re(s)`.
 
 ## Gate 2 — Symmetry package
 

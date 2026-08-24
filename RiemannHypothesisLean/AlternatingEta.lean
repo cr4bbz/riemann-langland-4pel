@@ -111,7 +111,7 @@ def realAlternatingEtaPartialSum (x : ℝ) (N : ℕ) : ℝ :=
 
 /-- Ordinary sequential convergence of the real alternating eta series at exponent `x`. -/
 def RealAlternatingEtaSeriesConvergesAt (x : ℝ) : Prop :=
-  ∃ l : ℝ, Tendsto (realAlternatingEtaPartialSum x) Filter.atTop (𝓝 l)
+  ∃ l : ℝ, Filter.Tendsto (realAlternatingEtaPartialSum x) Filter.atTop (𝓝 l)
 
 /-- The real alternating eta partial sums converge for every positive exponent.
 
@@ -119,6 +119,7 @@ This is the Leibniz alternating-series criterion. In particular, it includes the
 convergent range `0 < x ≤ 1` without asserting Mathlib's stronger `Summable` predicate. -/
 theorem realAlternatingEtaSeries_converges_of_pos {x : ℝ} (hx : 0 < x) :
     RealAlternatingEtaSeriesConvergesAt x := by
+  unfold RealAlternatingEtaSeriesConvergesAt realAlternatingEtaPartialSum
   apply Antitone.tendsto_alternating_series_of_tendsto_zero
   · intro m n hmn
     apply Real.rpow_le_rpow_of_nonpos

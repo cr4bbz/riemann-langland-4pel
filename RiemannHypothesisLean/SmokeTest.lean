@@ -24,4 +24,8 @@ example (s : ℂ) : IsCompletedZetaZero (criticalReflection s) ↔ IsCompletedZe
 example : Statement ↔ NontrivialZerosFixedByDualSymmetry :=
   statement_iff_nontrivialZerosFixedByDualSymmetry
 
+example {s : ℂ} (hz : riemannZeta s = 0) (hs : InCriticalStrip s) :
+    riemannZeta (criticalReflection s) = 0 :=
+  riemannZetaZero_criticalReflection hz hs
+
 end RiemannHypothesisLean

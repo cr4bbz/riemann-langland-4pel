@@ -28,6 +28,10 @@ fixed-point set of `s ↦ 1 - conj(s)`, and separates setwise zero symmetry from
 pointwise-fixation claim equivalent to RH. Ordinary-zeta conjugation remains an explicit unproved
 bridge in the pinned dependency surface.
 
+The four-point orbit of an ordinary nontrivial zeta zero is now derived conditionally rather than
+assumed. The completed functional equation proves its reflection leg inside the critical strip;
+the remaining inputs are the positive-real-part condition and ordinary-zeta conjugation.
+
 ## Reproducible build
 
 The project pins Lean and Mathlib to `v4.30.0`.
@@ -45,6 +49,7 @@ completes successfully, the project has instead built its dependencies from sour
 - `RiemannHypothesisLean/Statement.lean`: zero predicates, critical strip, critical line, and RH.
 - `RiemannHypothesisLean/ZeroTaxonomy.lean`: checked zero facts and localization dependency.
 - `RiemannHypothesisLean/Symmetry.lean`: checked transformations and symmetry dependency audit.
+- `RiemannHypothesisLean/Orbit.lean`: reflection proof and conditional four-point zero orbit.
 - `RiemannHypothesisLean/SmokeTest.lean`: compilation-level interface checks.
 - `FORMALIZATION.md`: the exact formal boundary and dependency audit.
 - `ROADMAP.md`: research gates without pretending that a proof route is known.

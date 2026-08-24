@@ -133,6 +133,26 @@ there. The completeness hypothesis is therefore a separate field of mathematical
 metadata that a numerical program may silently assume. No floating-point computation or finite
 height cutoff is represented as evidence for the universal proposition.
 
+## Gate 4: equivalent half-strip criteria
+
+`RiemannHypothesisLean.EquivalentCriteria` turns the checked zero symmetry into two explicit
+one-sided formulations:
+
+| Claim | Lean declaration | Status |
+|---|---|---|
+| Positive real part excludes named trivial zeros | `not_isTrivialZero_of_re_pos` | checked |
+| Dual symmetry preserves nontrivial zeros | `IsNontrivialZero.dualSymmetry_isNontrivialZero` | checked |
+| No nontrivial zero lies left of the critical line | `LeftHalfCriticalStripZeroFree` | defined |
+| No nontrivial zero lies right of the critical line | `RightHalfCriticalStripZeroFree` | defined |
+| RH iff left-half zero-free | `statement_iff_leftHalfCriticalStripZeroFree` | both directions checked |
+| RH iff right-half zero-free | `statement_iff_rightHalfCriticalStripZeroFree` | both directions checked |
+| Left and right criteria are equivalent | `leftHalfCriticalStripZeroFree_iff_rightHalfCriticalStripZeroFree` | checked |
+
+For the nontrivial direction, the one-sided bound is applied both to `s` and to the checked
+nontrivial zero `1 - conj(s)`. Since their real parts add to `1`, the two inequalities force
+`re(s) = 1 / 2`. This is an exact reduction, not evidence for the one-sided criterion itself:
+proving either zero-free claim remains equivalent to proving RH.
+
 ## Non-goals of the first milestone
 
 - treating numerical verification as a universal proof;

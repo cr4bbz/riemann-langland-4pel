@@ -84,8 +84,9 @@ There is no longer an unresolved edge among the concrete analytic and geometric 
 current graph. Gate 8 has now begun the independent eta alternative: period-two coefficient data,
 the naive `LSeries`, and its `ZMod.LFunction` continuation are formalized, and their equality is
 checked on `1 < re(s)`. The coefficient mean is proved zero, so the independent continuation is
-entire. The remaining edge is deliberately not drawn yet: conditional convergence
-on `0 < re(s)` and equality with the factorized `dirichletEta` have not been proved. A classical
+entire. Explicit natural-order real partial sums now converge for every real exponent `x > 0`.
+This does not yet draw the missing complex edge: partial-sum convergence for all
+`0 < re(s)` and equality with the factorized `dirichletEta` have not been proved. A classical
 positivity criterion remains a separate future expansion family.
 
 ## Availability findings

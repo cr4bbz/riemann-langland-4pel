@@ -255,9 +255,15 @@ RH statement.
 | Differentiability away from `s = 1` | `differentiableAt_alternatingDirichletEtaContinuation` | checked |
 | Coefficient mean is zero | `etaResidueCoefficient_sum` | checked |
 | Independent continuation is entire | `differentiable_alternatingDirichletEtaContinuation` | checked |
+| Real eta partial sums | `realAlternatingEtaPartialSum` | explicitly defined in natural order |
+| Sequential convergence for every `x > 0` | `realAlternatingEtaSeries_converges_of_pos` | checked by the alternating-series test |
 
-This is not yet the full classical eta theorem. Conditional convergence on `0 < re(s)`, the
-value `log 2`, and equality with the factorized Gate 7 function remain explicit obligations. In particular, no critical-strip zero bridge is inferred from the new
+The last result uses explicit `Finset.range` partial sums and `Filter.Tendsto`. It does not
+mislabel conditional convergence as Mathlib's stronger order-independent `Summable` predicate.
+
+This is not yet the full classical eta theorem. Extension from positive real exponents to complex
+`s` with `0 < re(s)`, the value `log 2`, and equality with the factorized Gate 7 function
+remain explicit obligations. In particular, no critical-strip zero bridge is inferred from the new
 construction yet.
 
 ## Non-goals of the first milestone

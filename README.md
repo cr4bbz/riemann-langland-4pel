@@ -64,7 +64,9 @@ Gate 8 begins an independent eta construction from period-two coefficient data. 
 naive alternating Dirichlet series through Mathlib's `LSeries` and a separate periodic analytic
 continuation through `ZMod.LFunction`. Lean checks summability and equality of these two objects on
 `1 < re(s)`, the half-plane of absolute convergence. The two residue coefficients sum to zero,
-so the independent continuation is also checked to be entire. Conditional convergence on
+so the independent continuation is also checked to be entire. Explicit real partial sums are
+defined, and Lean's alternating-series test proves their ordinary sequential convergence for every
+real `x > 0`, including the non-absolutely convergent range. Extension to complex `s` with
 `0 < re(s)` and identification with the factorized Gate 7 eta remain explicit open Gate 8
 obligations.
 

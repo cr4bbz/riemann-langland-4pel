@@ -30,11 +30,28 @@ The initial objective is complete **specification**, not a claimed proof:
 | Functional equation | `riemannZeta_one_sub` | imported |
 | Completed functional equation | `completedRiemannZeta_one_sub` | imported |
 | Trivial zeros | `riemannZeta_neg_two_mul_nat_add_one` | imported |
+| Nonvanishing on `1 ≤ re(s)` | `riemannZeta_ne_zero_of_one_le_re` | imported |
 | Zero set | `riemannZetaZeros` | imported |
 | Discreteness of zeros | `isDiscrete_riemannZetaZeros` | imported |
 | Finitely many zeros in compact sets | `IsCompact.inter_riemannZetaZeros_finite` | imported |
 | Riemann-hypothesis proposition | `RiemannHypothesis` | imported, unproved |
 | Project equivalence | `statement_iff_mathlib` | checked in this repository |
+
+## Gate 1: checked zero taxonomy
+
+`RiemannHypothesisLean.ZeroTaxonomy` adds the following checked surface:
+
+| Claim | Lean declaration | Status |
+|---|---|---|
+| Every named trivial zero is a zeta zero | `IsTrivialZero.riemannZeta_eq_zero` | checked |
+| A nontrivial zero is not the pole location | `IsNontrivialZero.ne_one` | checked |
+| A nontrivial zero satisfies `re(s) < 1` | `IsNontrivialZero.re_lt_one` | checked |
+| Full localization in `0 < re(s) < 1` | `CriticalStripLocalization` | named proposition, not proved |
+| Remaining left boundary `0 < re(s)` | `PositiveRealPartForNontrivialZeros` | named proposition, not proved |
+| Reduction of localization to left boundary | `criticalStripLocalization_iff_positiveRealPart` | checked |
+
+The last equivalence is a dependency reduction, not a proof of localization: Mathlib supplies the
+right-hand inequality, while the positive-real-part condition remains open in this formalization.
 
 ## Non-goals of the first milestone
 

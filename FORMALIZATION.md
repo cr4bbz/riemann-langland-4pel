@@ -74,6 +74,23 @@ ordinary-zeta conjugation step remains a visible dependency rather than an impli
 Even after setwise closure is established, RH would still require proving that every nontrivial
 zero is individually fixed by the combined symmetry.
 
+## Gate 2: zero-orbit reduction
+
+`RiemannHypothesisLean.Orbit` connects the completed functional equation back to ordinary zeta:
+
+| Claim | Lean declaration | Status |
+|---|---|---|
+| Positive-real-part zeta zeros are completed-zeta zeros | `completedZetaZero_of_riemannZetaZero_of_re_pos` | checked |
+| Critical-strip zeta zeros reflect under `s ↦ 1 - s` | `riemannZetaZero_criticalReflection` | checked |
+| The four orbit points are zeta zeros | `RiemannZetaZeroOrbit` | project structure |
+| Localization and conjugation yield the orbit | `riemannZetaZeroOrbit_of_localization_and_conjugation` | checked conditionally |
+| Positive real part and conjugation yield the orbit | `riemannZetaZeroOrbit_of_positiveRealPart_and_conjugation` | checked conditionally |
+
+Thus the reflection leg of the ordinary-zeta orbit is no longer an independent bridge. It follows
+from the completed functional equation once a zero is known to lie in the critical strip. The
+remaining orbit dependencies are exactly the positive-real-part condition from Gate 1 and the
+ordinary-zeta conjugation compatibility named in Gate 2.
+
 ## Non-goals of the first milestone
 
 - treating numerical verification as a universal proof;

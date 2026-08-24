@@ -61,6 +61,12 @@ coefficient data. This definition does not mention `riemannZeta` or `dirichletEt
 def alternatingDirichletEtaContinuation (s : ℂ) : ℂ :=
   ZMod.LFunction etaResidueCoefficient s
 
+/-- The two eta residue coefficients have mean zero. This is the cancellation that removes the
+only possible pole of the periodic L-function at `s = 1`. -/
+theorem etaResidueCoefficient_sum :
+    ∑ j : ZMod 2, etaResidueCoefficient j = 0 := by
+  norm_num [etaResidueCoefficient, Fin.sum_univ_succ]
+
 /-- The alternating eta Dirichlet series is summable on its half-plane of absolute convergence. -/
 theorem alternatingDirichletEtaSeries_summable_of_one_lt_re {s : ℂ}
     (hs : 1 < s.re) :
@@ -82,6 +88,13 @@ theorem differentiableAt_alternatingDirichletEtaContinuation {s : ℂ}
     (hs : s ≠ 1) :
     DifferentiableAt ℂ alternatingDirichletEtaContinuation s := by
   exact ZMod.differentiableAt_LFunction etaResidueCoefficient s (Or.inl hs)
+
+/-- The zero coefficient mean removes the possible pole at one, so the independent periodic
+continuation is entire. -/
+theorem differentiable_alternatingDirichletEtaContinuation :
+    Differentiable ℂ alternatingDirichletEtaContinuation := by
+  simpa [alternatingDirichletEtaContinuation] using
+    (ZMod.differentiable_LFunction_of_sum_zero etaResidueCoefficient_sum)
 
 end
 

@@ -60,6 +60,12 @@ Gate 7 defines a concrete factorized Dirichlet eta function and proves its facto
 exactly the same zero predicate there, closing the Gate 5 obligation and producing an unconditional
 exact bridge between their RH criteria. This is interoperability, not a proof of RH.
 
+Gate 8 begins an independent eta construction from period-two coefficient data. It defines the
+naive alternating Dirichlet series through Mathlib's `LSeries` and a separate periodic analytic
+continuation through `ZMod.LFunction`. Lean checks summability and equality of these two objects on
+`1 < re(s)`, the half-plane of absolute convergence. Conditional convergence on `0 < re(s)` and
+identification with the factorized Gate 7 eta remain explicit open Gate 8 obligations.
+
 ## Reproducible build
 
 The project pins Lean and Mathlib to `v4.30.0`.
@@ -83,6 +89,7 @@ completes successfully, the project has instead built its dependencies from sour
 - `RiemannHypothesisLean/EquivalentCriteria.lean`: equivalent one-sided zero-free criteria.
 - `RiemannHypothesisLean/BridgeAudit.lean`: typed formulation nodes and exact translation edges.
 - `RiemannHypothesisLean/DirichletEta.lean`: concrete eta/zeta zero compatibility and RH bridge.
+- `RiemannHypothesisLean/AlternatingEta.lean`: independent period-two eta series foundation.
 - `RiemannHypothesisLean/FourPELFeasibility.lean`: bilateral support and falsifiable novelty test.
 - `RiemannHypothesisLean/SmokeTest.lean`: compilation-level interface checks.
 - `FORMALIZATION.md`: the exact formal boundary and dependency audit.

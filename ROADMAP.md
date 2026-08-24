@@ -103,7 +103,7 @@ of either equivalent RH formulation.
 - [x] Prove summability on the absolute-convergence half-plane `1 < re(s)`.
 - [x] Prove the periodic continuation equals the actual series there.
 - [x] Record differentiability away from the possible pole location.
-- [ ] Prove the coefficient mean is zero and remove the possible pole at `s = 1`.
+- [x] Prove the coefficient mean is zero and remove the possible pole at `s = 1`.
 - [ ] Prove conditional convergence of the alternating series for `0 < re(s)`.
 - [ ] Identify the independent continuation with the factorized `dirichletEta`.
 - [ ] Derive the value `log 2` at `s = 1` from the independent construction.

@@ -53,9 +53,15 @@ Each gate must end in a clean `lake build` and an updated formalization audit.
 
 ## Gate 5 — Bridge audit
 
-- [ ] Compare analytic, spectral, geometric, and positivity formulations.
-- [ ] Record exact translation theorems rather than informal analogies.
-- [ ] Identify the smallest currently unproved bridge statement.
+- [x] Classify analytic, spectral, geometric, and positivity formulation families.
+- [x] Inventory which families currently have fully defined nodes.
+- [x] Represent exact bridges by proofs in both directions.
+- [x] Check analytic-to-geometric and analytic-to-analytic translations.
+- [x] Make exact bridges reversible and composable.
+- [x] Specify the eta/zeta zero-set compatibility obligation on the critical strip.
+- [x] Prove the eta criterion exactly equivalent to RH under that explicit obligation.
+- [x] Keep spectral and classical positivity rows unformalized until their objects are selected.
+- [x] Record the eta/zeta compatibility as the smallest current interoperability bridge.
 
 The roadmap does not assume that completing these gates yields a proof of RH.
 

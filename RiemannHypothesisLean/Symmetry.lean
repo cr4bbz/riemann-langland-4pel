@@ -18,6 +18,8 @@ open Complex
 
 namespace RiemannHypothesisLean
 
+noncomputable section
+
 /-- Reflection across the vertical line `re(s) = 1 / 2`. -/
 def criticalReflection (s : ℂ) : ℂ :=
   1 - s

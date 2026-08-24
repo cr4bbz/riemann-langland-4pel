@@ -153,6 +153,36 @@ nontrivial zero `1 - conj(s)`. Since their real parts add to `1`, the two inequa
 `re(s) = 1 / 2`. This is an exact reduction, not evidence for the one-sided criterion itself:
 proving either zero-free claim remains equivalent to proving RH.
 
+## Gate 5: exact bridge audit
+
+`RiemannHypothesisLean.BridgeAudit` distinguishes formulation families from actual proposition
+nodes and requires both implication proofs for every `ExactBridge`:
+
+| Claim | Lean declaration | Status |
+|---|---|---|
+| Formulation-family vocabulary | `FormulationFamily` | analytic/geometric/spectral/positivity |
+| Typed proposition node | `Formulation` | project structure |
+| Bidirectional checked translation | `ExactBridge` | project structure |
+| Bridge reversal and composition | `ExactBridge.symm`, `ExactBridge.trans` | checked |
+| Canonical RH ↔ dual fixed points | `statement_dualFixed_exactBridge` | checked |
+| Canonical RH ↔ left-half zero-free | `statement_leftHalfZeroFree_exactBridge` | checked |
+| Canonical RH ↔ right-half zero-free | `statement_rightHalfZeroFree_exactBridge` | checked |
+| Geometric fixed points ↔ left-half zero-free | `dualFixed_leftHalfZeroFree_exactBridge` | checked by composition |
+| Eta critical-strip criterion | `EtaCriticalStripCriterion` | parameterized definition |
+| Eta/zeta zero compatibility | `EtaZetaZeroCompatibleOnCriticalStrip` | explicit bridge obligation |
+| Canonical RH ↔ eta criterion | `statement_eta_exactBridge` | checked conditional on compatibility |
+
+The concrete checked graph currently spans analytic and geometric nodes. Spectral and classical
+positivity formulations remain classified but have no node: the project has not selected a
+self-adjoint operator/spectral encoding or a test-function space/positive functional. This absence
+is recorded rather than replaced by an arbitrary proposition.
+
+For a supplied Dirichlet eta function, the smallest current interoperability obligation is equality
+of its zero predicate with Mathlib's zeta zero predicate throughout the open critical strip.
+`statement_eta_exactBridge` proves that this obligation is sufficient for both criterion
+translations. It does not prove the compatibility or RH. See `BRIDGE_AUDIT.md` for the full
+availability table and source record.
+
 ## Non-goals of the first milestone
 
 - treating numerical verification as a universal proof;

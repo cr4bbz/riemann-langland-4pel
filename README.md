@@ -23,6 +23,11 @@ to Mathlib, proves `re(s) < 1` for every project-level nontrivial zero, and chec
 critical-strip localization now reduces exactly to the still-unproved condition `0 < re(s)`.
 This is a dependency reduction, not a proof of RH or of critical-strip localization.
 
+The Gate 2 foundation checks the completed-zeta reflection, identifies the critical line as the
+fixed-point set of `s ↦ 1 - conj(s)`, and separates setwise zero symmetry from the stronger
+pointwise-fixation claim equivalent to RH. Ordinary-zeta conjugation remains an explicit unproved
+bridge in the pinned dependency surface.
+
 ## Reproducible build
 
 The project pins Lean and Mathlib to `v4.30.0`.
@@ -39,6 +44,7 @@ completes successfully, the project has instead built its dependencies from sour
 
 - `RiemannHypothesisLean/Statement.lean`: zero predicates, critical strip, critical line, and RH.
 - `RiemannHypothesisLean/ZeroTaxonomy.lean`: checked zero facts and localization dependency.
+- `RiemannHypothesisLean/Symmetry.lean`: checked transformations and symmetry dependency audit.
 - `RiemannHypothesisLean/SmokeTest.lean`: compilation-level interface checks.
 - `FORMALIZATION.md`: the exact formal boundary and dependency audit.
 - `ROADMAP.md`: research gates without pretending that a proof route is known.

@@ -19,10 +19,13 @@ Each gate must end in a clean `lake build` and an updated formalization audit.
 
 ## Gate 2 — Symmetry package
 
-- [ ] Package conjugation symmetry.
-- [ ] Package the `s ↦ 1 - s` functional-equation symmetry.
+- [x] Define the conjugation and reflection transformations as involutions.
+- [x] Package the `s ↦ 1 - s` symmetry for completed-zeta zeros.
+- [x] Name ordinary-zeta conjugation compatibility as an explicit unproved bridge.
+- [x] Prove conditional conjugation transport from that bridge.
 - [ ] Derive the expected orbit of a nontrivial zero.
-- [ ] Isolate precisely why symmetry does not imply the critical-line claim.
+- [x] Isolate precisely why setwise symmetry does not imply the critical-line claim.
+- [x] Reformulate RH as pointwise fixation under `s ↦ 1 - conj(s)`.
 
 ## Gate 3 — Finiteness and computation boundary
 

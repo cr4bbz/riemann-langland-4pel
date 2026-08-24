@@ -66,7 +66,7 @@ example {S : Set ℂ} (hcomplete : CompleteForNontrivialZeros S) :
 
 example {s : ℂ} (hs : IsNontrivialZero s) :
     IsNontrivialZero (dualSymmetry s) :=
-  hs.dualSymmetry
+  hs.dualSymmetry_isNontrivialZero
 
 example : Statement ↔ LeftHalfCriticalStripZeroFree :=
   statement_iff_leftHalfCriticalStripZeroFree

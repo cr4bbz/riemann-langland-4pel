@@ -12,10 +12,12 @@ Each gate must end in a clean `lake build` and an updated formalization audit.
 ## Gate 1 — Zero taxonomy
 
 - [x] Relate `IsTrivialZero` to Mathlib's trivial-zero theorem (forward direction).
-- [x] Prove that a nontrivial zero is distinct from the pole.
-- [x] State critical-strip localization with an honest dependency status.
+- [x] Prove that a nontrivial zero is distinct from the pole and from zero.
 - [x] Derive `re(s) < 1` from Mathlib's nonvanishing theorem.
-- [x] Reduce full localization to the still-unproved condition `0 < re(s)`.
+- [x] Classify zeros of `Gammaℝ` against the project trivial-zero predicate.
+- [x] Reflect a hypothetical zero with `re(s) ≤ 0` into the zero-free half-plane.
+- [x] Prove `0 < re(s)` for every nontrivial zero.
+- [x] Prove full critical-strip localization `0 < re(s) < 1`.
 
 ## Gate 2 — Symmetry package
 
@@ -26,7 +28,7 @@ Each gate must end in a clean `lake build` and an updated formalization audit.
 - [x] Prove ordinary-zeta conjugation compatibility on `1 < re(s)` from the Dirichlet series.
 - [x] Extend conjugation compatibility to `ℂ \ {1}` by analytic continuation.
 - [x] Remove the conjugation hypothesis from the nontrivial-zero orbit.
-- [x] Derive the four-point orbit from critical-strip localization alone.
+- [x] Derive the four-point orbit unconditionally for every nontrivial zero.
 - [x] Isolate precisely why setwise symmetry does not imply the critical-line claim.
 - [x] Reformulate RH as pointwise fixation under `s ↦ 1 - conj(s)`.
 

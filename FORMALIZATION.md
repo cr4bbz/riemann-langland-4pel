@@ -239,6 +239,26 @@ specified at one. Gate 7 does not construct eta independently from the alternati
 agreement with that series, or prove global analyticity. It also does not prove either equivalent
 RH statement.
 
+## Gate 8: independent alternating eta foundation
+
+`RiemannHypothesisLean.AlternatingEta` starts from period-two coefficient data rather than from
+`riemannZeta`:
+
+| Claim | Lean declaration | Status |
+|---|---|---|
+| Eta residue coefficient on `ZMod 2` | `etaResidueCoefficient` | defined independently |
+| Positive-index coefficient sequence | `alternatingEtaCoefficient` | defined |
+| Naive eta Dirichlet series | `alternatingDirichletEtaSeries` | defined using `LSeries` |
+| Periodic analytic continuation | `alternatingDirichletEtaContinuation` | defined using `ZMod.LFunction` |
+| Series summability for `1 < re(s)` | `alternatingDirichletEtaSeries_summable_of_one_lt_re` | checked |
+| Continuation equals series for `1 < re(s)` | `alternatingDirichletEtaContinuation_eq_series_of_one_lt_re` | checked |
+| Differentiability away from `s = 1` | `differentiableAt_alternatingDirichletEtaContinuation` | checked |
+
+This is not yet the full classical eta theorem. Conditional convergence on `0 < re(s)`, removal
+of the possible pole at one, the value `log 2`, and equality with the factorized Gate 7 function
+remain explicit obligations. In particular, no critical-strip zero bridge is inferred from the new
+construction yet.
+
 ## Non-goals of the first milestone
 
 - treating numerical verification as a universal proof;

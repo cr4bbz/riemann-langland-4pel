@@ -253,10 +253,11 @@ RH statement.
 | Series summability for `1 < re(s)` | `alternatingDirichletEtaSeries_summable_of_one_lt_re` | checked |
 | Continuation equals series for `1 < re(s)` | `alternatingDirichletEtaContinuation_eq_series_of_one_lt_re` | checked |
 | Differentiability away from `s = 1` | `differentiableAt_alternatingDirichletEtaContinuation` | checked |
+| Coefficient mean is zero | `etaResidueCoefficient_sum` | checked |
+| Independent continuation is entire | `differentiable_alternatingDirichletEtaContinuation` | checked |
 
-This is not yet the full classical eta theorem. Conditional convergence on `0 < re(s)`, removal
-of the possible pole at one, the value `log 2`, and equality with the factorized Gate 7 function
-remain explicit obligations. In particular, no critical-strip zero bridge is inferred from the new
+This is not yet the full classical eta theorem. Conditional convergence on `0 < re(s)`, the
+value `log 2`, and equality with the factorized Gate 7 function remain explicit obligations. In particular, no critical-strip zero bridge is inferred from the new
 construction yet.
 
 ## Non-goals of the first milestone

@@ -12,8 +12,14 @@ example (h : Statement) {s : ℂ} (hs : IsNontrivialZero s) : OnCriticalLine s :
 example {s : ℂ} (hs : IsTrivialZero s) : riemannZeta s = 0 :=
   hs.riemannZeta_eq_zero
 
+example {s : ℂ} (hs : IsNontrivialZero s) : 0 < s.re :=
+  hs.re_pos
+
 example {s : ℂ} (hs : IsNontrivialZero s) : s.re < 1 :=
   hs.re_lt_one
+
+example {s : ℂ} (hs : IsNontrivialZero s) : InCriticalStrip s :=
+  criticalStripLocalization s hs
 
 example : CriticalStripLocalization ↔ PositiveRealPartForNontrivialZeros :=
   criticalStripLocalization_iff_positiveRealPart
@@ -40,8 +46,8 @@ example {s : ℂ} (hz : riemannZeta s = 0) (hs : InCriticalStrip s) :
     riemannZeta (criticalReflection s) = 0 :=
   riemannZetaZero_criticalReflection hz hs
 
-example (hloc : CriticalStripLocalization) {s : ℂ} (hs : IsNontrivialZero s) :
+example {s : ℂ} (hs : IsNontrivialZero s) :
     RiemannZetaZeroOrbit s :=
-  riemannZetaZeroOrbit_of_localization hloc hs
+  riemannZetaZeroOrbit_of_localization criticalStripLocalization hs
 
 end RiemannHypothesisLean

@@ -39,6 +39,11 @@ contains only finitely many such zeros. It formally separates certification insi
 the independent claim that the region contains every nontrivial zero. A finite verified region
 therefore implies RH only together with a proof of global coverage.
 
+Gate 4 proves that RH is equivalent to excluding nontrivial zeros from either open half of the
+critical strip. The reverse implications use the checked dual symmetry: applying one one-sided
+bound to both `s` and `1 - conj(s)` forces `re(s) = 1 / 2`. This identifies two exact
+reduction targets but does not prove either zero-free criterion.
+
 ## Reproducible build
 
 The project pins Lean and Mathlib to `v4.30.0`.
@@ -59,6 +64,7 @@ completes successfully, the project has instead built its dependencies from sour
 - `RiemannHypothesisLean/Conjugation.lean`: conjugation on `ℂ \ {1}` by analytic continuation.
 - `RiemannHypothesisLean/Orbit.lean`: unconditional four-point orbit for nontrivial zeros.
 - `RiemannHypothesisLean/Finiteness.lean`: compact finiteness and verification boundary.
+- `RiemannHypothesisLean/EquivalentCriteria.lean`: equivalent one-sided zero-free criteria.
 - `RiemannHypothesisLean/SmokeTest.lean`: compilation-level interface checks.
 - `FORMALIZATION.md`: the exact formal boundary and dependency audit.
 - `ROADMAP.md`: research gates without pretending that a proof route is known.

@@ -106,7 +106,9 @@ of either equivalent RH formulation.
 - [x] Prove the coefficient mean is zero and remove the possible pole at `s = 1`.
 - [x] Define natural-order real eta partial sums separately from `Summable`.
 - [x] Prove their sequential convergence for every positive real exponent.
-- [ ] Extend partial-sum convergence to complex `s` with `0 < re(s)`.
+- [x] Define the complex natural-order partial sums.
+- [x] Prove real-axis agreement and transfer positive-real convergence to the complex codomain.
+- [ ] Extend partial-sum convergence to arbitrary complex `s` with `0 < re(s)`.
 - [ ] Identify the independent continuation with the factorized `dirichletEta`.
 - [ ] Derive the value `log 2` at `s = 1` from the independent construction.
 

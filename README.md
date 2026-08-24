@@ -66,8 +66,10 @@ continuation through `ZMod.LFunction`. Lean checks summability and equality of t
 `1 < re(s)`, the half-plane of absolute convergence. The two residue coefficients sum to zero,
 so the independent continuation is also checked to be entire. Explicit real partial sums are
 defined, and Lean's alternating-series test proves their ordinary sequential convergence for every
-real `x > 0`, including the non-absolutely convergent range. Extension to complex `s` with
-`0 < re(s)` and identification with the factorized Gate 7 eta remain explicit open Gate 8
+real `x > 0`, including the non-absolutely convergent range. The corresponding complex
+natural-order partial sums are now defined and proved to agree with the real construction on the
+embedded real axis. Extension to arbitrary complex `s` with `0 < re(s)` and identification with
+the factorized Gate 7 eta remain explicit open Gate 8
 obligations.
 
 ## Reproducible build

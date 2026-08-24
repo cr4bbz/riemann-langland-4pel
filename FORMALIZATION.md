@@ -257,8 +257,11 @@ RH statement.
 | Independent continuation is entire | `differentiable_alternatingDirichletEtaContinuation` | checked |
 | Real eta partial sums | `realAlternatingEtaPartialSum` | explicitly defined in natural order |
 | Sequential convergence for every `x > 0` | `realAlternatingEtaSeries_converges_of_pos` | checked by the alternating-series test |
+| Complex natural-order partial sums | `complexAlternatingEtaPartialSum` | explicitly defined |
+| Real-axis agreement of complex and real partial sums | `complexAlternatingEtaPartialSum_ofReal` | checked termwise through `Complex.ofReal_cpow` |
+| Complex-codomain convergence on the positive real axis | `complexAlternatingEtaSeries_converges_of_pos_real` | checked by continuous embedding |
 
-The last result uses explicit `Finset.range` partial sums and `Filter.Tendsto`. It does not
+The convergence results use explicit `Finset.range` partial sums and `Filter.Tendsto`. It does not
 mislabel conditional convergence as Mathlib's stronger order-independent `Summable` predicate.
 
 This is not yet the full classical eta theorem. Extension from positive real exponents to complex

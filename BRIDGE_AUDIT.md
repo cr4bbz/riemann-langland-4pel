@@ -85,7 +85,8 @@ current graph. Gate 8 has now begun the independent eta alternative: period-two 
 the naive `LSeries`, and its `ZMod.LFunction` continuation are formalized, and their equality is
 checked on `1 < re(s)`. The coefficient mean is proved zero, so the independent continuation is
 entire. Explicit natural-order real partial sums now converge for every real exponent `x > 0`.
-This does not yet draw the missing complex edge: partial-sum convergence for all
+The complex partial sums are defined independently and agree with those real sums on the embedded
+real axis. This does not yet draw the missing full complex edge: partial-sum convergence for all
 `0 < re(s)` and equality with the factorized `dirichletEta` have not been proved. A classical
 positivity criterion remains a separate future expansion family.
 

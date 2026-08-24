@@ -111,7 +111,7 @@ def realAlternatingEtaPartialSum (x : ℝ) (N : ℕ) : ℝ :=
 
 /-- Ordinary sequential convergence of the real alternating eta series at exponent `x`. -/
 def RealAlternatingEtaSeriesConvergesAt (x : ℝ) : Prop :=
-  ∃ l : ℝ, Filter.Tendsto (realAlternatingEtaPartialSum x) Filter.atTop (𝓝 l)
+  ∃ l : ℝ, Filter.Tendsto (realAlternatingEtaPartialSum x) Filter.atTop (nhds l)
 
 /-- The real alternating eta partial sums converge for every positive exponent.
 

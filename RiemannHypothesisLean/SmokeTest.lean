@@ -40,4 +40,8 @@ example {s : ℂ} (hz : riemannZeta s = 0) (hs : InCriticalStrip s) :
     riemannZeta (criticalReflection s) = 0 :=
   riemannZetaZero_criticalReflection hz hs
 
+example (hloc : CriticalStripLocalization) {s : ℂ} (hs : IsNontrivialZero s) :
+    RiemannZetaZeroOrbit s :=
+  riemannZetaZeroOrbit_of_localization hloc hs
+
 end RiemannHypothesisLean

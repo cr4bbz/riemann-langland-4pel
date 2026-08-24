@@ -65,7 +65,8 @@ def alternatingDirichletEtaContinuation (s : ℂ) : ℂ :=
 only possible pole of the periodic L-function at `s = 1`. -/
 theorem etaResidueCoefficient_sum :
     ∑ j : ZMod 2, etaResidueCoefficient j = 0 := by
-  norm_num [etaResidueCoefficient, Fin.sum_univ_succ]
+  change (∑ j : Fin 2, if j = 0 then (-1 : ℂ) else 1) = 0
+  simp [Fin.sum_univ_succ, Fin.ext_iff]
 
 /-- The alternating eta Dirichlet series is summable on its half-plane of absolute convergence. -/
 theorem alternatingDirichletEtaSeries_summable_of_one_lt_re {s : ℂ}

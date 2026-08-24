@@ -66,7 +66,7 @@ structure CertifiedCompactCheck (S : Set ℂ) : Prop where
 theorem CertifiedCompactCheck.nontrivialZeros_finite {S : Set ℂ}
     (h : CertifiedCompactCheck S) :
     (S ∩ nontrivialZeroSet).Finite :=
-  h.region_compact.inter_nontrivialZeroSet_finite
+  IsCompact.inter_nontrivialZeroSet_finite h.region_compact
 
 /-- RH verifies every region, compact or otherwise. -/
 theorem verifiedOnRegion_of_statement (h : Statement) (S : Set ℂ) :
@@ -95,7 +95,7 @@ theorem statement_iff_verifiedOnRegion_of_complete {S : Set ℂ}
 carry no information about the universal statement. -/
 theorem verifiedOnRegion_empty : VerifiedOnRegion (∅ : Set ℂ) := by
   intro s hs
-  exact (not_mem_empty s hs).elim
+  simp at hs
 
 /-- A certified compact check proves RH if a separate theorem establishes global coverage. -/
 theorem CertifiedCompactCheck.statement_of_complete {S : Set ℂ}

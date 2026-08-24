@@ -67,8 +67,16 @@ The roadmap does not assume that completing these gates yields a proof of RH.
 
 ## Gate 6 — 4PEL feasibility test
 
-- [ ] Define positive and negative derivability relative to an explicit theory context.
-- [ ] Define translations that preserve each support channel separately.
-- [ ] Test the framework on a small proved correspondence before applying it to RH-scale material.
-- [ ] State a falsifiable criterion for whether the 4PEL layer adds information beyond provenance
-      tracking and ordinary many-sorted metatheory.
+- [x] Define positive and negative derivability relative to an explicit bilateral theory context.
+- [x] Derive gap, true-only, false-only, and glut from the two support channels.
+- [x] Define translations that preserve and reflect each support channel separately.
+- [x] Prove channel-preserving translations preserve the induced four-value classification.
+- [x] Test all four profiles on a small cross-vocabulary correspondence.
+- [x] Define a falsifiable criterion for information beyond the bilateral support profile.
+- [x] Prove that the minimal four-value classifier fails that novelty criterion.
+- [x] Keep the four-valued layer off the RH graph until a richer proposal passes a small-case test.
+
+Gate 6 therefore has a mixed verdict: bilateral transport is feasible, but the minimal classifier
+adds no information beyond the two channels from which it is computed. Any renewed 4PEL
+integration must supply rule-governed structure and a nontrivial invariant, obstruction, or
+consequence that survives exact translation.

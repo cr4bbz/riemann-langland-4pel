@@ -9,9 +9,10 @@ This module separates three different statements that are often blurred together
 2. transport of zeros under those transformations;
 3. pointwise fixation of every nontrivial zero.
 
-The completed zeta reflection is proved from Mathlib's functional equation. Conjugation
-compatibility is named as an explicit bridge because the pinned Mathlib surface does not expose
-it as a directly reusable theorem here. No such bridge is postulated.
+The completed zeta reflection is proved from Mathlib's functional equation. This module records
+a strong all-input conjugation proposition, including Mathlib's implementation value at the pole.
+The natural analytic-domain theorem on `s ≠ 1` is proved later in `Conjugation`; no bridge is
+postulated.
 -/
 
 open Complex
@@ -88,13 +89,14 @@ theorem completedZetaZero_criticalReflection_iff (s : ℂ) :
   unfold IsCompletedZetaZero criticalReflection
   rw [completedRiemannZeta_one_sub]
 
-/-- The conjugation formula needed to transport ordinary zeta zeros across the real axis.
-
-This is deliberately only a named proposition at the current dependency boundary. -/
+/-- The strongest totalized conjugation formula, including Mathlib's implementation value at
+`s = 1`. The natural-domain theorem needed for RH is proved in `Conjugation`. -/
 def RiemannZetaConjugationCompatibility : Prop :=
   ∀ s : ℂ, riemannZeta (star s) = star (riemannZeta s)
 
-/-- Conditional zero transport across the real axis, displaying the missing bridge explicitly. -/
+/-- Zero transport from the stronger all-input compatibility proposition.
+
+`Conjugation` later proves the transport required for nontrivial zeros without this hypothesis. -/
 theorem riemannZeta_eq_zero_conjugationPoint
     (hconj : RiemannZetaConjugationCompatibility) {s : ℂ}
     (hs : riemannZeta s = 0) : riemannZeta (conjugationPoint s) = 0 := by

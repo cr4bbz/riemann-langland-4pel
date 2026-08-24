@@ -53,6 +53,27 @@ The initial objective is complete **specification**, not a claimed proof:
 The last equivalence is a dependency reduction, not a proof of localization: Mathlib supplies the
 right-hand inequality, while the positive-real-part condition remains open in this formalization.
 
+## Gate 2: symmetry boundary
+
+`RiemannHypothesisLean.Symmetry` distinguishes transformations, zero transport, and fixed points:
+
+| Claim | Lean declaration | Status |
+|---|---|---|
+| `s ↦ 1 - s` is an involution | `criticalReflection_involutive` | checked |
+| `s ↦ conj(s)` is an involution | `conjugationPoint_involutive` | checked |
+| `s ↦ 1 - conj(s)` is an involution | `dualSymmetry_involutive` | checked |
+| Fixed points of the dual symmetry form the critical line | `dualSymmetry_fixed_iff_onCriticalLine` | checked |
+| Completed-zeta zeros reflect under `s ↦ 1 - s` | `completedZetaZero_criticalReflection_iff` | checked |
+| Ordinary zeta commutes with conjugation | `RiemannZetaConjugationCompatibility` | named bridge, not proved |
+| Conjugation transports ordinary zeros | `riemannZeta_eq_zero_conjugationPoint` | checked conditionally on the bridge |
+| RH is pointwise fixation under the dual symmetry | `statement_iff_nontrivialZerosFixedByDualSymmetry` | checked reformulation |
+| Setwise symmetry alone need not imply pointwise fixation | `setwiseDualInvariant_not_pointwiseFixed` | checked generic counterexample |
+
+The completed functional equation therefore supplies a genuine checked transport theorem. The
+ordinary-zeta conjugation step remains a visible dependency rather than an implicit assumption.
+Even after setwise closure is established, RH would still require proving that every nontrivial
+zero is individually fixed by the combined symmetry.
+
 ## Non-goals of the first milestone
 
 - treating numerical verification as a universal proof;

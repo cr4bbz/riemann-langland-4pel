@@ -64,15 +64,25 @@ right-hand inequality, while the positive-real-part condition remains open in th
 | `s ↦ 1 - conj(s)` is an involution | `dualSymmetry_involutive` | checked |
 | Fixed points of the dual symmetry form the critical line | `dualSymmetry_fixed_iff_onCriticalLine` | checked |
 | Completed-zeta zeros reflect under `s ↦ 1 - s` | `completedZetaZero_criticalReflection_iff` | checked |
-| Ordinary zeta commutes with conjugation | `RiemannZetaConjugationCompatibility` | named bridge, not proved |
+| Ordinary zeta commutes with conjugation globally | `RiemannZetaConjugationCompatibility` | named bridge, not proved |
 | Conjugation transports ordinary zeros | `riemannZeta_eq_zero_conjugationPoint` | checked conditionally on the bridge |
 | RH is pointwise fixation under the dual symmetry | `statement_iff_nontrivialZerosFixedByDualSymmetry` | checked reformulation |
 | Setwise symmetry alone need not imply pointwise fixation | `setwiseDualInvariant_not_pointwiseFixed` | checked generic counterexample |
 
-The completed functional equation therefore supplies a genuine checked transport theorem. The
-ordinary-zeta conjugation step remains a visible dependency rather than an implicit assumption.
-Even after setwise closure is established, RH would still require proving that every nontrivial
-zero is individually fixed by the combined symmetry.
+`RiemannHypothesisLean.Conjugation` proves the first analytic stage:
+
+| Claim | Lean declaration | Status |
+|---|---|---|
+| Zeta commutes with conjugation on `1 < re(s)` | `riemannZeta_conjugation_of_one_lt_re` | checked from the Dirichlet series |
+| Same result through the project transformation | `riemannZeta_conjugationPoint_of_one_lt_re` | checked |
+
+The proof moves conjugation through Mathlib's convergent `tsum` and checks every Dirichlet term
+using conjugation of complex powers. The remaining step is an identity-theorem argument on the
+analytically continued function away from its pole; it is not silently assumed here.
+
+The completed functional equation therefore supplies a genuine checked transport theorem. Even
+after setwise closure is established, RH would still require proving that every nontrivial zero is
+individually fixed by the combined symmetry.
 
 ## Gate 2: zero-orbit reduction
 
@@ -89,7 +99,7 @@ zero is individually fixed by the combined symmetry.
 Thus the reflection leg of the ordinary-zeta orbit is no longer an independent bridge. It follows
 from the completed functional equation once a zero is known to lie in the critical strip. The
 remaining orbit dependencies are exactly the positive-real-part condition from Gate 1 and the
-ordinary-zeta conjugation compatibility named in Gate 2.
+global ordinary-zeta conjugation compatibility named in Gate 2.
 
 ## Non-goals of the first milestone
 

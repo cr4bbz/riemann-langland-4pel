@@ -34,9 +34,13 @@ Each gate must end in a clean `lake build` and an updated formalization audit.
 
 ## Gate 3 — Finiteness and computation boundary
 
-- [ ] Expose discreteness and compact finiteness through project-level lemmas.
-- [ ] Specify what a certified finite zero check can and cannot establish.
-- [ ] Keep computational evidence separate from the universal proposition.
+- [x] Define the project-level nontrivial-zero set.
+- [x] Transfer discreteness from Mathlib's full zeta-zero set.
+- [x] Prove that compact regions contain finitely many nontrivial zeros.
+- [x] Separate verification inside a region from global coverage.
+- [x] Prove that regional verification entails RH only under explicit coverage.
+- [x] Exhibit vacuous verification on the empty region.
+- [x] Keep finite or numerical evidence separate from the universal proposition.
 
 ## Gate 4 — Equivalent criteria
 

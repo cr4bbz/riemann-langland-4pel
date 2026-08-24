@@ -109,6 +109,30 @@ Reflection, conjugation, and critical-strip localization are now all discharged 
 nontrivial zeros, so the full four-point orbit is checked without hypotheses. This orbit closure is
 still only setwise information and does not imply the pointwise fixation equivalent to RH.
 
+## Gate 3: finiteness and computation boundary
+
+`RiemannHypothesisLean.Finiteness` transfers Mathlib's discrete-zero results and separates local
+verification from global coverage:
+
+| Claim | Lean declaration | Status |
+|---|---|---|
+| Project-level nontrivial-zero set | `nontrivialZeroSet` | defined |
+| Inclusion in Mathlib's zero set | `nontrivialZeroSet_subset_riemannZetaZeros` | checked |
+| Nontrivial zeros form a discrete set | `isDiscrete_nontrivialZeroSet` | checked |
+| Compact regions contain finitely many nontrivial zeros | `IsCompact.inter_nontrivialZeroSet_finite` | checked |
+| Critical-line verification inside a region | `VerifiedOnRegion` | defined |
+| Global coverage by a region | `CompleteForNontrivialZeros` | defined separately |
+| Proof-level compact check | `CertifiedCompactCheck` | project structure |
+| RH implies every regional verification | `verifiedOnRegion_of_statement` | checked |
+| Verification plus coverage implies RH | `statement_of_verifiedOnRegion_of_complete` | checked |
+| Equivalence under explicit coverage | `statement_iff_verifiedOnRegion_of_complete` | checked |
+| Empty-region verification is vacuous | `verifiedOnRegion_empty` | checked |
+
+Compactness makes the in-region zero set finite, but does not prove that all nontrivial zeros lie
+there. The completeness hypothesis is therefore a separate field of mathematical content, not
+metadata that a numerical program may silently assume. No floating-point computation or finite
+height cutoff is represented as evidence for the universal proposition.
+
 ## Non-goals of the first milestone
 
 - treating numerical verification as a universal proof;

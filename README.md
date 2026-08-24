@@ -34,6 +34,11 @@ Every project-level nontrivial zeta zero now has the checked four-point orbit
 `s`, `conj(s)`, `1 - s`, and `1 - conj(s)`. This is setwise symmetry; RH remains the
 strictly stronger claim that every such zero is individually fixed by `s ↦ 1 - conj(s)`.
 
+Gate 3 proves that the project-level nontrivial-zero set is discrete and that every compact region
+contains only finitely many such zeros. It formally separates certification inside a region from
+the independent claim that the region contains every nontrivial zero. A finite verified region
+therefore implies RH only together with a proof of global coverage.
+
 ## Reproducible build
 
 The project pins Lean and Mathlib to `v4.30.0`.
@@ -53,6 +58,7 @@ completes successfully, the project has instead built its dependencies from sour
 - `RiemannHypothesisLean/Symmetry.lean`: checked transformations and symmetry dependency audit.
 - `RiemannHypothesisLean/Conjugation.lean`: conjugation on `ℂ \ {1}` by analytic continuation.
 - `RiemannHypothesisLean/Orbit.lean`: unconditional four-point orbit for nontrivial zeros.
+- `RiemannHypothesisLean/Finiteness.lean`: compact finiteness and verification boundary.
 - `RiemannHypothesisLean/SmokeTest.lean`: compilation-level interface checks.
 - `FORMALIZATION.md`: the exact formal boundary and dependency audit.
 - `ROADMAP.md`: research gates without pretending that a proof route is known.

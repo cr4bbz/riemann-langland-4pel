@@ -44,9 +44,12 @@ Each gate must end in a clean `lake build` and an updated formalization audit.
 
 ## Gate 4 — Equivalent criteria
 
-- [ ] Select one documented RH-equivalent criterion.
-- [ ] Formalize all objects appearing in the criterion.
-- [ ] Prove both implications, or label the missing direction explicitly.
+- [x] Select the zero-free open left half of the critical strip as an RH-equivalent criterion.
+- [x] Prove that the dual symmetry preserves project-level nontrivial zeros.
+- [x] Formalize the left- and right-half zero-free criteria.
+- [x] Prove both implications between RH and each one-sided criterion.
+- [x] Prove the two one-sided criteria equivalent through the checked symmetry.
+- [x] Document that these reductions do not prove either criterion.
 
 ## Gate 5 — Bridge audit
 

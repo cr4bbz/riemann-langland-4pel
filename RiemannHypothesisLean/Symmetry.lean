@@ -140,4 +140,6 @@ theorem setwiseDualInvariant_not_pointwiseFixed :
     have h0 := h 0 (Set.mem_univ 0)
     norm_num [dualSymmetry] at h0
 
+end
+
 end RiemannHypothesisLean

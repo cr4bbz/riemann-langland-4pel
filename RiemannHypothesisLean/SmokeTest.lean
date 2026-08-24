@@ -1,6 +1,6 @@
 import RiemannHypothesisLean
 
-open Complex
+open Complex Set
 
 namespace RiemannHypothesisLean
 
@@ -49,5 +49,19 @@ example {s : ℂ} (hz : riemannZeta s = 0) (hs : InCriticalStrip s) :
 example {s : ℂ} (hs : IsNontrivialZero s) :
     RiemannZetaZeroOrbit s :=
   hs.riemannZetaZeroOrbit
+
+example : nontrivialZeroSet ⊆ riemannZetaZeros :=
+  nontrivialZeroSet_subset_riemannZetaZeros
+
+example {S : Set ℂ} (hS : IsCompact S) :
+    (S ∩ nontrivialZeroSet).Finite :=
+  hS.inter_nontrivialZeroSet_finite
+
+example : VerifiedOnRegion (∅ : Set ℂ) :=
+  verifiedOnRegion_empty
+
+example {S : Set ℂ} (hcomplete : CompleteForNontrivialZeros S) :
+    Statement ↔ VerifiedOnRegion S :=
+  statement_iff_verifiedOnRegion_of_complete hcomplete
 
 end RiemannHypothesisLean

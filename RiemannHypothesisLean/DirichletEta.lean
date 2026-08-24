@@ -71,8 +71,8 @@ theorem dirichletEtaFactor_ne_zero_of_inCriticalStrip {s : ℂ}
   have hnorm := congrArg norm hpow
   rw [Complex.norm_exp] at hnorm
   norm_num at hnorm
-  have hre_zero : (Complex.log (2 : ℂ) * (1 - s)).re = 0 :=
-    Real.exp_eq_one_iff.mp hnorm
+  have hre_zero : (Complex.log (2 : ℂ) * (1 - s)).re = 0 := by
+    simpa using hnorm
   exact (ne_of_gt (log_two_mul_one_sub_re_pos hs)) hre_zero
 
 /-- Eta has its zeta-factor form throughout the open critical strip. -/

@@ -153,4 +153,12 @@ example {s : ℂ} (hs : s ≠ 1) :
     DifferentiableAt ℂ alternatingDirichletEtaContinuation s :=
   differentiableAt_alternatingDirichletEtaContinuation hs
 
+example :
+    ∑ j : ZMod 2, etaResidueCoefficient j = 0 :=
+  etaResidueCoefficient_sum
+
+example :
+    Differentiable ℂ alternatingDirichletEtaContinuation :=
+  differentiable_alternatingDirichletEtaContinuation
+
 end RiemannHypothesisLean

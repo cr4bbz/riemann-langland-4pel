@@ -169,8 +169,9 @@ theorem complexAlternatingEtaSeries_converges_of_pos_real {x : ℝ} (hx : 0 < x)
     ComplexAlternatingEtaSeriesConvergesAt (x : ℂ) := by
   obtain ⟨l, hl⟩ := realAlternatingEtaSeries_converges_of_pos hx
   refine ⟨(l : ℂ), ?_⟩
-  simpa only [complexAlternatingEtaPartialSum_ofReal] using
-    (Complex.continuous_ofReal.tendsto l).comp hl
+  refine ((Complex.continuous_ofReal.tendsto l).comp hl).congr' ?_
+  exact Filter.Eventually.of_forall fun N ↦
+    (complexAlternatingEtaPartialSum_ofReal x N).symm
 
 end
 

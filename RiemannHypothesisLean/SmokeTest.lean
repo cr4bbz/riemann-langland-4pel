@@ -48,6 +48,6 @@ example {s : ℂ} (hz : riemannZeta s = 0) (hs : InCriticalStrip s) :
 
 example {s : ℂ} (hs : IsNontrivialZero s) :
     RiemannZetaZeroOrbit s :=
-  riemannZetaZeroOrbit_of_localization criticalStripLocalization hs
+  hs.riemannZetaZeroOrbit
 
 end RiemannHypothesisLean

@@ -64,4 +64,17 @@ example {S : Set ℂ} (hcomplete : CompleteForNontrivialZeros S) :
     Statement ↔ VerifiedOnRegion S :=
   statement_iff_verifiedOnRegion_of_complete hcomplete
 
+example {s : ℂ} (hs : IsNontrivialZero s) :
+    IsNontrivialZero (dualSymmetry s) :=
+  hs.dualSymmetry_isNontrivialZero
+
+example : Statement ↔ LeftHalfCriticalStripZeroFree :=
+  statement_iff_leftHalfCriticalStripZeroFree
+
+example : Statement ↔ RightHalfCriticalStripZeroFree :=
+  statement_iff_rightHalfCriticalStripZeroFree
+
+example : LeftHalfCriticalStripZeroFree ↔ RightHalfCriticalStripZeroFree :=
+  leftHalfCriticalStripZeroFree_iff_rightHalfCriticalStripZeroFree
+
 end RiemannHypothesisLean

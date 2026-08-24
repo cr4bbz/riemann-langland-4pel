@@ -17,23 +17,28 @@ This repository **does not prove the Riemann hypothesis**. Mathlib already conta
 - the discrete zero set `riemannZetaZeros`; and
 - the canonical proposition `RiemannHypothesis`.
 
-The first project milestone exposes the ingredients under explicit names and proves
-`RiemannHypothesisLean.Statement ↔ RiemannHypothesis`. This fixes the exact formal target before
-any research direction is chosen.
+The foundation exposes these ingredients under explicit names and proves
+`RiemannHypothesisLean.Statement ↔ RiemannHypothesis`. Gate 1 connects the project's zero taxonomy
+to Mathlib, proves `re(s) < 1` for every project-level nontrivial zero, and checks that full
+critical-strip localization now reduces exactly to the still-unproved condition `0 < re(s)`.
+This is a dependency reduction, not a proof of RH or of critical-strip localization.
 
 ## Reproducible build
 
 The project pins Lean and Mathlib to `v4.30.0`.
 
 ```bash
-lake update
 lake exe cache get
 lake build
 ```
 
+The Mathlib cache is an optimization. If the cache helper is unavailable but `lake build`
+completes successfully, the project has instead built its dependencies from source.
+
 ## Repository map
 
-- `RiemannHypothesisLean/Statement.lean`: zero taxonomy, critical strip, critical line, and RH.
+- `RiemannHypothesisLean/Statement.lean`: zero predicates, critical strip, critical line, and RH.
+- `RiemannHypothesisLean/ZeroTaxonomy.lean`: checked zero facts and localization dependency.
 - `RiemannHypothesisLean/SmokeTest.lean`: compilation-level interface checks.
 - `FORMALIZATION.md`: the exact formal boundary and dependency audit.
 - `ROADMAP.md`: research gates without pretending that a proof route is known.
@@ -48,18 +53,21 @@ lake build
 
 ## Windows / PowerShell
 
-After installing Git, VS Code, and Lean's `elan` toolchain manager:
+Use a short path to avoid Windows path-length problems:
 
 ```powershell
+New-Item -ItemType Directory -Path C:\Lean -Force | Out-Null
+Set-Location C:\Lean
 git clone https://github.com/cr4bbz/riemann-langland-4pel.git
 Set-Location riemann-langland-4pel
-lake update
 lake exe cache get
 lake build
 code .
 ```
 
-Install the **Lean 4** VS Code extension when prompted.
+Install the **Lean 4** VS Code extension when prompted. If the optional cache helper fails because
+no C compiler is available, `lake build` can still build Mathlib from source; this takes longer on
+the first run.
 
 ## License
 

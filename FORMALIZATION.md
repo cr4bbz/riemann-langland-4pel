@@ -183,6 +183,35 @@ of its zero predicate with Mathlib's zeta zero predicate throughout the open cri
 translations. It does not prove the compatibility or RH. See `BRIDGE_AUDIT.md` for the full
 availability table and source record.
 
+## Gate 6: 4PEL feasibility result
+
+`RiemannHypothesisLean.FourPELFeasibility` tests a minimal bilateral four-valued layer away from
+the RH graph:
+
+| Claim | Lean declaration | Status |
+|---|---|---|
+| Explicit bilateral theory context | `BilateralTheory` | project structure |
+| Positive derivability | `PositiveDerivable` | defined relative to context |
+| Negative derivability | `NegativeDerivable` | defined relative to context |
+| Four support profiles | `FourSupportValue` | gap/true-only/false-only/glut |
+| Profile characterization theorems | `fourSupportValue_eq_*_iff` | checked |
+| Channel-preserving exact translation | `ExactSupportTranslation` | project structure |
+| Identity and composition | `ExactSupportTranslation.refl/trans` | checked |
+| Four-value preservation | `ExactSupportTranslation.fourSupportValue_map` | checked |
+| Finite four-profile correspondence | `miniExactSupportTranslation` | checked |
+| Falsifiable novelty criterion | `AddsInformationBeyondSupportChannels` | defined |
+| Minimal classifier fails novelty test | `fourSupportValue_not_addsInformation` | checked for every context |
+
+The result is mixed. Separate positive and negative support, gaps, gluts, and channel-preserving
+translation are formally coherent. However, the induced four-value classifier contains no
+information beyond the pair of support predicates from which it is calculated. This negative
+result prevents a merely decorative 4PEL labeling of the RH bridge graph.
+
+A richer proposal must first provide rule-governed derivability and a justified structural
+observation or consequence that distinguishes cases with the same bilateral support profile and is
+preserved across translations. See `FOURPEL_FEASIBILITY.md` for the acceptance criterion and
+research interpretation.
+
 ## Non-goals of the first milestone
 
 - treating numerical verification as a universal proof;

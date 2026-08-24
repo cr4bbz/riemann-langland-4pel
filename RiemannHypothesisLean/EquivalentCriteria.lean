@@ -21,12 +21,15 @@ theorem not_isTrivialZero_of_re_pos {s : ℂ} (hs : 0 < s.re) :
     ¬IsTrivialZero s := by
   rintro ⟨n, rfl⟩
   norm_num at hs
+  have hn : (0 : ℝ) ≤ (n : ℝ) := by positivity
+  linarith
 
 /-- The dual symmetry preserves project-level nontrivial zeros.
 
 The zeta-zero component comes from the checked four-point orbit. Critical-strip localization
 excludes both the named trivial zeros and the pole location at the transformed point. -/
-theorem IsNontrivialZero.dualSymmetry {s : ℂ} (hs : IsNontrivialZero s) :
+theorem IsNontrivialZero.dualSymmetry_isNontrivialZero {s : ℂ}
+    (hs : IsNontrivialZero s) :
     IsNontrivialZero (dualSymmetry s) := by
   have hpos : 0 < (dualSymmetry s).re := by
     simp only [dualSymmetry_re]
@@ -67,7 +70,7 @@ theorem statement_of_leftHalfCriticalStripZeroFree
   intro s hs
   have hlower : (1 / 2 : ℝ) ≤ s.re := h s hs
   have hdual : (1 / 2 : ℝ) ≤ (dualSymmetry s).re :=
-    h (dualSymmetry s) hs.dualSymmetry
+    h (dualSymmetry s) hs.dualSymmetry_isNontrivialZero
   have hupper : s.re ≤ (1 / 2 : ℝ) := by
     rw [dualSymmetry_re] at hdual
     linarith
@@ -91,7 +94,7 @@ theorem statement_of_rightHalfCriticalStripZeroFree
   intro s hs
   have hupper : s.re ≤ (1 / 2 : ℝ) := h s hs
   have hdual : (dualSymmetry s).re ≤ (1 / 2 : ℝ) :=
-    h (dualSymmetry s) hs.dualSymmetry
+    h (dualSymmetry s) hs.dualSymmetry_isNontrivialZero
   have hlower : (1 / 2 : ℝ) ≤ s.re := by
     rw [dualSymmetry_re] at hdual
     linarith

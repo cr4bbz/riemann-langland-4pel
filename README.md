@@ -44,6 +44,12 @@ critical strip. The reverse implications use the checked dual symmetry: applying
 bound to both `s` and `1 - conj(s)` forces `re(s) = 1 / 2`. This identifies two exact
 reduction targets but does not prove either zero-free criterion.
 
+Gate 5 introduces a typed bridge graph. Checked analytic and geometric formulations are connected
+only by translations proved in both directions. A parameterized Dirichlet-eta criterion is
+connected conditionally through the explicit obligation that eta and Mathlib zeta have the same
+zeros in the critical strip. Spectral and classical positivity rows remain unformalized because
+their essential operators, test spaces, and correspondence theorems have not been selected.
+
 ## Reproducible build
 
 The project pins Lean and Mathlib to `v4.30.0`.
@@ -65,8 +71,10 @@ completes successfully, the project has instead built its dependencies from sour
 - `RiemannHypothesisLean/Orbit.lean`: unconditional four-point orbit for nontrivial zeros.
 - `RiemannHypothesisLean/Finiteness.lean`: compact finiteness and verification boundary.
 - `RiemannHypothesisLean/EquivalentCriteria.lean`: equivalent one-sided zero-free criteria.
+- `RiemannHypothesisLean/BridgeAudit.lean`: typed formulation nodes and exact translation edges.
 - `RiemannHypothesisLean/SmokeTest.lean`: compilation-level interface checks.
 - `FORMALIZATION.md`: the exact formal boundary and dependency audit.
+- `BRIDGE_AUDIT.md`: formulation availability, checked graph, and smallest open bridge.
 - `ROADMAP.md`: research gates without pretending that a proof route is known.
 - `SCOPE.md`: separation between established mathematics and the later 4PEL research hypothesis.
 

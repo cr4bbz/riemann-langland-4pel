@@ -28,6 +28,7 @@ Shared terminology, matching diagrams, or a conjectured correspondence do not cr
 | analytic | right-half critical-strip zero-free | `analyticRightHalfZeroFreeFormulation` | checked node |
 | geometric | every nontrivial zero fixed by `s ↦ 1 - conj(s)` | `geometricDualFixedFormulation` | checked node |
 | analytic | critical-strip criterion for a supplied eta function | `analyticEtaFormulation eta` | checked parameterized node |
+| analytic | concrete factorized Dirichlet eta criterion | `analyticEtaFormulation dirichletEta` | checked concrete node |
 | spectral | Hilbert–Pólya-style operator realization | none | not formalized |
 | positivity | Weil/Li-style positivity criterion | none | not formalized |
 
@@ -46,37 +47,52 @@ mathematical content, so the repository does not do that.
 | canonical analytic RH | right-half zero-free | `statement_rightHalfZeroFree_exactBridge` | checked bridge |
 | dual-symmetry fixed points | left-half zero-free | `dualFixed_leftHalfZeroFree_exactBridge` | checked by composition |
 | canonical analytic RH | supplied eta criterion | `statement_eta_exactBridge` | conditional bridge |
+| canonical analytic RH | concrete Dirichlet eta criterion | `statement_dirichletEta_exactBridge` | checked bridge |
 
 `ExactBridge.refl`, `ExactBridge.symm`, and `ExactBridge.trans` check the identity, reversal,
 and composition operations used to navigate the graph.
 
-## Smallest explicit open bridge
+## Closed concrete eta bridge
 
-For a concrete function `eta : ℂ → ℂ`, the remaining obligation is:
+Gate 7 supplies a concrete function `dirichletEta : ℂ → ℂ`. Away from `s = 1` it is defined
+by
 
 ```lean
-EtaZetaZeroCompatibleOnCriticalStrip eta :=
-  ∀ s : ℂ, InCriticalStrip s →
-    (eta s = 0 ↔ riemannZeta s = 0)
+dirichletEtaFactor s * riemannZeta s
 ```
 
-Once this is supplied, `statement_eta_exactBridge` checks both downstream translations. This
-isolates the interoperability work from RH itself:
+with `dirichletEtaFactor s = 1 - 2 ^ (1 - s)`; at the removable point `s = 1` it is assigned
+the standard value `log 2`.
 
-1. define the intended Dirichlet eta function in the current Lean/Mathlib environment;
-2. prove its zeros agree with Mathlib's zeta zeros on `0 < re(s) < 1`;
-3. instantiate the already checked exact bridge.
+The former open obligation is now discharged by
+`dirichletEta_zetaZeroCompatible`. The key theorem
+`dirichletEtaFactor_ne_zero_of_inCriticalStrip` proves that the factor cannot vanish when
+`0 < re(s) < 1`: the norm of `2 ^ (1 - s)` is strictly greater than one there.
 
-The obligation is deliberately zero-set compatibility rather than global function equality. It is
-the smallest statement used by the criterion translation.
+Consequently:
+
+- `statement_dirichletEta_exactBridge` is unconditional;
+- `statement_iff_dirichletEtaCriticalStripCriterion` is checked in both directions;
+- the generic conditional bridge remains useful for other eta implementations.
+
+This closes an interoperability edge, not RH. The eta criterion is equivalent to the same open
+zero-location statement.
+
+## Current frontier
+
+There is no longer an unresolved edge among the concrete analytic and geometric nodes in the
+current graph. Expansion now requires a genuinely new formalized family, such as a classical
+positivity criterion, or an independent eta construction from its alternating series together
+with a proof that it agrees with the factorized continuation. Neither is claimed by Gate 7.
 
 ## Availability findings
 
 The pinned Mathlib surface supplies `riemannZeta`, its functional equation, critical
 nonvanishing results, zero discreteness, and the canonical `RiemannHypothesis` proposition. The
-Mathlib formalization report explicitly notes an earlier Lean Dirichlet-eta formulation and says
-that proving its equivalence with Mathlib's formulation would be a useful future formalization.
-That documented interoperability gap motivates the conditional eta bridge above.
+Mathlib formalization report explicitly notes an earlier Lean Dirichlet-eta formulation and
+identifies equivalence with Mathlib's formulation as useful future work. Gate 7 closes the
+project-level zero-set bridge for the concrete factorized eta definition above. It does not import
+or identify this definition with every object from the earlier standalone formalization.
 
 No spectral or classical positivity criterion is imported into the present project. These
 families remain audit categories, not theorem nodes. Gate 5 therefore does not pretend that the
@@ -91,9 +107,10 @@ The graph already distinguishes:
 - explicit unresolved obligations; and
 - informal candidate families with missing objects.
 
-This distinction can be represented in ordinary Lean without a four-valued logic. Gate 6 must
-therefore demonstrate something additional—such as separate, compositional support channels—on a
-small checked correspondence before applying 4PEL terminology to the RH graph.
+This distinction can be represented in ordinary Lean without a four-valued logic. Gate 6 tested
+a minimal bilateral four-value layer and proved that its classifier adds no information beyond the
+two support channels from which it is computed. Accordingly, no 4PEL labels are attached to this
+graph unless a richer rule-governed proposal first passes the documented small-case novelty test.
 
 ## Sources
 

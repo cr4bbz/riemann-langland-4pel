@@ -50,24 +50,6 @@ theorem alternatingEtaCoefficient_one :
     alternatingEtaCoefficient 1 = 1 := by
   norm_num [alternatingEtaCoefficient]
 
-@[simp]
-theorem alternatingEtaCoefficient_two :
-    alternatingEtaCoefficient 2 = -1 := by
-  have h : ((2 : ℕ) : ZMod 2) = 0 := by decide
-  simp [alternatingEtaCoefficient, h]
-
-@[simp]
-theorem alternatingEtaCoefficient_three :
-    alternatingEtaCoefficient 3 = 1 := by
-  have h : ((3 : ℕ) : ZMod 2) = 1 := by decide
-  simp [alternatingEtaCoefficient, h]
-
-@[simp]
-theorem alternatingEtaCoefficient_four :
-    alternatingEtaCoefficient 4 = -1 := by
-  have h : ((4 : ℕ) : ZMod 2) = 0 := by decide
-  simp [alternatingEtaCoefficient, h]
-
 /-- The naive alternating Dirichlet eta series represented using Mathlib's `LSeries`.
 Its positive-index terms are
 `1 / 1^s - 1 / 2^s + 1 / 3^s - 1 / 4^s + ...`. -/

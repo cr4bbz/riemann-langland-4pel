@@ -49,9 +49,9 @@ theorem riemannZetaZero_criticalReflection {s : ℂ}
     simpa using sub_pos.mpr hstrip.2
   have hreflect0 : criticalReflection s ≠ 0 := by
     intro hs
-    have hre := congrArg Complex.re hs
-    simp at hre
-    linarith
+    have hre : (criticalReflection s).re = 0 := by
+      simpa using congrArg Complex.re hs
+    exact (ne_of_gt hreflectPos) hre
   unfold IsCompletedZetaZero at hcompleted'
   rw [riemannZeta_def_of_ne_zero hreflect0, hcompleted']
   simp

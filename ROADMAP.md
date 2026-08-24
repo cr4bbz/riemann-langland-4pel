@@ -95,3 +95,18 @@ consequence that survives exact translation.
 Gate 7 closes the smallest interoperability obligation identified in Gate 5. It creates no proof
 of either equivalent RH formulation.
 
+## Gate 8 — Independent alternating eta series
+
+- [x] Encode the eta signs by a function on residue classes modulo two.
+- [x] Define the naive alternating Dirichlet series using Mathlib's `LSeries`.
+- [x] Define an independent periodic continuation using `ZMod.LFunction`.
+- [x] Prove summability on the absolute-convergence half-plane `1 < re(s)`.
+- [x] Prove the periodic continuation equals the actual series there.
+- [x] Record differentiability away from the possible pole location.
+- [ ] Prove the coefficient mean is zero and remove the possible pole at `s = 1`.
+- [ ] Prove conditional convergence of the alternating series for `0 < re(s)`.
+- [ ] Identify the independent continuation with the factorized `dirichletEta`.
+- [ ] Derive the value `log 2` at `s = 1` from the independent construction.
+
+The completed items establish a genuinely independent construction on the safe convergence domain.
+They do not yet identify its values with Gate 7 inside the critical strip.

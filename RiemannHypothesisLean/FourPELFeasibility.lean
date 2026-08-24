@@ -56,28 +56,36 @@ theorem fourSupportValue_eq_glut_iff {Sentence : Type u}
     fourSupportValue theory sentence = .glut ↔
       PositiveDerivable theory sentence ∧ NegativeDerivable theory sentence := by
   classical
-  simp [fourSupportValue]
+  by_cases hpositive : PositiveDerivable theory sentence <;>
+    by_cases hnegative : NegativeDerivable theory sentence <;>
+    simp [fourSupportValue, hpositive, hnegative]
 
 theorem fourSupportValue_eq_trueOnly_iff {Sentence : Type u}
     (theory : BilateralTheory Sentence) (sentence : Sentence) :
     fourSupportValue theory sentence = .trueOnly ↔
       PositiveDerivable theory sentence ∧ ¬NegativeDerivable theory sentence := by
   classical
-  simp [fourSupportValue]
+  by_cases hpositive : PositiveDerivable theory sentence <;>
+    by_cases hnegative : NegativeDerivable theory sentence <;>
+    simp [fourSupportValue, hpositive, hnegative]
 
 theorem fourSupportValue_eq_falseOnly_iff {Sentence : Type u}
     (theory : BilateralTheory Sentence) (sentence : Sentence) :
     fourSupportValue theory sentence = .falseOnly ↔
       ¬PositiveDerivable theory sentence ∧ NegativeDerivable theory sentence := by
   classical
-  simp [fourSupportValue]
+  by_cases hpositive : PositiveDerivable theory sentence <;>
+    by_cases hnegative : NegativeDerivable theory sentence <;>
+    simp [fourSupportValue, hpositive, hnegative]
 
 theorem fourSupportValue_eq_gap_iff {Sentence : Type u}
     (theory : BilateralTheory Sentence) (sentence : Sentence) :
     fourSupportValue theory sentence = .gap ↔
       ¬PositiveDerivable theory sentence ∧ ¬NegativeDerivable theory sentence := by
   classical
-  simp [fourSupportValue]
+  by_cases hpositive : PositiveDerivable theory sentence <;>
+    by_cases hnegative : NegativeDerivable theory sentence <;>
+    simp [fourSupportValue, hpositive, hnegative]
 
 /-- A translation between theories that preserves and reflects each support channel separately. -/
 structure ExactSupportTranslation {Source : Type u} {Target : Type v}

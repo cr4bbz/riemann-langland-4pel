@@ -27,3 +27,15 @@ negative support can classify:
 4PEL is not used to change the truth value of the Riemann hypothesis or to accept contradictory
 classical proofs. Its possible role is metatheoretic: describing the state and transport of
 knowledge across explicitly formalized theories.
+
+## Gate 6 feasibility verdict
+
+The minimal bilateral implementation can represent gaps and gluts and transport both support
+channels exactly. Lean also proves that its four-value classifier is completely determined by the
+positive/negative support pair. It therefore adds no information beyond that bilateral profile.
+
+For this reason, the project does not yet attach 4PEL values to RH formulation nodes. A future
+proposal must first formalize rule-governed derivability and exhibit a translation-stable
+structural consequence, obstruction, or invariant that is not merely a relabeling or provenance
+annotation. Until then, Layer C remains a tested but rejected minimal hypothesis rather than part
+of the RH mathematics.

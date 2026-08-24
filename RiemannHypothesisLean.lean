@@ -6,6 +6,7 @@ import RiemannHypothesisLean.Orbit
 import RiemannHypothesisLean.Finiteness
 import RiemannHypothesisLean.EquivalentCriteria
 import RiemannHypothesisLean.BridgeAudit
+import RiemannHypothesisLean.FourPELFeasibility
 
 /-!
 # RiemannHypothesisLean

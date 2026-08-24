@@ -51,7 +51,7 @@ theorem InCriticalStrip.ne_one {s : ℂ} (hs : InCriticalStrip s) : s ≠ 1 := b
 `ℂ`. -/
 theorem complexLog_two :
     Complex.log (2 : ℂ) = (Real.log 2 : ℂ) := by
-  simpa using (Complex.ofNat_log (n := 2)).symm
+  simp
 
 /-- The real part of the exponent defining `2^(1-s)` is positive in the critical strip. -/
 theorem log_two_mul_one_sub_re_pos {s : ℂ} (hs : InCriticalStrip s) :

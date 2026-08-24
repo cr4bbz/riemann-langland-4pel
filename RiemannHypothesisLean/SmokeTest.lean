@@ -77,4 +77,16 @@ example : Statement ↔ RightHalfCriticalStripZeroFree :=
 example : LeftHalfCriticalStripZeroFree ↔ RightHalfCriticalStripZeroFree :=
   leftHalfCriticalStripZeroFree_iff_rightHalfCriticalStripZeroFree
 
+example :
+    ExactBridge analyticStatementFormulation geometricDualFixedFormulation :=
+  statement_dualFixed_exactBridge
+
+example :
+    ExactBridge geometricDualFixedFormulation analyticLeftHalfZeroFreeFormulation :=
+  dualFixed_leftHalfZeroFree_exactBridge
+
+example (eta : ℂ → ℂ) (hcompat : EtaZetaZeroCompatibleOnCriticalStrip eta) :
+    ExactBridge analyticStatementFormulation (analyticEtaFormulation eta) :=
+  statement_eta_exactBridge hcompat
+
 end RiemannHypothesisLean

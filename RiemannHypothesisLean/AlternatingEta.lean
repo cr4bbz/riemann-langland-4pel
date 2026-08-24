@@ -19,7 +19,7 @@ The stronger classical statement that the alternating series itself converges fo
 subsequent Gate 8 obligations.
 -/
 
-open Complex
+open Complex Filter
 
 namespace RiemannHypothesisLean
 

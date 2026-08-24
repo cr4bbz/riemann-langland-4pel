@@ -1,3 +1,5 @@
+import Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics
+import Mathlib.Analysis.SpecificLimits.Normed
 import Mathlib.NumberTheory.LSeries.ZMod
 import RiemannHypothesisLean.DirichletEta
 
@@ -98,6 +100,34 @@ theorem differentiable_alternatingDirichletEtaContinuation :
     Differentiable ℂ alternatingDirichletEtaContinuation := by
   simpa [alternatingDirichletEtaContinuation] using
     (ZMod.differentiable_LFunction_of_sum_zero etaResidueCoefficient_sum)
+
+
+/-- The first `N` partial sums of the classical real alternating eta series at exponent `x`.
+
+This explicit sequence models ordinary convergence in the natural order. It is intentionally
+separate from Mathlib's stronger, order-independent `Summable` predicate. -/
+def realAlternatingEtaPartialSum (x : ℝ) (N : ℕ) : ℝ :=
+  ∑ n ∈ Finset.range N, (-1 : ℝ) ^ n * ((n : ℝ) + 1) ^ (-x)
+
+/-- Ordinary sequential convergence of the real alternating eta series at exponent `x`. -/
+def RealAlternatingEtaSeriesConvergesAt (x : ℝ) : Prop :=
+  ∃ l : ℝ, Tendsto (realAlternatingEtaPartialSum x) Filter.atTop (𝓝 l)
+
+/-- The real alternating eta partial sums converge for every positive exponent.
+
+This is the Leibniz alternating-series criterion. In particular, it includes the conditionally
+convergent range `0 < x ≤ 1` without asserting Mathlib's stronger `Summable` predicate. -/
+theorem realAlternatingEtaSeries_converges_of_pos {x : ℝ} (hx : 0 < x) :
+    RealAlternatingEtaSeriesConvergesAt x := by
+  apply Antitone.tendsto_alternating_series_of_tendsto_zero
+  · intro m n hmn
+    apply Real.rpow_le_rpow_of_nonpos
+    · positivity
+    · exact_mod_cast Nat.add_le_add_right hmn 1
+    · linarith
+  · exact (tendsto_rpow_neg_atTop hx).comp (by
+      apply tendsto_atTop_add_const_right
+      exact tendsto_natCast_atTop_atTop)
 
 end
 

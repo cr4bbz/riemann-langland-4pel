@@ -161,4 +161,9 @@ example :
     Differentiable ℂ alternatingDirichletEtaContinuation :=
   differentiable_alternatingDirichletEtaContinuation
 
+
+example {x : ℝ} (hx : 0 < x) :
+    RealAlternatingEtaSeriesConvergesAt x :=
+  realAlternatingEtaSeries_converges_of_pos hx
+
 end RiemannHypothesisLean

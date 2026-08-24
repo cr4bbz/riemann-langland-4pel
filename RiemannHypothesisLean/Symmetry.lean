@@ -24,11 +24,11 @@ def criticalReflection (s : ℂ) : ℂ :=
 
 /-- Reflection across the real axis. -/
 def conjugationPoint (s : ℂ) : ℂ :=
-  conj s
+  star s
 
 /-- The composition `s ↦ 1 - conj(s)`, whose fixed-point set is the critical line. -/
 def dualSymmetry (s : ℂ) : ℂ :=
-  1 - conj s
+  1 - star s
 
 @[simp]
 theorem criticalReflection_involutive (s : ℂ) :
@@ -90,13 +90,13 @@ theorem completedZetaZero_criticalReflection_iff (s : ℂ) :
 
 This is deliberately only a named proposition at the current dependency boundary. -/
 def RiemannZetaConjugationCompatibility : Prop :=
-  ∀ s : ℂ, riemannZeta (conj s) = conj (riemannZeta s)
+  ∀ s : ℂ, riemannZeta (star s) = star (riemannZeta s)
 
 /-- Conditional zero transport across the real axis, displaying the missing bridge explicitly. -/
 theorem riemannZeta_eq_zero_conjugationPoint
     (hconj : RiemannZetaConjugationCompatibility) {s : ℂ}
     (hs : riemannZeta s = 0) : riemannZeta (conjugationPoint s) = 0 := by
-  change riemannZeta (conj s) = 0
+  change riemannZeta (star s) = 0
   rw [hconj s, hs]
   simp
 

@@ -482,9 +482,9 @@ theorem differentiableAt_alternatingEtaNaturalValue {s : ℂ} (hs : 0 < s.re) :
     intro w hw
     unfold complexAlternatingEtaPair
     have hodd : (((2 * n + 1 : ℕ) : ℂ)) ≠ 0 := by
-      norm_num
+      exact_mod_cast (by omega : (2 * n + 1 : ℕ) ≠ 0)
     have heven : (((2 * n + 2 : ℕ) : ℂ)) ≠ 0 := by
-      norm_num
+      exact_mod_cast (by omega : (2 * n + 2 : ℕ) ≠ 0)
     exact
       (((hasDerivAt_neg' w).const_cpow (Or.inl hodd)).sub
         ((hasDerivAt_neg' w).const_cpow (Or.inl heven))).differentiableAt
@@ -497,14 +497,16 @@ theorem differentiableAt_alternatingEtaNaturalValue {s : ℂ} (hs : 0 < s.re) :
     have hpow :
         ((2 * n + 1 : ℕ) : ℝ) ^ (-w.re - 1) ≤
           ((2 * n + 1 : ℕ) : ℝ) ^ (-δ - 1) :=
-      Real.rpow_le_rpow_of_exponent_le hbase (by linarith)
+      Real.rpow_le_rpow_of_exponent_le hbase (by
+        have hδw : δ < w.re := hw.1
+        linarith)
     calc
       ‖complexAlternatingEtaPair w n‖ ≤
           ‖w‖ * ((2 * n + 1 : ℕ) : ℝ) ^ (-w.re - 1) :=
         norm_complexAlternatingEtaPair_le hwre n
       _ ≤ M * ((2 * n + 1 : ℕ) : ℝ) ^ (-δ - 1) := by
         exact mul_le_mul (le_of_lt hw.2) hpow
-          (Real.rpow_nonneg _ _) (norm_nonneg w)
+          (Real.rpow_nonneg _ _) hM
       _ = u n := rfl
   have hd :
       DifferentiableOn ℂ

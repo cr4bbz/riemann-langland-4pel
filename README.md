@@ -82,10 +82,14 @@ eta series for every `s` with `0 < re(s)`. The paired-series limit is named
 `alternatingEtaNaturalValue`. A finite cofinal partial-sum identity then proves that this natural
 value equals Mathlib's naive `LSeries`, and hence the independent periodic continuation, whenever
 `1 < re(s)`. On that domain Lean also proves the classical factorization
-`(1-2^(1-s))·ζ(s)`. The identity theorem on the connected punctured plane then identifies the
-independent periodic continuation with the factorized Gate 7 eta for every `s ≠ 1`. What remains
-open is the equality of the conditionally convergent natural value with that continuation on
-`0 < re(s) ≤ 1`, plus the independent derivation of the common value `log 2` at `s = 1`.
+`(1-2^(1-s))·ζ(s)`. The identity theorem on the connected punctured plane first identifies the
+independent periodic continuation with the factorized Gate 7 eta for every `s ≠ 1`. Lean then
+computes the derivative of the eta factor at one, combines its slope limit with the checked residue
+`lim (s-1)ζ(s)=1`, and proves that the independent continuation takes the removable value
+`log 2`. Thus the two analytic eta constructions now agree globally. What remains open is the
+series-level equality of the conditionally convergent natural value with that continuation on
+`0 < re(s) ≤ 1`; in particular, the natural alternating harmonic series has not yet been linked
+to the now-checked continuation value at `s = 1`.
 
 ## Reproducible build
 

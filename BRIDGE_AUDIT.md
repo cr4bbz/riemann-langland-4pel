@@ -101,10 +101,12 @@ cofinal family of Mathlib `LSeries` partial sums with the paired partial sums; u
 therefore identifies the natural value with both the naive `LSeries` and the independent periodic
 continuation. Splitting the absolutely summable shifted zeta series into odd and even denominators
 also proves the classical factorization on that half-plane. The identity theorem on
-`ℂ \\ {1}` then identifies the independent periodic continuation with the factorized
-`dirichletEta` at every point except one, hence throughout the open critical strip. The remaining
-series-level edge is equality of the conditionally convergent natural value with that continuation
-on `0 < re(s) ≤ 1`; the removable value at one is also still to be derived independently. A
+`ℂ \\ {1}` first identifies the independent periodic continuation with the factorized
+`dirichletEta` away from one. The eta-factor derivative at one and the zeta residue then give the
+product limit `log 2`; continuity of the entire periodic continuation closes the removable point.
+The independent periodic continuation is therefore globally equal to Gate 7 `dirichletEta`.
+The remaining series-level edge is equality of the conditionally convergent natural value with
+that continuation on `0 < re(s) ≤ 1`, including the alternating harmonic series at one. A
 classical positivity criterion remains a separate future expansion family.
 
 ## Availability findings

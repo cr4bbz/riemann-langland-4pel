@@ -286,15 +286,21 @@ RH statement.
 | Natural value equals Gate 7 `dirichletEta` when `1 < re(s)` | `alternatingEtaNaturalValue_eq_dirichletEta_of_one_lt_re` | checked |
 | Periodic continuation equals the zeta-factor expression for `s ≠ 1` | `alternatingDirichletEtaContinuation_eq_factor_mul_zeta_of_ne_one` | checked by analytic continuation on `ℂ \\ {1}` |
 | Periodic continuation equals Gate 7 `dirichletEta` for `s ≠ 1` | `alternatingDirichletEtaContinuation_eq_dirichletEta_of_ne_one` | checked |
+| Eta factor has derivative `log 2` at one | `hasDerivAt_dirichletEtaFactor_one` | checked |
+| Eta factor quotient tends to `log 2` at one | `tendsto_dirichletEtaFactor_div_sub_one` | checked |
+| Factorized eta product tends to `log 2` at one | `tendsto_dirichletEtaFactor_mul_riemannZeta_one` | checked using `riemannZeta_residue_one` |
+| Independent continuation has value `log 2` at one | `alternatingDirichletEtaContinuation_one` | checked by continuity and uniqueness of limits |
+| Periodic continuation equals Gate 7 `dirichletEta` globally | `alternatingDirichletEtaContinuation_eq_dirichletEta` | checked |
 
 The convergence results use explicit `Finset.range` partial sums and `Filter.Tendsto`. They do not
 mislabel conditional convergence as Mathlib's stronger order-independent `Summable` predicate.
 
 This is not yet the full classical series-interoperability theorem. The periodic continuation is
-now identified with the factorized Gate 7 function everywhere except `s = 1`. Equality of the
-conditionally convergent natural value with that continuation on `0 < re(s) ≤ 1`, and the
-independent derivation of the value `log 2` at `s = 1`, remain explicit obligations. In
-particular, no critical-strip zero bridge is inferred from the natural-series construction yet.
+now identified globally with the factorized Gate 7 function, including its independently derived
+value `log 2` at `s = 1`. Equality of the conditionally convergent natural value with that
+continuation on `0 < re(s) ≤ 1` remains an explicit obligation; at one this is specifically the
+missing bridge from the natural alternating harmonic series to the checked continuation value.
+No critical-strip zero bridge is inferred from the natural-series construction yet.
 
 ## Non-goals of the first milestone
 

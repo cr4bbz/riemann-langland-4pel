@@ -23,10 +23,10 @@ The natural-order alternating series is proved to converge for every `0 < re s`,
 value named through the absolutely summable paired series. On `1 < re s`, a finite partial-sum
 comparison identifies that value with both the naive `LSeries` and the periodic continuation.
 The same series calculation gives the classical zeta factorization on `1 < re s`; the identity
-theorem then identifies the independent periodic continuation with the factorized
-`dirichletEta` at every `s ≠ 1`. Identifying the conditionally convergent natural value with
-that continuation, and closing the separately assigned value at `s = 1`, remain explicit
-Gate 8 obligations.
+theorem identifies the independent periodic continuation with the factorized expression away from
+one. A derivative/residue limit then closes the removable point and identifies the independent
+continuation globally with `dirichletEta`. Identifying the conditionally convergent natural value
+with that continuation on `0 < re s ≤ 1` remains the explicit Gate 8 obligation.
 -/
 
 open Complex Filter
@@ -704,8 +704,8 @@ theorem alternatingDirichletEtaContinuation_eq_dirichletEta (s : ℂ) :
   · rw [dirichletEta_of_ne_one hs]
     exact alternatingDirichletEtaContinuation_eq_factor_mul_zeta_of_ne_one hs
 
-/-- The independent periodic continuation agrees with the factorized Gate 7 eta function at
-every point except the separately assigned removable value `s = 1`. -/
+/-- Compatibility form of the global continuation theorem under the explicit hypothesis
+`s ≠ 1`. -/
 theorem alternatingDirichletEtaContinuation_eq_dirichletEta_of_ne_one {s : ℂ}
     (hs : s ≠ 1) :
     alternatingDirichletEtaContinuation s = dirichletEta s := by

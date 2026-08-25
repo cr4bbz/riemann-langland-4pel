@@ -124,10 +124,12 @@ of either equivalent RH formulation.
 - [x] Identify the natural value with the naive `LSeries` and periodic continuation on `1 < re(s)`.
 - [x] Prove the classical factorization of the natural value on `1 < re(s)`.
 - [x] Continue equality of the independent periodic continuation and factorized `dirichletEta` to every `s ≠ 1`.
+- [x] Compute the eta-factor slope at one and combine it with the zeta residue.
+- [x] Derive the independent periodic continuation value `log 2` at `s = 1`.
+- [x] Identify the independent periodic continuation globally with factorized `dirichletEta`.
 - [ ] Identify the conditionally convergent natural value with the periodic continuation on `0 < re(s) ≤ 1`.
-- [ ] Derive the value `log 2` at `s = 1` from the independent construction.
 
-The independent periodic continuation is now identified with Gate 7 throughout the open critical
-strip, since every such point differs from one. The remaining series-level gap is subtler: the
-natural-order value has not yet been identified with that continuation in the conditionally
-convergent part of the right half-plane.
+The independent periodic continuation is now identified globally with Gate 7, including the
+removable point. The remaining series-level gap is subtler: the natural-order value has not yet
+been identified with that continuation in the conditionally convergent part of the right
+half-plane, including the alternating harmonic series at one.

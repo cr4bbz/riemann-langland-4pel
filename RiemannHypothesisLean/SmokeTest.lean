@@ -264,6 +264,18 @@ example {s : ℂ} (hs : s ≠ 1) :
       dirichletEtaFactor s * riemannZeta s :=
   alternatingDirichletEtaContinuation_eq_factor_mul_zeta_of_ne_one hs
 
+example :
+    HasDerivAt dirichletEtaFactor (Real.log 2 : ℂ) 1 :=
+  hasDerivAt_dirichletEtaFactor_one
+
+example :
+    alternatingDirichletEtaContinuation 1 = (Real.log 2 : ℂ) :=
+  alternatingDirichletEtaContinuation_one
+
+example (s : ℂ) :
+    alternatingDirichletEtaContinuation s = dirichletEta s :=
+  alternatingDirichletEtaContinuation_eq_dirichletEta s
+
 example {s : ℂ} (hs : s ≠ 1) :
     alternatingDirichletEtaContinuation s = dirichletEta s :=
   alternatingDirichletEtaContinuation_eq_dirichletEta_of_ne_one hs

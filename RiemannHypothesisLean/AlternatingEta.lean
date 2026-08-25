@@ -237,6 +237,24 @@ theorem sum_range_two_mul_eq_sum_pairs {α : Type*} [AddCommMonoid α]
       rw [Finset.sum_range_succ, Finset.sum_range_succ, Finset.sum_range_succ, ih]
       simp [add_assoc]
 
+/-- Every even partial sum of the real alternating harmonic series is the harmonic
+number difference `H_(2N) - H_N`. -/
+theorem realAlternatingEtaPartialSum_one_two_mul (N : ℕ) :
+    realAlternatingEtaPartialSum 1 (2 * N) =
+      (harmonic (2 * N) : ℝ) - (harmonic N : ℝ) := by
+  unfold realAlternatingEtaPartialSum harmonic
+  push_cast
+  rw [sum_range_two_mul_eq_sum_pairs]
+  conv_rhs =>
+    lhs
+    rw [sum_range_two_mul_eq_sum_pairs]
+  rw [← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro n hn
+  simp [Real.rpow_neg_one]
+  field_simp
+  ring
+
 /-- The `n`th paired complex eta term. -/
 def complexAlternatingEtaPair (s : ℂ) (n : ℕ) : ℂ :=
   ((2 * n + 1 : ℕ) : ℂ) ^ (-s) - ((2 * n + 2 : ℕ) : ℂ) ^ (-s)

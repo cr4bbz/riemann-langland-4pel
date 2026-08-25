@@ -69,8 +69,10 @@ defined, and Lean's alternating-series test proves their ordinary sequential con
 real `x > 0`, including the non-absolutely convergent range. The corresponding complex
 natural-order partial sums are now defined and proved to agree with the real construction on the
 embedded real axis. Lean also verifies that every even complex partial sum is exactly a finite
-sum of the paired terms `(2n+1)^(-s) - (2n+2)^(-s)`. A summable norm estimate for these pairs,
-extension to arbitrary complex `s` with `0 < re(s)`, and identification with the factorized
+sum of the paired terms `(2n+1)^(-s) - (2n+2)^(-s)`. The real-variable kernel
+`t ↦ t^(-s)` is now formalized, together with its derivative and the exact norm of that
+derivative for positive `t`. A summable norm estimate for the pairs, extension to arbitrary
+complex `s` with `0 < re(s)`, and identification with the factorized
 Gate 7 eta remain explicit open Gate 8
 obligations.
 

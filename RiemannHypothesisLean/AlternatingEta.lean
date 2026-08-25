@@ -205,7 +205,32 @@ theorem complexAlternatingEtaPartialSum_two_mul (s : ℂ) (N : ℕ) :
   intro n hn
   simp [complexAlternatingEtaPair]
   rw [(show Odd (2 * n + 1) by exact ⟨n, by omega⟩).neg_one_pow]
-  ring
+  ring_nf
+
+/-- The real-variable complex power kernel used to estimate consecutive eta terms. -/
+def etaCpowKernel (s : ℂ) (t : ℝ) : ℂ :=
+  (t : ℂ) ^ (-s)
+
+/-- The derivative of the eta power kernel at a nonzero real input.
+
+The later paired-term estimate only uses this result under `0 < re(s)`, which in particular
+implies `s ≠ 0`. -/
+theorem hasDerivAt_etaCpowKernel {s : ℂ} (hs : s ≠ 0) {t : ℝ} (ht : t ≠ 0) :
+    HasDerivAt (etaCpowKernel s) ((-s) * (t : ℂ) ^ (-s - 1)) t := by
+  simpa [etaCpowKernel] using
+    (hasDerivAt_ofReal_cpow_const ht (neg_ne_zero.mpr hs))
+
+/-- The eta power kernel is real differentiable at every positive input. -/
+theorem differentiableAt_etaCpowKernel_of_pos {s : ℂ} (hs : s ≠ 0)
+    {t : ℝ} (ht : 0 < t) :
+    DifferentiableAt ℝ (etaCpowKernel s) t :=
+  (hasDerivAt_etaCpowKernel hs ht.ne').differentiableAt
+
+/-- Exact norm of the derivative expression for the eta power kernel on the positive real axis. -/
+theorem norm_etaCpowKernel_derivative (s : ℂ) {t : ℝ} (ht : 0 < t) :
+    ‖(-s) * (t : ℂ) ^ (-s - 1)‖ = ‖s‖ * t ^ (-s.re - 1) := by
+  rw [norm_mul, norm_neg, Complex.norm_cpow_eq_rpow_re_of_pos ht]
+  simp
 
 end
 

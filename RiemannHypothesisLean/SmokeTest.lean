@@ -182,4 +182,17 @@ example (s : ℂ) (N : ℕ) :
       complexAlternatingEtaPairedPartialSum s N :=
   complexAlternatingEtaPartialSum_two_mul s N
 
+
+example {s : ℂ} (hs : s ≠ 0) {t : ℝ} (ht : t ≠ 0) :
+    HasDerivAt (etaCpowKernel s) ((-s) * (t : ℂ) ^ (-s - 1)) t :=
+  hasDerivAt_etaCpowKernel hs ht
+
+example {s : ℂ} (hs : s ≠ 0) {t : ℝ} (ht : 0 < t) :
+    DifferentiableAt ℝ (etaCpowKernel s) t :=
+  differentiableAt_etaCpowKernel_of_pos hs ht
+
+example (s : ℂ) {t : ℝ} (ht : 0 < t) :
+    ‖(-s) * (t : ℂ) ^ (-s - 1)‖ = ‖s‖ * t ^ (-s.re - 1) :=
+  norm_etaCpowKernel_derivative s ht
+
 end RiemannHypothesisLean

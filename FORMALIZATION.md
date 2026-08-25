@@ -262,6 +262,10 @@ RH statement.
 | Complex-codomain convergence on the positive real axis | `complexAlternatingEtaSeries_converges_of_pos_real` | checked by continuous embedding |
 | Paired complex eta term | `complexAlternatingEtaPair` | explicitly defined |
 | Even partial sums equal paired partial sums | `complexAlternatingEtaPartialSum_two_mul` | checked by a finite-sum pairing lemma |
+| Real-variable complex power kernel | `etaCpowKernel` | defined independently |
+| Derivative of the power kernel | `hasDerivAt_etaCpowKernel` | checked at nonzero inputs |
+| Differentiability on positive inputs | `differentiableAt_etaCpowKernel_of_pos` | checked |
+| Exact derivative norm on positive inputs | `norm_etaCpowKernel_derivative` | checked |
 
 The convergence results use explicit `Finset.range` partial sums and `Filter.Tendsto`. It does not
 mislabel conditional convergence as Mathlib's stronger order-independent `Summable` predicate.

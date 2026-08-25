@@ -86,10 +86,11 @@ value equals Mathlib's naive `LSeries`, and hence the independent periodic conti
 independent periodic continuation with the factorized Gate 7 eta for every `s ≠ 1`. Lean then
 computes the derivative of the eta factor at one, combines its slope limit with the checked residue
 `lim (s-1)ζ(s)=1`, and proves that the independent continuation takes the removable value
-`log 2`. Thus the two analytic eta constructions now agree globally. What remains open is the
-series-level equality of the conditionally convergent natural value with that continuation on
-`0 < re(s) ≤ 1`; in particular, the natural alternating harmonic series has not yet been linked
-to the now-checked continuation value at `s = 1`.
+`log 2`. Thus the two analytic eta constructions now agree globally. Independently, the checked asymptotic
+`H_N-log N → γ` and the exact finite identity for even eta partial sums prove that the natural
+alternating harmonic series has value `log 2`; it therefore agrees with the continuation at
+`s = 1`. What remains open is the series-level equality of the conditionally convergent natural
+value with that continuation on `0 < re(s) ≤ 1` away from `s = 1`.
 
 ## Reproducible build
 

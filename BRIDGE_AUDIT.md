@@ -105,9 +105,11 @@ also proves the classical factorization on that half-plane. The identity theorem
 `dirichletEta` away from one. The eta-factor derivative at one and the zeta residue then give the
 product limit `log 2`; continuity of the entire periodic continuation closes the removable point.
 The independent periodic continuation is therefore globally equal to Gate 7 `dirichletEta`.
-The remaining series-level edge is equality of the conditionally convergent natural value with
-that continuation on `0 < re(s) ≤ 1`, including the alternating harmonic series at one. A
-classical positivity criterion remains a separate future expansion family.
+Harmonic-number asymptotics and an exact finite partial-sum identity also prove independently that
+the natural alternating harmonic series has value `log 2`, closing the series/continuation edge at
+one. The remaining series-level edge is equality of the conditionally convergent natural value
+with that continuation on `0 < re(s) ≤ 1` away from one. A classical positivity criterion
+remains a separate future expansion family.
 
 ## Availability findings
 

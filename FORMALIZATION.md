@@ -291,16 +291,21 @@ RH statement.
 | Factorized eta product tends to `log 2` at one | `tendsto_dirichletEtaFactor_mul_riemannZeta_one` | checked using `riemannZeta_residue_one` |
 | Independent continuation has value `log 2` at one | `alternatingDirichletEtaContinuation_one` | checked by continuity and uniqueness of limits |
 | Periodic continuation equals Gate 7 `dirichletEta` globally | `alternatingDirichletEtaContinuation_eq_dirichletEta` | checked |
+| Harmonic difference `H_(2N)-H_N` tends to `log 2` | `tendsto_harmonic_two_mul_sub_harmonic` | checked from `Real.tendsto_harmonic_sub_log` |
+| Even alternating harmonic partial sum equals `H_(2N)-H_N` | `realAlternatingEtaPartialSum_one_two_mul` | checked by finite pairing |
+| Even alternating harmonic partial sums tend to `log 2` | `realAlternatingEtaPartialSum_one_even_tendsto` | checked |
+| Natural eta value at one is `log 2` | `alternatingEtaNaturalValue_one` | checked independently of the continuation |
+| Natural value and periodic continuation agree at one | `alternatingEtaNaturalValue_eq_continuation_one` | checked |
 
 The convergence results use explicit `Finset.range` partial sums and `Filter.Tendsto`. They do not
 mislabel conditional convergence as Mathlib's stronger order-independent `Summable` predicate.
 
 This is not yet the full classical series-interoperability theorem. The periodic continuation is
 now identified globally with the factorized Gate 7 function, including its independently derived
-value `log 2` at `s = 1`. Equality of the conditionally convergent natural value with that
-continuation on `0 < re(s) ≤ 1` remains an explicit obligation; at one this is specifically the
-missing bridge from the natural alternating harmonic series to the checked continuation value.
-No critical-strip zero bridge is inferred from the natural-series construction yet.
+value `log 2` at `s = 1`. The natural alternating harmonic series is now independently linked to the continuation at one.
+Equality of the conditionally convergent natural value with that continuation on
+`0 < re(s) ≤ 1` and `s ≠ 1` remains an explicit obligation. No critical-strip zero bridge is
+inferred from the natural-series construction yet.
 
 ## Non-goals of the first milestone
 

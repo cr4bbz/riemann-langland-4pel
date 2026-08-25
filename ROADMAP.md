@@ -127,9 +127,11 @@ of either equivalent RH formulation.
 - [x] Compute the eta-factor slope at one and combine it with the zeta residue.
 - [x] Derive the independent periodic continuation value `log 2` at `s = 1`.
 - [x] Identify the independent periodic continuation globally with factorized `dirichletEta`.
-- [ ] Identify the conditionally convergent natural value with the periodic continuation on `0 < re(s) ≤ 1`.
+- [x] Prove `H_(2N)-H_N → log 2` and identify the even alternating harmonic partial sums with that difference.
+- [x] Prove the natural eta value at one is `log 2` and equals the periodic continuation there.
+- [ ] Identify the conditionally convergent natural value with the periodic continuation on `0 < re(s) ≤ 1` away from one.
 
 The independent periodic continuation is now identified globally with Gate 7, including the
-removable point. The remaining series-level gap is subtler: the natural-order value has not yet
-been identified with that continuation in the conditionally convergent part of the right
-half-plane, including the alternating harmonic series at one.
+removable point, and the natural alternating harmonic series is independently connected to it at
+one. The remaining series-level gap is the rest of the conditionally convergent part of the right
+half-plane.

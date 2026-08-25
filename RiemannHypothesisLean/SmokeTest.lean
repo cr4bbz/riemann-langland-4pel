@@ -251,6 +251,25 @@ example {s : ℂ} (hs : 1 < s.re) :
     alternatingEtaNaturalValue s = alternatingDirichletEtaContinuation s :=
   alternatingEtaNaturalValue_eq_continuation_of_one_lt_re hs
 
+example :
+    Filter.Tendsto
+      (fun N : ℕ => (harmonic (2 * N) : ℝ) - (harmonic N : ℝ))
+      Filter.atTop (nhds (Real.log 2)) :=
+  tendsto_harmonic_two_mul_sub_harmonic
+
+example (N : ℕ) :
+    realAlternatingEtaPartialSum 1 (2 * N) =
+      (harmonic (2 * N) : ℝ) - (harmonic N : ℝ) :=
+  realAlternatingEtaPartialSum_one_two_mul N
+
+example :
+    alternatingEtaNaturalValue 1 = (Real.log 2 : ℂ) :=
+  alternatingEtaNaturalValue_one
+
+example :
+    alternatingEtaNaturalValue 1 = alternatingDirichletEtaContinuation 1 :=
+  alternatingEtaNaturalValue_eq_continuation_one
+
 example {s : ℂ} (hs : 1 < s.re) :
     alternatingEtaNaturalValue s = dirichletEtaFactor s * riemannZeta s :=
   alternatingEtaNaturalValue_eq_factor_mul_zeta_of_one_lt_re hs

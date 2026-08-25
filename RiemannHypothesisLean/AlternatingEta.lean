@@ -26,8 +26,10 @@ comparison identifies that value with both the naive `LSeries` and the periodic 
 The same series calculation gives the classical zeta factorization on `1 < re s`; the identity
 theorem identifies the independent periodic continuation with the factorized expression away from
 one. A derivative/residue limit then closes the removable point and identifies the independent
-continuation globally with `dirichletEta`. Identifying the conditionally convergent natural value
-with that continuation on `0 < re s ≤ 1` remains the explicit Gate 8 obligation.
+continuation globally with `dirichletEta`. Harmonic-number asymptotics independently identify
+the natural alternating value at one with `log 2`. Identifying the conditionally convergent
+natural value with the continuation on `0 < re s ≤ 1` away from one remains the explicit Gate 8
+obligation.
 -/
 
 open Complex Filter

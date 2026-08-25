@@ -251,6 +251,8 @@ theorem realAlternatingEtaPartialSum_one_two_mul (N : ℕ) :
   rw [← Finset.sum_sub_distrib]
   apply Finset.sum_congr rfl
   intro n hn
+  rw [(show Even (2 * n) by exact ⟨n, by omega⟩).neg_one_pow]
+  rw [(show Odd (2 * n + 1) by exact ⟨n, by omega⟩).neg_one_pow]
   simp [Real.rpow_neg_one]
   field_simp
   ring

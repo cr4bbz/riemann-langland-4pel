@@ -16,9 +16,11 @@ Mathlib's `LSeries` is the naive Dirichlet series and `ZMod.LFunction` is the an
 continuation attached to a periodic coefficient function. The checked first bridge identifies
 these constructions on the half-plane of absolute convergence `1 < re s`.
 
-The stronger classical statement that the alternating series itself converges for every
-`0 < re s`, and its eventual identification with `dirichletEta`, are deliberately left as
-subsequent Gate 8 obligations.
+The natural-order alternating series is proved to converge for every `0 < re s`, with its
+value named through the absolutely summable paired series. On `1 < re s`, a finite partial-sum
+comparison identifies that value with both the naive `LSeries` and the periodic continuation.
+Identification with the factorized `dirichletEta` on the remaining right half-plane is kept as
+a subsequent Gate 8 obligation.
 -/
 
 open Complex Filter

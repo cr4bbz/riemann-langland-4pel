@@ -119,7 +119,10 @@ of either equivalent RH formulation.
 - [x] Prove convergence of the odd natural-order partial sums to the same limit.
 - [x] Combine the two parity subsequences.
 - [x] Extend partial-sum convergence to arbitrary complex `s` with `0 < re(s)`.
-- [ ] Identify the independent continuation with the factorized `dirichletEta`.
+- [x] Name the natural-order value through the absolutely summable paired series.
+- [x] Prove a cofinal finite partial-sum identity with Mathlib's `LSeries`.
+- [x] Identify the natural value with the naive `LSeries` and periodic continuation on `1 < re(s)`.
+- [ ] Identify the independent continuation with the factorized `dirichletEta` throughout `0 < re(s)`.
 - [ ] Derive the value `log 2` at `s = 1` from the independent construction.
 
 The completed items establish a genuinely independent construction on the safe convergence domain.

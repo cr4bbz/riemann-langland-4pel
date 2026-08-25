@@ -261,7 +261,10 @@ RH statement.
 | Real-axis agreement of complex and real partial sums | `complexAlternatingEtaPartialSum_ofReal` | checked termwise through `Complex.ofReal_cpow` |
 | Complex-codomain convergence on the positive real axis | `complexAlternatingEtaSeries_converges_of_pos_real` | checked by continuous embedding |
 | Paired complex eta term | `complexAlternatingEtaPair` | explicitly defined |
+| Named natural-order eta value | `alternatingEtaNaturalValue` | defined by the absolutely summable paired series |
 | Even partial sums equal paired partial sums | `complexAlternatingEtaPartialSum_two_mul` | checked by a finite-sum pairing lemma |
+| Odd/even positive `LSeries` term formulas | `alternatingEtaLSeries_term_odd`, `alternatingEtaLSeries_term_even` | checked |
+| Cofinal finite `LSeries`/paired-partial-sum identity | `alternatingEtaLSeries_partialSum_two_mul_add_one` | checked without convergence assumptions |
 | Real-variable complex power kernel | `etaCpowKernel` | defined independently |
 | Derivative of the power kernel | `hasDerivAt_etaCpowKernel` | checked at nonzero inputs |
 | Differentiability on positive inputs | `differentiableAt_etaCpowKernel_of_pos` | checked |
@@ -277,14 +280,16 @@ RH statement.
 | Even/odd subsequence combination | `tendsto_nat_of_even_odd` | checked |
 | Convergence of all natural-order complex eta partial sums when `0 < re(s)` | `complexAlternatingEtaPartialSum_tendsto` | checked |
 | Natural-order complex eta convergence when `0 < re(s)` | `complexAlternatingEtaSeries_converges_of_pos_re` | checked |
+| Natural value equals naive `LSeries` when `1 < re(s)` | `alternatingEtaNaturalValue_eq_series_of_one_lt_re` | checked by cofinal partial sums and uniqueness of limits |
+| Natural value equals periodic continuation when `1 < re(s)` | `alternatingEtaNaturalValue_eq_continuation_of_one_lt_re` | checked |
 
-The convergence results use explicit `Finset.range` partial sums and `Filter.Tendsto`. It does not
+The convergence results use explicit `Finset.range` partial sums and `Filter.Tendsto`. They do not
 mislabel conditional convergence as Mathlib's stronger order-independent `Summable` predicate.
 
-This is not yet the full classical eta theorem. Extension from positive real exponents to complex
-`s` with `0 < re(s)`, the value `log 2`, and equality with the factorized Gate 7 function
-remain explicit obligations. In particular, no critical-strip zero bridge is inferred from the new
-construction yet.
+This is not yet the full classical interoperability theorem. Equality of the independent natural
+value or periodic continuation with the factorized Gate 7 function on `0 < re(s) ≤ 1`, and the
+independent derivation of the value `log 2` at `s = 1`, remain explicit obligations. In
+particular, no critical-strip zero bridge is inferred from the new construction yet.
 
 ## Non-goals of the first milestone
 

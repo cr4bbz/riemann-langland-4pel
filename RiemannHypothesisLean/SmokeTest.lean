@@ -210,12 +210,12 @@ example {s : ℂ} (hs : 0 < s.re) :
 
 example {s : ℂ} (hs : 0 < s.re) :
     Filter.Tendsto (complexAlternatingEtaPairedPartialSum s) Filter.atTop
-      (nhds (∑' n : ℕ, complexAlternatingEtaPair s n)) :=
+      (nhds (alternatingEtaNaturalValue s)) :=
   complexAlternatingEtaPairedPartialSum_tendsto hs
 
 example {s : ℂ} (hs : 0 < s.re) :
     Filter.Tendsto (fun N => complexAlternatingEtaPartialSum s (2 * N)) Filter.atTop
-      (nhds (∑' n : ℕ, complexAlternatingEtaPair s n)) :=
+      (nhds (alternatingEtaNaturalValue s)) :=
   complexAlternatingEtaPartialSum_even_tendsto hs
 
 example {s : ℂ} (hs : 0 < s.re) :
@@ -231,16 +231,24 @@ example (s : ℂ) (N : ℕ) :
 
 example {s : ℂ} (hs : 0 < s.re) :
     Filter.Tendsto (fun N => complexAlternatingEtaPartialSum s (2 * N + 1)) Filter.atTop
-      (nhds (∑' n : ℕ, complexAlternatingEtaPair s n)) :=
+      (nhds (alternatingEtaNaturalValue s)) :=
   complexAlternatingEtaPartialSum_odd_tendsto hs
 
 example {s : ℂ} (hs : 0 < s.re) :
     Filter.Tendsto (complexAlternatingEtaPartialSum s) Filter.atTop
-      (nhds (∑' n : ℕ, complexAlternatingEtaPair s n)) :=
+      (nhds (alternatingEtaNaturalValue s)) :=
   complexAlternatingEtaPartialSum_tendsto hs
 
 example {s : ℂ} (hs : 0 < s.re) :
     ComplexAlternatingEtaSeriesConvergesAt s :=
   complexAlternatingEtaSeries_converges_of_pos_re hs
+
+example {s : ℂ} (hs : 1 < s.re) :
+    alternatingEtaNaturalValue s = alternatingDirichletEtaSeries s :=
+  alternatingEtaNaturalValue_eq_series_of_one_lt_re hs
+
+example {s : ℂ} (hs : 1 < s.re) :
+    alternatingEtaNaturalValue s = alternatingDirichletEtaContinuation s :=
+  alternatingEtaNaturalValue_eq_continuation_of_one_lt_re hs
 
 end RiemannHypothesisLean

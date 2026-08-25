@@ -95,10 +95,13 @@ absolute summability of the paired complex series. The paired partial sums and, 
 pairing identity, the even natural-order eta partial sums converge to the paired-series sum. The
 unpaired term is now checked to vanish, and the odd partial sums converge to that same value. A
 general parity lemma combines the two subsequences, so the full natural-order alternating eta
-partial sums converge for every `s` with `0 < re(s)`. The remaining missing interoperability
-edge is equality with the
-factorized `dirichletEta` have not been proved. A classical
-positivity criterion remains a separate future expansion family.
+partial sums converge for every `s` with `0 < re(s)`. Their common limit is now named through
+the absolutely summable paired series. On `1 < re(s)`, an exact finite identity compares a
+cofinal family of Mathlib `LSeries` partial sums with the paired partial sums; uniqueness of limits
+therefore identifies the natural value with both the naive `LSeries` and the independent periodic
+continuation. The remaining interoperability edge is equality with the factorized
+`dirichletEta` throughout `0 < re(s)`, especially the conditionally convergent part of the
+half-plane. A classical positivity criterion remains a separate future expansion family.
 
 ## Availability findings
 

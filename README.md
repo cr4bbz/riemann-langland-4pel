@@ -78,9 +78,11 @@ absolutely summable on that half-plane. Its paired partial sums and therefore ev
 natural-order eta partial sum now converge to the paired-series sum. The remaining unpaired term
 is checked to tend to zero, so the odd partial sums converge to the same value. Lean then combines
 the two parity subsequences and proves convergence of the full natural-order complex alternating
-eta series for every `s` with `0 < re(s)`. Identification with the factorized
-Gate 7 eta remain explicit open Gate 8
-obligations.
+eta series for every `s` with `0 < re(s)`. The paired-series limit is named
+`alternatingEtaNaturalValue`. A finite cofinal partial-sum identity then proves that this natural
+value equals Mathlib's naive `LSeries`, and hence the independent periodic continuation, whenever
+`1 < re(s)`. Equality with the factorized Gate 7 eta throughout the rest of `0 < re(s)`, and
+the independent derivation of the value at one, remain explicit open Gate 8 obligations.
 
 ## Reproducible build
 

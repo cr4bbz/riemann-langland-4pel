@@ -486,6 +486,100 @@ theorem alternatingEtaNaturalValue_eq_continuation_of_one_lt_re {s : ℂ}
     _ = alternatingDirichletEtaContinuation s :=
       (alternatingDirichletEtaContinuation_eq_series_of_one_lt_re hs).symm
 
+/-- On the absolute-convergence half-plane, the natural eta value has the classical
+factorization `(1 - 2^(1-s)) * ζ(s)`.
+
+The proof splits the absolutely summable shifted zeta series into its odd- and even-denominator
+subseries. The even-denominator sum is `2^(-s) * ζ(s)`. -/
+theorem alternatingEtaNaturalValue_eq_factor_mul_zeta_of_one_lt_re {s : ℂ}
+    (hs : 1 < s.re) :
+    alternatingEtaNaturalValue s = dirichletEtaFactor s * riemannZeta s := by
+  let a : ℕ → ℂ := fun n => (((n + 1 : ℕ) : ℂ) ^ (-s))
+  have ha₀ : Summable (fun n : ℕ => 1 / (n : ℂ) ^ s) :=
+    Complex.summable_one_div_nat_cpow.mpr hs
+  have ha : Summable a := by
+    have hshift : Summable (fun n : ℕ => 1 / ((n + 1 : ℕ) : ℂ) ^ s) := by
+      simpa only [Nat.cast_add, Nat.cast_one] using
+        (summable_nat_add_iff 1).2 ha₀
+    simpa [a, one_div, ← cpow_neg] using hshift
+  have hodd : Summable (fun n : ℕ => a (2 * n)) := by
+    exact ha.comp_injective (by
+      intro m n h
+      omega)
+  have heven : Summable (fun n : ℕ => a (2 * n + 1)) := by
+    exact ha.comp_injective (by
+      intro m n h
+      omega)
+  have hpair (n : ℕ) :
+      complexAlternatingEtaPair s n = a (2 * n) - a (2 * n + 1) := by
+    simp [a, complexAlternatingEtaPair]
+  have hzeta : (∑' n : ℕ, a n) = riemannZeta s := by
+    symm
+    simpa [a, one_div, ← cpow_neg] using
+      (zeta_eq_tsum_one_div_nat_add_one_cpow hs)
+  have hevenTerm (n : ℕ) :
+      a (2 * n + 1) = (2 : ℂ) ^ (-s) * a n := by
+    dsimp [a]
+    rw [show 2 * n + 1 + 1 = 2 * (n + 1) by omega]
+    push_cast
+    rw [mul_cpow_ofReal_nonneg] <;> positivity
+  have hevenSum :
+      (∑' n : ℕ, a (2 * n + 1)) = (2 : ℂ) ^ (-s) * riemannZeta s := by
+    calc
+      (∑' n : ℕ, a (2 * n + 1)) =
+          ∑' n : ℕ, (2 : ℂ) ^ (-s) * a n := tsum_congr hevenTerm
+      _ = (2 : ℂ) ^ (-s) * ∑' n : ℕ, a n := by rw [tsum_mul_left]
+      _ = (2 : ℂ) ^ (-s) * riemannZeta s := by rw [hzeta]
+  have hsplit :
+      (∑' n : ℕ, a n) =
+        (∑' n : ℕ, a (2 * n)) + ∑' n : ℕ, a (2 * n + 1) :=
+    (hodd.hasSum.even_add_odd heven.hasSum).tsum_eq
+  have htwo :
+      (2 : ℂ) * (2 : ℂ) ^ (-s) = (2 : ℂ) ^ (1 - s) := by
+    calc
+      (2 : ℂ) * (2 : ℂ) ^ (-s) =
+          (2 : ℂ) ^ (1 : ℂ) * (2 : ℂ) ^ (-s) := by rw [cpow_one]
+      _ = (2 : ℂ) ^ ((1 : ℂ) + (-s)) := by
+        rw [← cpow_add _ _ (by norm_num : (2 : ℂ) ≠ 0)]
+      _ = (2 : ℂ) ^ (1 - s) := by ring_nf
+  rw [alternatingEtaNaturalValue]
+  calc
+    (∑' n : ℕ, complexAlternatingEtaPair s n) =
+        ∑' n : ℕ, (a (2 * n) - a (2 * n + 1)) := tsum_congr hpair
+    _ = (∑' n : ℕ, a (2 * n)) - ∑' n : ℕ, a (2 * n + 1) :=
+      tsum_sub hodd heven
+    _ = (∑' n : ℕ, a n) - 2 * ∑' n : ℕ, a (2 * n + 1) := by
+      rw [hsplit]
+      ring
+    _ = riemannZeta s - 2 * ((2 : ℂ) ^ (-s) * riemannZeta s) := by
+      rw [hzeta, hevenSum]
+    _ = dirichletEtaFactor s * riemannZeta s := by
+      rw [← mul_assoc, htwo]
+      simp [dirichletEtaFactor]
+      ring
+
+/-- On `1 < re(s)`, the independently defined natural eta value agrees with the concrete
+factorized Gate 7 eta function. -/
+theorem alternatingEtaNaturalValue_eq_dirichletEta_of_one_lt_re {s : ℂ}
+    (hs : 1 < s.re) :
+    alternatingEtaNaturalValue s = dirichletEta s := by
+  have hne : s ≠ 1 := by
+    intro h
+    subst s
+    norm_num at hs
+  rw [dirichletEta_of_ne_one hne]
+  exact alternatingEtaNaturalValue_eq_factor_mul_zeta_of_one_lt_re hs
+
+/-- The periodic continuation and factorized eta agree on their common series domain. -/
+theorem alternatingDirichletEtaContinuation_eq_dirichletEta_of_one_lt_re {s : ℂ}
+    (hs : 1 < s.re) :
+    alternatingDirichletEtaContinuation s = dirichletEta s := by
+  calc
+    alternatingDirichletEtaContinuation s = alternatingEtaNaturalValue s :=
+      (alternatingEtaNaturalValue_eq_continuation_of_one_lt_re hs).symm
+    _ = dirichletEta s :=
+      alternatingEtaNaturalValue_eq_dirichletEta_of_one_lt_re hs
+
 end
 
 end RiemannHypothesisLean

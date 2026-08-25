@@ -1,4 +1,4 @@
-import Mathlib.NumberTheory.LSeries.RiemannZeta
+import RiemannHypothesisLean.ZeroTaxonomy
 
 /-!
 # Riemann's xi function
@@ -89,6 +89,72 @@ theorem riemannXi_eq_zero_iff_riemannZeta_eq_zero {s : ℂ}
 theorem riemannXi_one_sub_eq_zero_iff (s : ℂ) :
     riemannXi (1 - s) = 0 ↔ riemannXi s = 0 := by
   rw [riemannXi_one_sub]
+
+/-- Xi has no zeros in the closed left half-plane. Reflection would otherwise
+produce a zeta zero in Mathlib's zero-free half-plane `re(s) ≥ 1`. -/
+theorem riemannXi_ne_zero_of_re_nonpos {s : ℂ} (hsre : s.re ≤ 0) :
+    riemannXi s ≠ 0 := by
+  intro hxi
+  have hs0 : s ≠ 0 := by
+    intro hs
+    subst s
+    rw [riemannXi_zero] at hxi
+    norm_num at hxi
+  have hrefNeOne : 1 - s ≠ 1 := by
+    intro href
+    apply hs0
+    calc
+      s = 1 - (1 - s) := by ring
+      _ = 1 - 1 := by rw [href]
+      _ = 0 := by ring
+  have hrefRePos : 0 < (1 - s).re := by
+    simp only [sub_re, one_re]
+    linarith
+  have hrefXi : riemannXi (1 - s) = 0 :=
+    (riemannXi_one_sub_eq_zero_iff s).2 hxi
+  have hrefZeta : riemannZeta (1 - s) = 0 :=
+    (riemannXi_eq_zero_iff_riemannZeta_eq_zero hrefRePos hrefNeOne).1 hrefXi
+  have hrefReOne : 1 ≤ (1 - s).re := by
+    simp only [sub_re, one_re]
+    linarith
+  exact (riemannZeta_ne_zero_of_one_le_re hrefReOne) hrefZeta
+
+/-- Every xi zero has positive real part. -/
+theorem riemannXi_zero_re_pos {s : ℂ} (hs : riemannXi s = 0) :
+    0 < s.re := by
+  by_contra h
+  exact riemannXi_ne_zero_of_re_nonpos (le_of_not_gt h) hs
+
+/-- Xi zeros are exactly the project-level nontrivial zeta zeros. -/
+theorem riemannXi_eq_zero_iff_isNontrivialZero {s : ℂ} :
+    riemannXi s = 0 ↔ IsNontrivialZero s := by
+  constructor
+  · intro hxi
+    have hsre : 0 < s.re := riemannXi_zero_re_pos hxi
+    have hs1 : s ≠ 1 := by
+      intro hs
+      subst s
+      rw [riemannXi_one] at hxi
+      norm_num at hxi
+    refine ⟨(riemannXi_eq_zero_iff_riemannZeta_eq_zero hsre hs1).1 hxi, ?_, hs1⟩
+    rintro ⟨n, rfl⟩
+    norm_num at hsre
+  · intro hs
+    exact (riemannXi_eq_zero_iff_riemannZeta_eq_zero hs.re_pos hs.ne_one).2
+      hs.riemannZeta_eq_zero
+
+/-- The xi-zero formulation of the Riemann hypothesis. -/
+def XiCriticalLineCriterion : Prop :=
+  ∀ s : ℂ, riemannXi s = 0 → OnCriticalLine s
+
+/-- The xi-zero criterion is exactly equivalent to the project RH statement. -/
+theorem statement_iff_xiCriticalLineCriterion :
+    Statement ↔ XiCriticalLineCriterion := by
+  constructor
+  · intro h s hs
+    exact h s (riemannXi_eq_zero_iff_isNontrivialZero.mp hs)
+  · intro h s hs
+    exact h s (riemannXi_eq_zero_iff_isNontrivialZero.mpr hs)
 
 end
 

@@ -5,6 +5,7 @@ import Mathlib.Analysis.Normed.Module.Connected
 import Mathlib.Analysis.SpecialFunctions.Pow.Deriv
 import Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics
 import Mathlib.Analysis.SpecificLimits.Normed
+import Mathlib.NumberTheory.Harmonic.EulerMascheroni
 import Mathlib.NumberTheory.LSeries.ZMod
 import RiemannHypothesisLean.DirichletEta
 
@@ -139,6 +140,44 @@ theorem realAlternatingEtaSeries_converges_of_pos {x : ℝ} (hx : 0 < x) :
   · exact (tendsto_rpow_neg_atTop hx).comp (by
       apply tendsto_atTop_add_const_right
       exact tendsto_natCast_atTop_atTop)
+
+
+/-- The difference `H_(2N) - H_N` tends to `log 2`.
+
+This is the asymptotic identity underlying the value of the natural alternating harmonic
+series. It is derived independently from the eta continuation, using Mathlib's checked limit
+`H_N - log N → γ`. -/
+theorem tendsto_harmonic_two_mul_sub_harmonic :
+    Filter.Tendsto
+      (fun N : ℕ => (harmonic (2 * N) : ℝ) - (harmonic N : ℝ))
+      Filter.atTop (nhds (Real.log 2)) := by
+  have hindex :
+      Filter.Tendsto (fun N : ℕ => 2 * N) Filter.atTop Filter.atTop := by
+    refine tendsto_atTop.2 fun b => ?_
+    filter_upwards [eventually_ge_atTop b] with N hN
+    omega
+  have hdiff :=
+    (Real.tendsto_harmonic_sub_log.comp hindex).sub
+      Real.tendsto_harmonic_sub_log
+  have hsum :
+      Filter.Tendsto
+        (fun N : ℕ =>
+          (((harmonic (2 * N) : ℝ) - Real.log (2 * N)) -
+            ((harmonic N : ℝ) - Real.log N)) + Real.log 2)
+        Filter.atTop (nhds (Real.log 2)) := by
+    simpa using hdiff.add
+      (tendsto_const_nhds :
+        Filter.Tendsto (fun _ : ℕ => Real.log 2) Filter.atTop
+          (nhds (Real.log 2)))
+  refine hsum.congr' ?_
+  filter_upwards [eventually_gt_atTop 0] with N hN
+  have hlog :
+      Real.log ((2 * N : ℕ) : ℝ) - Real.log (N : ℝ) = Real.log 2 := by
+    rw [← Real.log_div (by positivity) (by positivity)]
+    congr 1
+    push_cast
+    field_simp
+  linarith
 
 
 /-- The first `N` natural-order partial sums of the classical complex eta series. -/

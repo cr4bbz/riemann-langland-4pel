@@ -89,8 +89,11 @@ computes the derivative of the eta factor at one, combines its slope limit with 
 `log 2`. Thus the two analytic eta constructions now agree globally. Independently, the checked asymptotic
 `H_N-log N → γ` and the exact finite identity for even eta partial sums prove that the natural
 alternating harmonic series has value `log 2`; it therefore agrees with the continuation at
-`s = 1`. What remains open is the series-level equality of the conditionally convergent natural
-value with that continuation on `0 < re(s) ≤ 1` away from `s = 1`.
+`s = 1`. Local uniform p-series majorants also prove that `alternatingEtaNaturalValue` is
+holomorphic on `0 < re(s)`. The identity theorem on this connected half-plane propagates the
+already checked equality from `1 < re(s)`, so the natural-order series value, the independent
+periodic continuation, and Gate 7 `dirichletEta` now agree throughout `0 < re(s)`, including
+the conditionally convergent range.
 
 ## Reproducible build
 

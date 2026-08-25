@@ -261,12 +261,12 @@ theorem norm_complexAlternatingEtaPair_le {s : ℂ} (hs : 0 < s.re) (n : ℕ) :
     rw [(hasDerivAt_etaCpowKernel (s := s) hs0 htpos.ne').deriv,
       norm_etaCpowKernel_derivative s htpos]
     apply mul_le_mul_of_nonneg_left _ (norm_nonneg s)
-    exact Real.rpow_le_rpow_of_nonpos ha.le ht.1 (by linarith)
+    exact Real.rpow_le_rpow_of_nonpos ha ht.1 (by linarith)
   have hmv :
       ‖etaCpowKernel s a - etaCpowKernel s b‖ ≤
         (‖s‖ * a ^ (-s.re - 1)) * ‖a - b‖ :=
     (convex_Icc a b).norm_image_sub_le_of_norm_deriv_le hdiff hbound
-      (right_mem_Icc.mpr hab) (left_mem_Icc.mpr hab)
+      ⟨hab, le_rfl⟩ ⟨le_rfl, hab⟩
   have hstep : ‖a - b‖ = 1 := by
     have : a - b = -1 := by
       dsimp [a, b]

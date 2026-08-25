@@ -311,6 +311,31 @@ convergent series/continuation bridge throughout that half-plane. This is a full
 series-interoperability result on the natural convergence domain; it does not by itself prove a
 new zero-free statement or the Riemann hypothesis.
 
+## Gate 9: Riemann xi foundation
+
+`RiemannHypothesisLean.RiemannXi` constructs the entire function needed for Li-type positivity
+criteria directly from pinned Mathlib's completed-zeta infrastructure:
+
+| Claim | Lean declaration | Status |
+|---|---|---|
+| Entire Riemann xi function | `riemannXi` | defined from `completedRiemannZeta₀` |
+| Xi is entire | `differentiable_riemannXi` | checked |
+| Functional symmetry `ξ(1-s)=ξ(s)` | `riemannXi_one_sub` | checked |
+| Values `ξ(0)=ξ(1)=1/2` | `riemannXi_zero`, `riemannXi_one` | checked |
+| Classical completed-zeta product away from zero and one | `riemannXi_eq_completedRiemannZeta` | checked |
+| Xi/completed-zeta zero equivalence away from zero and one | `riemannXi_eq_zero_iff_completedRiemannZeta_eq_zero` | checked |
+| Xi/zeta zero equivalence on `0 < re(s)`, `s ≠ 1` | `riemannXi_eq_zero_iff_riemannZeta_eq_zero` | checked |
+| No xi zeros when `re(s) ≤ 0` | `riemannXi_ne_zero_of_re_nonpos` | checked using reflection and zeta nonvanishing |
+| Positive real part of every xi zero | `riemannXi_zero_re_pos` | checked |
+| Xi zeros equal project nontrivial zeta zeros | `riemannXi_eq_zero_iff_isNontrivialZero` | checked |
+| Xi critical-line criterion | `XiCriticalLineCriterion` | defined |
+| Project RH statement equals xi criterion | `statement_iff_xiCriticalLineCriterion` | checked |
+
+The pinned dependency does not provide Li coefficients or Li's criterion. Consequently, no
+positivity/RH equivalence is imported or postulated. Gate 9 must next construct the coefficients
+using iterated derivatives near `s = 1`, prove their reality, and only then address the classical
+nonnegativity equivalence.
+
 ## Non-goals of the first milestone
 
 - treating numerical verification as a universal proof;

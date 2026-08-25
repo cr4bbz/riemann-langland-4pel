@@ -260,6 +260,8 @@ RH statement.
 | Complex natural-order partial sums | `complexAlternatingEtaPartialSum` | explicitly defined |
 | Real-axis agreement of complex and real partial sums | `complexAlternatingEtaPartialSum_ofReal` | checked termwise through `Complex.ofReal_cpow` |
 | Complex-codomain convergence on the positive real axis | `complexAlternatingEtaSeries_converges_of_pos_real` | checked by continuous embedding |
+| Paired complex eta term | `complexAlternatingEtaPair` | explicitly defined |
+| Even partial sums equal paired partial sums | `complexAlternatingEtaPartialSum_two_mul` | checked by a finite-sum pairing lemma |
 
 The convergence results use explicit `Finset.range` partial sums and `Filter.Tendsto`. It does not
 mislabel conditional convergence as Mathlib's stronger order-independent `Summable` predicate.

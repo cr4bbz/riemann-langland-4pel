@@ -108,6 +108,9 @@ of either equivalent RH formulation.
 - [x] Prove their sequential convergence for every positive real exponent.
 - [x] Define the complex natural-order partial sums.
 - [x] Prove real-axis agreement and transfer positive-real convergence to the complex codomain.
+- [x] Define paired complex eta terms.
+- [x] Prove every even natural-order partial sum equals the corresponding paired partial sum.
+- [ ] Prove a summable norm bound for the paired terms when `0 < re(s)`.
 - [ ] Extend partial-sum convergence to arbitrary complex `s` with `0 < re(s)`.
 - [ ] Identify the independent continuation with the factorized `dirichletEta`.
 - [ ] Derive the value `log 2` at `s = 1` from the independent construction.

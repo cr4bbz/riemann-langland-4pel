@@ -86,8 +86,10 @@ the naive `LSeries`, and its `ZMod.LFunction` continuation are formalized, and t
 checked on `1 < re(s)`. The coefficient mean is proved zero, so the independent continuation is
 entire. Explicit natural-order real partial sums now converge for every real exponent `x > 0`.
 The complex partial sums are defined independently and agree with those real sums on the embedded
-real axis. This does not yet draw the missing full complex edge: partial-sum convergence for all
-`0 < re(s)` and equality with the factorized `dirichletEta` have not been proved. A classical
+real axis. Even complex partial sums are now exactly rewritten as finite sums of the pairs
+`(2n+1)^(-s) - (2n+2)^(-s)`. This does not yet draw the missing full complex edge: a summable
+norm estimate for those pairs, partial-sum convergence for all `0 < re(s)`, and equality with the
+factorized `dirichletEta` have not been proved. A classical
 positivity criterion remains a separate future expansion family.
 
 ## Availability findings

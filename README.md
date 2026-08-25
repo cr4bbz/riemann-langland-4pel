@@ -95,6 +95,17 @@ already checked equality from `1 < re(s)`, so the natural-order series value, th
 periodic continuation, and Gate 7 `dirichletEta` now agree throughout `0 < re(s)`, including
 the conditionally convergent range.
 
+Gate 9 begins the positivity-criterion route with the analytic object it actually requires.
+Pinned Mathlib provides completed zeta but not Riemann's xi function or Li's criterion, so the
+project constructs `riemannXi` from the entire pole-subtracted `completedRiemannZeta₀`. Lean
+checks that xi is entire, satisfies `ξ(1-s)=ξ(s)`, has values `ξ(0)=ξ(1)=1/2`, and agrees
+away from those removable points with `(1/2)s(s-1)Λ(s)`. Reflection and Mathlib's zeta
+nonvanishing theorem exclude xi zeros from the closed left half-plane. The remaining zero bridges
+then prove that xi zeros are exactly the project's nontrivial zeta zeros, yielding the checked
+equivalence `Statement ↔ XiCriticalLineCriterion`. This establishes the correct target for a
+future Li-positivity theorem; Li coefficients and their nonnegativity equivalence are not yet
+formalized or assumed.
+
 ## Reproducible build
 
 The project pins Lean and Mathlib to `v4.30.0`.
@@ -119,6 +130,7 @@ completes successfully, the project has instead built its dependencies from sour
 - `RiemannHypothesisLean/BridgeAudit.lean`: typed formulation nodes and exact translation edges.
 - `RiemannHypothesisLean/DirichletEta.lean`: concrete eta/zeta zero compatibility and RH bridge.
 - `RiemannHypothesisLean/AlternatingEta.lean`: independent period-two eta series foundation.
+- `RiemannHypothesisLean/RiemannXi.lean`: entire xi function and exact nontrivial-zero bridge.
 - `RiemannHypothesisLean/FourPELFeasibility.lean`: bilateral support and falsifiable novelty test.
 - `RiemannHypothesisLean/SmokeTest.lean`: compilation-level interface checks.
 - `FORMALIZATION.md`: the exact formal boundary and dependency audit.

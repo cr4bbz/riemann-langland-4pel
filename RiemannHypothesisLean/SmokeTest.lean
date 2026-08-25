@@ -315,4 +315,25 @@ example {s : ℂ} (hs : s ≠ 1) :
     alternatingDirichletEtaContinuation s = dirichletEta s :=
   alternatingDirichletEtaContinuation_eq_dirichletEta_of_ne_one hs
 
+example :
+    Differentiable ℂ riemannXi :=
+  differentiable_riemannXi
+
+example (s : ℂ) :
+    riemannXi (1 - s) = riemannXi s :=
+  riemannXi_one_sub s
+
+example {s : ℂ} (hs0 : s ≠ 0) (hs1 : s ≠ 1) :
+    riemannXi s =
+      (1 / 2 : ℂ) * s * (s - 1) * completedRiemannZeta s :=
+  riemannXi_eq_completedRiemannZeta hs0 hs1
+
+example {s : ℂ} :
+    riemannXi s = 0 ↔ IsNontrivialZero s :=
+  riemannXi_eq_zero_iff_isNontrivialZero
+
+example :
+    Statement ↔ XiCriticalLineCriterion :=
+  statement_iff_xiCriticalLineCriterion
+
 end RiemannHypothesisLean

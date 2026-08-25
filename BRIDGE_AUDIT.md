@@ -107,9 +107,12 @@ product limit `log 2`; continuity of the entire periodic continuation closes the
 The independent periodic continuation is therefore globally equal to Gate 7 `dirichletEta`.
 Harmonic-number asymptotics and an exact finite partial-sum identity also prove independently that
 the natural alternating harmonic series has value `log 2`, closing the series/continuation edge at
-one. The remaining series-level edge is equality of the conditionally convergent natural value
-with that continuation on `0 < re(s) ≤ 1` away from one. A classical positivity criterion
-remains a separate future expansion family.
+one. Local uniform p-series majorants prove holomorphy of the paired-series value on
+`0 < re(s)`. Since it already equals the periodic continuation on the open subdomain
+`1 < re(s)`, the identity theorem on the connected right half-plane closes the remaining
+conditionally convergent series/continuation edge. Thus the natural value, the independent
+periodic continuation, and Gate 7 `dirichletEta` agree throughout `0 < re(s)`. A classical
+positivity criterion remains a separate future expansion family.
 
 ## Availability findings
 

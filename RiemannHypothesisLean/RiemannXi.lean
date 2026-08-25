@@ -139,6 +139,8 @@ theorem riemannXi_eq_zero_iff_isNontrivialZero {s : ℂ} :
     refine ⟨(riemannXi_eq_zero_iff_riemannZeta_eq_zero hsre hs1).1 hxi, ?_, hs1⟩
     rintro ⟨n, rfl⟩
     norm_num at hsre
+    have hnonneg : (0 : ℝ) ≤ 2 * ((n : ℝ) + 1) := by positivity
+    linarith
   · intro hs
     exact (riemannXi_eq_zero_iff_riemannZeta_eq_zero hs.re_pos hs.ne_one).2
       hs.riemannZeta_eq_zero

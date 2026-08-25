@@ -1,5 +1,7 @@
 import Mathlib.Analysis.Calculus.MeanValue
 import Mathlib.Analysis.PSeries
+import Mathlib.Analysis.Normed.Module.Connected
+import Mathlib.Analysis.SpecialFunctions.Pow.Deriv
 import Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics
 import Mathlib.Analysis.SpecificLimits.Normed
 import Mathlib.NumberTheory.LSeries.ZMod
@@ -581,6 +583,58 @@ theorem alternatingDirichletEtaContinuation_eq_dirichletEta_of_one_lt_re {s : �
       (alternatingEtaNaturalValue_eq_continuation_of_one_lt_re hs).symm
     _ = dirichletEta s :=
       alternatingEtaNaturalValue_eq_dirichletEta_of_one_lt_re hs
+
+/-- Away from the removable point `s = 1`, the independent periodic continuation equals the
+classical zeta-factor expression.
+
+The equality is propagated from `1 < re(s)` by the identity theorem on the connected domain
+`ℂ \ {1}`. -/
+theorem alternatingDirichletEtaContinuation_eq_factor_mul_zeta_of_ne_one {s : ℂ}
+    (hs : s ≠ 1) :
+    alternatingDirichletEtaContinuation s =
+      dirichletEtaFactor s * riemannZeta s := by
+  let U : Set ℂ := ({1}ᶜ : Set ℂ)
+  have hfactor : Differentiable ℂ dirichletEtaFactor := by
+    unfold dirichletEtaFactor
+    fun_prop
+  have hfAnalytic :
+      AnalyticOnNhd ℂ alternatingDirichletEtaContinuation U :=
+    DifferentiableOn.analyticOnNhd
+      differentiable_alternatingDirichletEtaContinuation.differentiableOn
+      isOpen_compl_singleton
+  have hgAnalytic :
+      AnalyticOnNhd ℂ (fun z =>
+        dirichletEtaFactor z * riemannZeta z) U :=
+    DifferentiableOn.analyticOnNhd
+      (fun z hz =>
+        ((hfactor z).mul (differentiableAt_riemannZeta hz)).differentiableWithinAt)
+      isOpen_compl_singleton
+  have hseries (z : ℂ) (hz : 1 < z.re) :
+      alternatingDirichletEtaContinuation z =
+        dirichletEtaFactor z * riemannZeta z :=
+    alternatingDirichletEtaContinuation_eq_dirichletEta_of_one_lt_re hz
+      |>.trans (dirichletEta_of_ne_one (by
+        intro h
+        subst z
+        norm_num at hz))
+  have heq :
+      Set.EqOn alternatingDirichletEtaContinuation
+        (fun z => dirichletEtaFactor z * riemannZeta z) U :=
+    hfAnalytic.eqOn_of_preconnected_of_eventuallyEq hgAnalytic
+      (isConnected_compl_singleton_of_one_lt_rank (by simp) (1 : ℂ)).isPreconnected
+      (by norm_num : (2 : ℂ) ∈ U)
+      (eventuallyEq_of_mem
+        ((isOpen_lt continuous_const continuous_re).mem_nhds (by norm_num))
+        hseries)
+  exact heq hs
+
+/-- The independent periodic continuation agrees with the factorized Gate 7 eta function at
+every point except the separately assigned removable value `s = 1`. -/
+theorem alternatingDirichletEtaContinuation_eq_dirichletEta_of_ne_one {s : ℂ}
+    (hs : s ≠ 1) :
+    alternatingDirichletEtaContinuation s = dirichletEta s := by
+  rw [dirichletEta_of_ne_one hs]
+  exact alternatingDirichletEtaContinuation_eq_factor_mul_zeta_of_ne_one hs
 
 end
 

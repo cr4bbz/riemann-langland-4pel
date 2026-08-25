@@ -269,6 +269,8 @@ RH statement.
 | Pointwise norm bound for paired eta terms when `0 < re(s)` | `norm_complexAlternatingEtaPair_le` | checked by the mean-value inequality |
 | Summability of paired-term norms when `0 < re(s)` | `summable_norm_complexAlternatingEtaPair` | checked by p-series comparison |
 | Absolute summability of the paired series when `0 < re(s)` | `summable_complexAlternatingEtaPair` | checked |
+| Convergence of paired partial sums when `0 < re(s)` | `complexAlternatingEtaPairedPartialSum_tendsto` | checked |
+| Convergence of even eta partial sums when `0 < re(s)` | `complexAlternatingEtaPartialSum_even_tendsto` | checked through finite pairing |
 
 The convergence results use explicit `Finset.range` partial sums and `Filter.Tendsto`. It does not
 mislabel conditional convergence as Mathlib's stronger order-independent `Summable` predicate.

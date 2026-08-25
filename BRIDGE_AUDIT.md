@@ -91,8 +91,10 @@ real axis. Even complex partial sums are now exactly rewritten as finite sums of
 exact derivative norm on positive inputs are also checked. The mean-value inequality now supplies
 the pointwise estimate `‖pair(s,n)‖ ≤ ‖s‖(2n+1)^(-re(s)-1)` for `0 < re(s)`.
 Comparison with the odd-index subsequence of a p-series now proves summability of these norms and
-absolute summability of the paired complex series. This does not yet draw the missing full complex
-edge: convergence of all natural-order partial sums for `0 < re(s)` and equality with the
+absolute summability of the paired complex series. The paired partial sums and, by the exact finite
+pairing identity, the even natural-order eta partial sums converge to the paired-series sum. This
+does not yet draw the missing full complex edge: the final unpaired term must still be shown to
+vanish before convergence of all natural-order partial sums for `0 < re(s)`; equality with the
 factorized `dirichletEta` have not been proved. A classical
 positivity criterion remains a separate future expansion family.
 

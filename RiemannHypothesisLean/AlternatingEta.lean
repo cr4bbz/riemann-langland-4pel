@@ -304,6 +304,24 @@ theorem summable_complexAlternatingEtaPair {s : ℂ} (hs : 0 < s.re) :
   rw [← summable_norm_iff]
   exact summable_norm_complexAlternatingEtaPair hs
 
+/-- The paired eta partial sums converge to the sum of the absolutely summable paired series. -/
+theorem complexAlternatingEtaPairedPartialSum_tendsto {s : ℂ} (hs : 0 < s.re) :
+    Filter.Tendsto (complexAlternatingEtaPairedPartialSum s) Filter.atTop
+      (nhds (∑' n : ℕ, complexAlternatingEtaPair s n)) := by
+  simpa [complexAlternatingEtaPairedPartialSum] using
+    (summable_complexAlternatingEtaPair hs).hasSum.tendsto_sum_nat
+
+/-- The even natural-order eta partial sums converge throughout `0 < re(s)`.
+
+This theorem uses only the exact finite pairing identity and convergence of the paired series; it
+does not yet claim convergence of the odd-indexed partial sums. -/
+theorem complexAlternatingEtaPartialSum_even_tendsto {s : ℂ} (hs : 0 < s.re) :
+    Filter.Tendsto (fun N => complexAlternatingEtaPartialSum s (2 * N)) Filter.atTop
+      (nhds (∑' n : ℕ, complexAlternatingEtaPair s n)) := by
+  refine (complexAlternatingEtaPairedPartialSum_tendsto hs).congr' ?_
+  exact Filter.Eventually.of_forall fun N =>
+    (complexAlternatingEtaPartialSum_two_mul s N).symm
+
 end
 
 end RiemannHypothesisLean

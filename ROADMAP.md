@@ -113,7 +113,9 @@ of either equivalent RH formulation.
 - [x] Define the real-variable complex power kernel used for paired-term estimates.
 - [x] Prove its derivative and exact derivative norm on positive real inputs.
 - [x] Prove the pointwise mean-value bound for each paired term when `0 < re(s)`.
-- [x] Prove a summable norm bound for the paired terms when `0 < re(s)`. for the paired terms when `0 < re(s)`.
+- [x] Prove a summable norm bound for the paired terms when `0 < re(s)`.
+- [x] Prove convergence of the paired and even natural-order partial sums.
+- [ ] Prove the unpaired final term tends to zero.
 - [ ] Extend partial-sum convergence to arbitrary complex `s` with `0 < re(s)`.
 - [ ] Identify the independent continuation with the factorized `dirichletEta`.
 - [ ] Derive the value `log 2` at `s = 1` from the independent construction.

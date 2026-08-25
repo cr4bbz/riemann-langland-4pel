@@ -208,4 +208,14 @@ example {s : ℂ} (hs : 0 < s.re) :
     Summable (complexAlternatingEtaPair s) :=
   summable_complexAlternatingEtaPair hs
 
+example {s : ℂ} (hs : 0 < s.re) :
+    Filter.Tendsto (complexAlternatingEtaPairedPartialSum s) Filter.atTop
+      (nhds (∑' n : ℕ, complexAlternatingEtaPair s n)) :=
+  complexAlternatingEtaPairedPartialSum_tendsto hs
+
+example {s : ℂ} (hs : 0 < s.re) :
+    Filter.Tendsto (fun N => complexAlternatingEtaPartialSum s (2 * N)) Filter.atTop
+      (nhds (∑' n : ℕ, complexAlternatingEtaPair s n)) :=
+  complexAlternatingEtaPartialSum_even_tendsto hs
+
 end RiemannHypothesisLean

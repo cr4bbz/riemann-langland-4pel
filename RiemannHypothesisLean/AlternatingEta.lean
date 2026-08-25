@@ -329,10 +329,12 @@ theorem complexAlternatingEtaOddRemainder_tendsto_zero {s : ℂ} (hs : 0 < s.re)
   rw [tendsto_zero_iff_norm_tendsto_zero]
   have hbase :
       Filter.Tendsto (fun N : ℕ => ((2 * N + 1 : ℕ) : ℝ)) Filter.atTop Filter.atTop := by
-    change Filter.Tendsto (fun N : ℕ => (2 : ℝ) * (N : ℝ) + 1)
-      Filter.atTop Filter.atTop
-    apply tendsto_atTop_add_const_right
-    exact tendsto_natCast_atTop_atTop.const_mul_atTop zero_lt_two
+    have h :
+        Filter.Tendsto (fun N : ℕ => (2 : ℝ) * (N : ℝ) + 1)
+          Filter.atTop Filter.atTop := by
+      apply tendsto_atTop_add_const_right
+      exact tendsto_natCast_atTop_atTop.const_mul_atTop zero_lt_two
+    simpa using h
   convert (tendsto_rpow_neg_atTop hs).comp hbase using 1
   ext N
   rw [Complex.norm_natCast_cpow_of_pos (by omega)]

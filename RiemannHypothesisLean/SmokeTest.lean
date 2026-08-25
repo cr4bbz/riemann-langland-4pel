@@ -251,4 +251,21 @@ example {s : ℂ} (hs : 1 < s.re) :
     alternatingEtaNaturalValue s = alternatingDirichletEtaContinuation s :=
   alternatingEtaNaturalValue_eq_continuation_of_one_lt_re hs
 
+example {s : ℂ} (hs : 1 < s.re) :
+    alternatingEtaNaturalValue s = dirichletEtaFactor s * riemannZeta s :=
+  alternatingEtaNaturalValue_eq_factor_mul_zeta_of_one_lt_re hs
+
+example {s : ℂ} (hs : 1 < s.re) :
+    alternatingEtaNaturalValue s = dirichletEta s :=
+  alternatingEtaNaturalValue_eq_dirichletEta_of_one_lt_re hs
+
+example {s : ℂ} (hs : s ≠ 1) :
+    alternatingDirichletEtaContinuation s =
+      dirichletEtaFactor s * riemannZeta s :=
+  alternatingDirichletEtaContinuation_eq_factor_mul_zeta_of_ne_one hs
+
+example {s : ℂ} (hs : s ≠ 1) :
+    alternatingDirichletEtaContinuation s = dirichletEta s :=
+  alternatingDirichletEtaContinuation_eq_dirichletEta_of_ne_one hs
+
 end RiemannHypothesisLean

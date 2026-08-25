@@ -122,8 +122,12 @@ of either equivalent RH formulation.
 - [x] Name the natural-order value through the absolutely summable paired series.
 - [x] Prove a cofinal finite partial-sum identity with Mathlib's `LSeries`.
 - [x] Identify the natural value with the naive `LSeries` and periodic continuation on `1 < re(s)`.
-- [ ] Identify the independent continuation with the factorized `dirichletEta` throughout `0 < re(s)`.
+- [x] Prove the classical factorization of the natural value on `1 < re(s)`.
+- [x] Continue equality of the independent periodic continuation and factorized `dirichletEta` to every `s ≠ 1`.
+- [ ] Identify the conditionally convergent natural value with the periodic continuation on `0 < re(s) ≤ 1`.
 - [ ] Derive the value `log 2` at `s = 1` from the independent construction.
 
-The completed items establish a genuinely independent construction on the safe convergence domain.
-They do not yet identify its values with Gate 7 inside the critical strip.
+The independent periodic continuation is now identified with Gate 7 throughout the open critical
+strip, since every such point differs from one. The remaining series-level gap is subtler: the
+natural-order value has not yet been identified with that continuation in the conditionally
+convergent part of the right half-plane.

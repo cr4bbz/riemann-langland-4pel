@@ -99,9 +99,13 @@ partial sums converge for every `s` with `0 < re(s)`. Their common limit is now 
 the absolutely summable paired series. On `1 < re(s)`, an exact finite identity compares a
 cofinal family of Mathlib `LSeries` partial sums with the paired partial sums; uniqueness of limits
 therefore identifies the natural value with both the naive `LSeries` and the independent periodic
-continuation. The remaining interoperability edge is equality with the factorized
-`dirichletEta` throughout `0 < re(s)`, especially the conditionally convergent part of the
-half-plane. A classical positivity criterion remains a separate future expansion family.
+continuation. Splitting the absolutely summable shifted zeta series into odd and even denominators
+also proves the classical factorization on that half-plane. The identity theorem on
+`ℂ \\ {1}` then identifies the independent periodic continuation with the factorized
+`dirichletEta` at every point except one, hence throughout the open critical strip. The remaining
+series-level edge is equality of the conditionally convergent natural value with that continuation
+on `0 < re(s) ≤ 1`; the removable value at one is also still to be derived independently. A
+classical positivity criterion remains a separate future expansion family.
 
 ## Availability findings
 

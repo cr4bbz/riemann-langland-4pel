@@ -21,8 +21,11 @@ these constructions on the half-plane of absolute convergence `1 < re s`.
 The natural-order alternating series is proved to converge for every `0 < re s`, with its
 value named through the absolutely summable paired series. On `1 < re s`, a finite partial-sum
 comparison identifies that value with both the naive `LSeries` and the periodic continuation.
-Identification with the factorized `dirichletEta` on the remaining right half-plane is kept as
-a subsequent Gate 8 obligation.
+The same series calculation gives the classical zeta factorization on `1 < re s`; the identity
+theorem then identifies the independent periodic continuation with the factorized
+`dirichletEta` at every `s ≠ 1`. Identifying the conditionally convergent natural value with
+that continuation, and closing the separately assigned value at `s = 1`, remain explicit
+Gate 8 obligations.
 -/
 
 open Complex Filter

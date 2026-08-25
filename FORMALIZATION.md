@@ -282,14 +282,19 @@ RH statement.
 | Natural-order complex eta convergence when `0 < re(s)` | `complexAlternatingEtaSeries_converges_of_pos_re` | checked |
 | Natural value equals naive `LSeries` when `1 < re(s)` | `alternatingEtaNaturalValue_eq_series_of_one_lt_re` | checked by cofinal partial sums and uniqueness of limits |
 | Natural value equals periodic continuation when `1 < re(s)` | `alternatingEtaNaturalValue_eq_continuation_of_one_lt_re` | checked |
+| Natural value has the factorization `(1-2^(1-s))ζ(s)` when `1 < re(s)` | `alternatingEtaNaturalValue_eq_factor_mul_zeta_of_one_lt_re` | checked by odd/even splitting of the absolutely summable zeta series |
+| Natural value equals Gate 7 `dirichletEta` when `1 < re(s)` | `alternatingEtaNaturalValue_eq_dirichletEta_of_one_lt_re` | checked |
+| Periodic continuation equals the zeta-factor expression for `s ≠ 1` | `alternatingDirichletEtaContinuation_eq_factor_mul_zeta_of_ne_one` | checked by analytic continuation on `ℂ \\ {1}` |
+| Periodic continuation equals Gate 7 `dirichletEta` for `s ≠ 1` | `alternatingDirichletEtaContinuation_eq_dirichletEta_of_ne_one` | checked |
 
 The convergence results use explicit `Finset.range` partial sums and `Filter.Tendsto`. They do not
 mislabel conditional convergence as Mathlib's stronger order-independent `Summable` predicate.
 
-This is not yet the full classical interoperability theorem. Equality of the independent natural
-value or periodic continuation with the factorized Gate 7 function on `0 < re(s) ≤ 1`, and the
+This is not yet the full classical series-interoperability theorem. The periodic continuation is
+now identified with the factorized Gate 7 function everywhere except `s = 1`. Equality of the
+conditionally convergent natural value with that continuation on `0 < re(s) ≤ 1`, and the
 independent derivation of the value `log 2` at `s = 1`, remain explicit obligations. In
-particular, no critical-strip zero bridge is inferred from the new construction yet.
+particular, no critical-strip zero bridge is inferred from the natural-series construction yet.
 
 ## Non-goals of the first milestone
 

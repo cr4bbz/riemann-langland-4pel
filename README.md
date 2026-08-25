@@ -81,8 +81,11 @@ the two parity subsequences and proves convergence of the full natural-order com
 eta series for every `s` with `0 < re(s)`. The paired-series limit is named
 `alternatingEtaNaturalValue`. A finite cofinal partial-sum identity then proves that this natural
 value equals Mathlib's naive `LSeries`, and hence the independent periodic continuation, whenever
-`1 < re(s)`. Equality with the factorized Gate 7 eta throughout the rest of `0 < re(s)`, and
-the independent derivation of the value at one, remain explicit open Gate 8 obligations.
+`1 < re(s)`. On that domain Lean also proves the classical factorization
+`(1-2^(1-s))·ζ(s)`. The identity theorem on the connected punctured plane then identifies the
+independent periodic continuation with the factorized Gate 7 eta for every `s ≠ 1`. What remains
+open is the equality of the conditionally convergent natural value with that continuation on
+`0 < re(s) ≤ 1`, plus the independent derivation of the common value `log 2` at `s = 1`.
 
 ## Reproducible build
 

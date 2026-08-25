@@ -93,9 +93,10 @@ the pointwise estimate `‖pair(s,n)‖ ≤ ‖s‖(2n+1)^(-re(s)-1)` for `0 < r
 Comparison with the odd-index subsequence of a p-series now proves summability of these norms and
 absolute summability of the paired complex series. The paired partial sums and, by the exact finite
 pairing identity, the even natural-order eta partial sums converge to the paired-series sum. The
-unpaired term is now checked to vanish, and the odd partial sums converge to that same value. This
-does not yet draw the missing full complex edge: the two parity subsequences must still be combined
-into convergence of all natural-order partial sums for `0 < re(s)`; equality with the
+unpaired term is now checked to vanish, and the odd partial sums converge to that same value. A
+general parity lemma combines the two subsequences, so the full natural-order alternating eta
+partial sums converge for every `s` with `0 < re(s)`. The remaining missing interoperability
+edge is equality with the
 factorized `dirichletEta` have not been proved. A classical
 positivity criterion remains a separate future expansion family.
 

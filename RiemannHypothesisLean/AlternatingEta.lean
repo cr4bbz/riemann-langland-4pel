@@ -360,6 +360,37 @@ theorem complexAlternatingEtaPartialSum_odd_tendsto {s : ℂ} (hs : 0 < s.re) :
   simpa only [add_zero] using h.congr' (Filter.Eventually.of_forall fun N =>
     (complexAlternatingEtaPartialSum_two_mul_add_one s N).symm)
 
+/-- If the even and odd subsequences of a sequence have the same limit, then the full natural
+sequence has that limit. -/
+theorem tendsto_nat_of_even_odd {α : Type*} [PseudoMetricSpace α] {f : ℕ → α} {a : α}
+    (heven : Filter.Tendsto (fun N => f (2 * N)) Filter.atTop (nhds a))
+    (hodd : Filter.Tendsto (fun N => f (2 * N + 1)) Filter.atTop (nhds a)) :
+    Filter.Tendsto f Filter.atTop (nhds a) := by
+  rw [Metric.tendsto_atTop] at heven hodd ⊢
+  intro ε hε
+  obtain ⟨Ne, hNe⟩ := heven ε hε
+  obtain ⟨No, hNo⟩ := hodd ε hε
+  refine ⟨2 * max Ne No, ?_⟩
+  intro n hn
+  rcases Nat.even_or_odd n with ⟨k, rfl⟩ | ⟨k, rfl⟩
+  · simpa [two_mul] using hNe k (by omega)
+  · simpa [two_mul] using hNo k (by omega)
+
+/-- All natural-order complex eta partial sums converge throughout `0 < re(s)`. -/
+theorem complexAlternatingEtaPartialSum_tendsto {s : ℂ} (hs : 0 < s.re) :
+    Filter.Tendsto (complexAlternatingEtaPartialSum s) Filter.atTop
+      (nhds (∑' n : ℕ, complexAlternatingEtaPair s n)) :=
+  tendsto_nat_of_even_odd
+    (complexAlternatingEtaPartialSum_even_tendsto hs)
+    (complexAlternatingEtaPartialSum_odd_tendsto hs)
+
+/-- The classical complex alternating eta series converges in its natural order for every
+`s` with positive real part. -/
+theorem complexAlternatingEtaSeries_converges_of_pos_re {s : ℂ} (hs : 0 < s.re) :
+    ComplexAlternatingEtaSeriesConvergesAt s :=
+  ⟨∑' n : ℕ, complexAlternatingEtaPair s n,
+    complexAlternatingEtaPartialSum_tendsto hs⟩
+
 end
 
 end RiemannHypothesisLean

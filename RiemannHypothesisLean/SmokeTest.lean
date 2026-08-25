@@ -234,4 +234,13 @@ example {s : ℂ} (hs : 0 < s.re) :
       (nhds (∑' n : ℕ, complexAlternatingEtaPair s n)) :=
   complexAlternatingEtaPartialSum_odd_tendsto hs
 
+example {s : ℂ} (hs : 0 < s.re) :
+    Filter.Tendsto (complexAlternatingEtaPartialSum s) Filter.atTop
+      (nhds (∑' n : ℕ, complexAlternatingEtaPair s n)) :=
+  complexAlternatingEtaPartialSum_tendsto hs
+
+example {s : ℂ} (hs : 0 < s.re) :
+    ComplexAlternatingEtaSeriesConvergesAt s :=
+  complexAlternatingEtaSeries_converges_of_pos_re hs
+
 end RiemannHypothesisLean

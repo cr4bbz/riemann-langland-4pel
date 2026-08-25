@@ -274,6 +274,9 @@ RH statement.
 | Vanishing unpaired term when `0 < re(s)` | `complexAlternatingEtaOddRemainder_tendsto_zero` | checked through the norm formula |
 | Odd/even partial-sum recurrence | `complexAlternatingEtaPartialSum_two_mul_add_one` | checked |
 | Convergence of odd eta partial sums when `0 < re(s)` | `complexAlternatingEtaPartialSum_odd_tendsto` | checked |
+| Even/odd subsequence combination | `tendsto_nat_of_even_odd` | checked |
+| Convergence of all natural-order complex eta partial sums when `0 < re(s)` | `complexAlternatingEtaPartialSum_tendsto` | checked |
+| Natural-order complex eta convergence when `0 < re(s)` | `complexAlternatingEtaSeries_converges_of_pos_re` | checked |
 
 The convergence results use explicit `Finset.range` partial sums and `Filter.Tendsto`. It does not
 mislabel conditional convergence as Mathlib's stronger order-independent `Summable` predicate.

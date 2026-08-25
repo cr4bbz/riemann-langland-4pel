@@ -117,8 +117,8 @@ of either equivalent RH formulation.
 - [x] Prove convergence of the paired and even natural-order partial sums.
 - [x] Prove the unpaired final term tends to zero.
 - [x] Prove convergence of the odd natural-order partial sums to the same limit.
-- [ ] Combine the two parity subsequences.
-- [ ] Extend partial-sum convergence to arbitrary complex `s` with `0 < re(s)`.
+- [x] Combine the two parity subsequences.
+- [x] Extend partial-sum convergence to arbitrary complex `s` with `0 < re(s)`.
 - [ ] Identify the independent continuation with the factorized `dirichletEta`.
 - [ ] Derive the value `log 2` at `s = 1` from the independent construction.
 

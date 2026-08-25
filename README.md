@@ -76,8 +76,9 @@ derivative for positive `t`. The mean-value inequality now yields the checked po
 this majorant is summable by comparison with a p-series, hence the paired complex series is
 absolutely summable on that half-plane. Its paired partial sums and therefore every even
 natural-order eta partial sum now converge to the paired-series sum. The remaining unpaired term
-is checked to tend to zero, so the odd partial sums converge to the same value. Combining the two
-parity subsequences for all natural indices and identification with the factorized
+is checked to tend to zero, so the odd partial sums converge to the same value. Lean then combines
+the two parity subsequences and proves convergence of the full natural-order complex alternating
+eta series for every `s` with `0 < re(s)`. Identification with the factorized
 Gate 7 eta remain explicit open Gate 8
 obligations.
 

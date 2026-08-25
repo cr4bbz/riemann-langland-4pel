@@ -622,7 +622,9 @@ theorem alternatingDirichletEtaContinuation_eq_factor_mul_zeta_of_ne_one {s : �
         (fun z => dirichletEtaFactor z * riemannZeta z) U :=
     hfAnalytic.eqOn_of_preconnected_of_eventuallyEq hgAnalytic
       (isConnected_compl_singleton_of_one_lt_rank (by simp) (1 : ℂ)).isPreconnected
-      (by norm_num : (2 : ℂ) ∈ U)
+      (by
+        change (2 : ℂ) ≠ 1
+        norm_num)
       (eventuallyEq_of_mem
         ((isOpen_lt continuous_const continuous_re).mem_nhds (by norm_num))
         hseries)

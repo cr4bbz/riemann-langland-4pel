@@ -1,5 +1,6 @@
 import Mathlib.Analysis.Calculus.MeanValue
 import Mathlib.Analysis.Calculus.Deriv.Slope
+import Mathlib.Analysis.Complex.SummableUniformlyOn
 import Mathlib.Analysis.PSeries
 import Mathlib.Analysis.Normed.Module.Connected
 import Mathlib.Analysis.SpecialFunctions.Pow.Deriv
@@ -434,6 +435,89 @@ theorem summable_complexAlternatingEtaPair {s : ℂ} (hs : 0 < s.re) :
     Summable (complexAlternatingEtaPair s) := by
   rw [← summable_norm_iff]
   exact summable_norm_complexAlternatingEtaPair hs
+
+/-- The natural eta value is complex differentiable at every point of the right
+half-plane.
+
+The paired terms are entire. Around a fixed `s` with positive real part, we work on the open
+set where `re(w) > re(s)/2` and `‖w‖ < ‖s‖+1`. The existing paired-term estimate is then
+uniformly dominated by a summable p-series. -/
+theorem differentiableAt_alternatingEtaNaturalValue {s : ℂ} (hs : 0 < s.re) :
+    DifferentiableAt ℂ alternatingEtaNaturalValue s := by
+  let δ : ℝ := s.re / 2
+  let M : ℝ := ‖s‖ + 1
+  let U : Set ℂ := {w | δ < w.re} ∩ {w | ‖w‖ < M}
+  let u : ℕ → ℝ := fun n =>
+    M * ((2 * n + 1 : ℕ) : ℝ) ^ (-δ - 1)
+  have hδ : 0 < δ := by
+    dsimp [δ]
+    linarith
+  have hM : 0 ≤ M := by
+    dsimp [M]
+    positivity
+  have hUopen : IsOpen U := by
+    dsimp [U]
+    exact (isOpen_lt continuous_const continuous_re).inter
+      (isOpen_lt continuous_norm continuous_const)
+  have hsU : s ∈ U := by
+    constructor
+    · dsimp [δ]
+      linarith
+    · dsimp [M]
+      linarith
+  have hu : Summable u := by
+    have hpow : Summable (fun n : ℕ => (n : ℝ) ^ (-δ - 1)) :=
+      Real.summable_nat_rpow.mpr (by linarith)
+    let g : ℕ → ℕ := fun n => 2 * n + 1
+    have hg : Function.Injective g := by
+      intro m n h
+      dsimp [g] at h
+      omega
+    have hodd : Summable (fun n : ℕ =>
+        ((2 * n + 1 : ℕ) : ℝ) ^ (-δ - 1)) := by
+      simpa [g, Function.comp_def] using hpow.comp_injective hg
+    exact hodd.mul_left M
+  have hterm (n : ℕ) :
+      DifferentiableOn ℂ (fun w => complexAlternatingEtaPair w n) U := by
+    intro w hw
+    unfold complexAlternatingEtaPair
+    have hodd : (((2 * n + 1 : ℕ) : ℂ)) ≠ 0 := by
+      norm_num
+    have heven : (((2 * n + 2 : ℕ) : ℂ)) ≠ 0 := by
+      norm_num
+    exact
+      (((hasDerivAt_neg' w).const_cpow (Or.inl hodd)).sub
+        ((hasDerivAt_neg' w).const_cpow (Or.inl heven))).differentiableAt
+        |>.differentiableWithinAt
+  have hbound (n : ℕ) (w : ℂ) (hw : w ∈ U) :
+      ‖complexAlternatingEtaPair w n‖ ≤ u n := by
+    have hwre : 0 < w.re := hδ.trans hw.1
+    have hbase : (1 : ℝ) ≤ ((2 * n + 1 : ℕ) : ℝ) := by
+      exact_mod_cast (by omega : 1 ≤ 2 * n + 1)
+    have hpow :
+        ((2 * n + 1 : ℕ) : ℝ) ^ (-w.re - 1) ≤
+          ((2 * n + 1 : ℕ) : ℝ) ^ (-δ - 1) :=
+      Real.rpow_le_rpow_of_exponent_le hbase (by linarith)
+    calc
+      ‖complexAlternatingEtaPair w n‖ ≤
+          ‖w‖ * ((2 * n + 1 : ℕ) : ℝ) ^ (-w.re - 1) :=
+        norm_complexAlternatingEtaPair_le hwre n
+      _ ≤ M * ((2 * n + 1 : ℕ) : ℝ) ^ (-δ - 1) := by
+        exact mul_le_mul (le_of_lt hw.2) hpow
+          (Real.rpow_nonneg _ _) (norm_nonneg w)
+      _ = u n := rfl
+  have hd :
+      DifferentiableOn ℂ
+        (fun w : ℂ => ∑' n : ℕ, complexAlternatingEtaPair w n) U :=
+    differentiableOn_tsum_of_summable_norm hu hterm hUopen hbound
+  simpa [alternatingEtaNaturalValue] using
+    hd.differentiableAt (hUopen.mem_nhds hsU)
+
+/-- The natural eta value is holomorphic throughout `0 < re(s)`. -/
+theorem differentiableOn_alternatingEtaNaturalValue :
+    DifferentiableOn ℂ alternatingEtaNaturalValue {s : ℂ | 0 < s.re} := by
+  intro s hs
+  exact (differentiableAt_alternatingEtaNaturalValue hs).differentiableWithinAt
 
 /-- The paired eta partial sums converge to the sum of the absolutely summable paired series. -/
 theorem complexAlternatingEtaPairedPartialSum_tendsto {s : ℂ} (hs : 0 < s.re) :

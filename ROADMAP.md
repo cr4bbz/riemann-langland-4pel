@@ -95,3 +95,46 @@ consequence that survives exact translation.
 Gate 7 closes the smallest interoperability obligation identified in Gate 5. It creates no proof
 of either equivalent RH formulation.
 
+## Gate 8 — Independent alternating eta series
+
+- [x] Encode the eta signs by a function on residue classes modulo two.
+- [x] Define the naive alternating Dirichlet series using Mathlib's `LSeries`.
+- [x] Define an independent periodic continuation using `ZMod.LFunction`.
+- [x] Prove summability on the absolute-convergence half-plane `1 < re(s)`.
+- [x] Prove the periodic continuation equals the actual series there.
+- [x] Record differentiability away from the possible pole location.
+- [x] Prove the coefficient mean is zero and remove the possible pole at `s = 1`.
+- [x] Define natural-order real eta partial sums separately from `Summable`.
+- [x] Prove their sequential convergence for every positive real exponent.
+- [x] Define the complex natural-order partial sums.
+- [x] Prove real-axis agreement and transfer positive-real convergence to the complex codomain.
+- [x] Define paired complex eta terms.
+- [x] Prove every even natural-order partial sum equals the corresponding paired partial sum.
+- [x] Define the real-variable complex power kernel used for paired-term estimates.
+- [x] Prove its derivative and exact derivative norm on positive real inputs.
+- [x] Prove the pointwise mean-value bound for each paired term when `0 < re(s)`.
+- [x] Prove a summable norm bound for the paired terms when `0 < re(s)`.
+- [x] Prove local uniform majorants and holomorphy of the paired-series value on `0 < re(s)`.
+- [x] Prove convergence of the paired and even natural-order partial sums.
+- [x] Prove the unpaired final term tends to zero.
+- [x] Prove convergence of the odd natural-order partial sums to the same limit.
+- [x] Combine the two parity subsequences.
+- [x] Extend partial-sum convergence to arbitrary complex `s` with `0 < re(s)`.
+- [x] Name the natural-order value through the absolutely summable paired series.
+- [x] Prove a cofinal finite partial-sum identity with Mathlib's `LSeries`.
+- [x] Identify the natural value with the naive `LSeries` and periodic continuation on `1 < re(s)`.
+- [x] Prove the classical factorization of the natural value on `1 < re(s)`.
+- [x] Continue equality of the independent periodic continuation and factorized `dirichletEta` to every `s ≠ 1`.
+- [x] Compute the eta-factor slope at one and combine it with the zeta residue.
+- [x] Derive the independent periodic continuation value `log 2` at `s = 1`.
+- [x] Identify the independent periodic continuation globally with factorized `dirichletEta`.
+- [x] Prove `H_(2N)-H_N → log 2` and identify the even alternating harmonic partial sums with that difference.
+- [x] Prove the natural eta value at one is `log 2` and equals the periodic continuation there.
+- [x] Identify the conditionally convergent natural value with the periodic continuation on `0 < re(s) ≤ 1` away from one by the identity theorem.
+- [x] Identify the natural value with Gate 7 `dirichletEta` throughout `0 < re(s)`.
+
+Gate 8 now supplies a checked interoperability chain on the full natural convergence domain:
+natural-order alternating partial sums converge to the paired-series value, that value is
+holomorphic and equals the independent periodic continuation on `0 < re(s)`, and the continuation
+equals Gate 7 `dirichletEta` globally. This closes Gate 8 without asserting the Riemann
+hypothesis.

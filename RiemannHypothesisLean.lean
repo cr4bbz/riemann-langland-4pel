@@ -7,6 +7,7 @@ import RiemannHypothesisLean.Finiteness
 import RiemannHypothesisLean.EquivalentCriteria
 import RiemannHypothesisLean.BridgeAudit
 import RiemannHypothesisLean.DirichletEta
+import RiemannHypothesisLean.AlternatingEta
 import RiemannHypothesisLean.FourPELFeasibility
 
 /-!

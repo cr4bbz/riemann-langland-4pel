@@ -60,6 +60,41 @@ Gate 7 defines a concrete factorized Dirichlet eta function and proves its facto
 exactly the same zero predicate there, closing the Gate 5 obligation and producing an unconditional
 exact bridge between their RH criteria. This is interoperability, not a proof of RH.
 
+Gate 8 begins an independent eta construction from period-two coefficient data. It defines the
+naive alternating Dirichlet series through Mathlib's `LSeries` and a separate periodic analytic
+continuation through `ZMod.LFunction`. Lean checks summability and equality of these two objects on
+`1 < re(s)`, the half-plane of absolute convergence. The two residue coefficients sum to zero,
+so the independent continuation is also checked to be entire. Explicit real partial sums are
+defined, and Lean's alternating-series test proves their ordinary sequential convergence for every
+real `x > 0`, including the non-absolutely convergent range. The corresponding complex
+natural-order partial sums are now defined and proved to agree with the real construction on the
+embedded real axis. Lean also verifies that every even complex partial sum is exactly a finite
+sum of the paired terms `(2n+1)^(-s) - (2n+2)^(-s)`. The real-variable kernel
+`t ↦ t^(-s)` is now formalized, together with its derivative and the exact norm of that
+derivative for positive `t`. The mean-value inequality now yields the checked pointwise bound
+`‖pair(s,n)‖ ≤ ‖s‖(2n+1)^(-re(s)-1)` whenever `0 < re(s)`. Lean also checks that
+this majorant is summable by comparison with a p-series, hence the paired complex series is
+absolutely summable on that half-plane. Its paired partial sums and therefore every even
+natural-order eta partial sum now converge to the paired-series sum. The remaining unpaired term
+is checked to tend to zero, so the odd partial sums converge to the same value. Lean then combines
+the two parity subsequences and proves convergence of the full natural-order complex alternating
+eta series for every `s` with `0 < re(s)`. The paired-series limit is named
+`alternatingEtaNaturalValue`. A finite cofinal partial-sum identity then proves that this natural
+value equals Mathlib's naive `LSeries`, and hence the independent periodic continuation, whenever
+`1 < re(s)`. On that domain Lean also proves the classical factorization
+`(1-2^(1-s))·ζ(s)`. The identity theorem on the connected punctured plane first identifies the
+independent periodic continuation with the factorized Gate 7 eta for every `s ≠ 1`. Lean then
+computes the derivative of the eta factor at one, combines its slope limit with the checked residue
+`lim (s-1)ζ(s)=1`, and proves that the independent continuation takes the removable value
+`log 2`. Thus the two analytic eta constructions now agree globally. Independently, the checked asymptotic
+`H_N-log N → γ` and the exact finite identity for even eta partial sums prove that the natural
+alternating harmonic series has value `log 2`; it therefore agrees with the continuation at
+`s = 1`. Local uniform p-series majorants also prove that `alternatingEtaNaturalValue` is
+holomorphic on `0 < re(s)`. The identity theorem on this connected half-plane propagates the
+already checked equality from `1 < re(s)`, so the natural-order series value, the independent
+periodic continuation, and Gate 7 `dirichletEta` now agree throughout `0 < re(s)`, including
+the conditionally convergent range.
+
 ## Reproducible build
 
 The project pins Lean and Mathlib to `v4.30.0`.
@@ -83,6 +118,7 @@ completes successfully, the project has instead built its dependencies from sour
 - `RiemannHypothesisLean/EquivalentCriteria.lean`: equivalent one-sided zero-free criteria.
 - `RiemannHypothesisLean/BridgeAudit.lean`: typed formulation nodes and exact translation edges.
 - `RiemannHypothesisLean/DirichletEta.lean`: concrete eta/zeta zero compatibility and RH bridge.
+- `RiemannHypothesisLean/AlternatingEta.lean`: independent period-two eta series foundation.
 - `RiemannHypothesisLean/FourPELFeasibility.lean`: bilateral support and falsifiable novelty test.
 - `RiemannHypothesisLean/SmokeTest.lean`: compilation-level interface checks.
 - `FORMALIZATION.md`: the exact formal boundary and dependency audit.

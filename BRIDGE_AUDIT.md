@@ -81,9 +81,38 @@ zero-location statement.
 ## Current frontier
 
 There is no longer an unresolved edge among the concrete analytic and geometric nodes in the
-current graph. Expansion now requires a genuinely new formalized family, such as a classical
-positivity criterion, or an independent eta construction from its alternating series together
-with a proof that it agrees with the factorized continuation. Neither is claimed by Gate 7.
+current graph. Gate 8 has now begun the independent eta alternative: period-two coefficient data,
+the naive `LSeries`, and its `ZMod.LFunction` continuation are formalized, and their equality is
+checked on `1 < re(s)`. The coefficient mean is proved zero, so the independent continuation is
+entire. Explicit natural-order real partial sums now converge for every real exponent `x > 0`.
+The complex partial sums are defined independently and agree with those real sums on the embedded
+real axis. Even complex partial sums are now exactly rewritten as finite sums of the pairs
+`(2n+1)^(-s) - (2n+2)^(-s)`. The real-variable kernel `t ↦ t^(-s)`, its derivative, and the
+exact derivative norm on positive inputs are also checked. The mean-value inequality now supplies
+the pointwise estimate `‖pair(s,n)‖ ≤ ‖s‖(2n+1)^(-re(s)-1)` for `0 < re(s)`.
+Comparison with the odd-index subsequence of a p-series now proves summability of these norms and
+absolute summability of the paired complex series. The paired partial sums and, by the exact finite
+pairing identity, the even natural-order eta partial sums converge to the paired-series sum. The
+unpaired term is now checked to vanish, and the odd partial sums converge to that same value. A
+general parity lemma combines the two subsequences, so the full natural-order alternating eta
+partial sums converge for every `s` with `0 < re(s)`. Their common limit is now named through
+the absolutely summable paired series. On `1 < re(s)`, an exact finite identity compares a
+cofinal family of Mathlib `LSeries` partial sums with the paired partial sums; uniqueness of limits
+therefore identifies the natural value with both the naive `LSeries` and the independent periodic
+continuation. Splitting the absolutely summable shifted zeta series into odd and even denominators
+also proves the classical factorization on that half-plane. The identity theorem on
+`ℂ \\ {1}` first identifies the independent periodic continuation with the factorized
+`dirichletEta` away from one. The eta-factor derivative at one and the zeta residue then give the
+product limit `log 2`; continuity of the entire periodic continuation closes the removable point.
+The independent periodic continuation is therefore globally equal to Gate 7 `dirichletEta`.
+Harmonic-number asymptotics and an exact finite partial-sum identity also prove independently that
+the natural alternating harmonic series has value `log 2`, closing the series/continuation edge at
+one. Local uniform p-series majorants prove holomorphy of the paired-series value on
+`0 < re(s)`. Since it already equals the periodic continuation on the open subdomain
+`1 < re(s)`, the identity theorem on the connected right half-plane closes the remaining
+conditionally convergent series/continuation edge. Thus the natural value, the independent
+periodic continuation, and Gate 7 `dirichletEta` agree throughout `0 < re(s)`. A classical
+positivity criterion remains a separate future expansion family.
 
 ## Availability findings
 

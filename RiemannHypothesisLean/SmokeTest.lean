@@ -138,4 +138,181 @@ example :
     Statement ↔ EtaCriticalStripCriterion dirichletEta :=
   statement_iff_dirichletEtaCriticalStripCriterion
 
+example : alternatingEtaCoefficient 1 = 1 :=
+  alternatingEtaCoefficient_one
+
+example {s : ℂ} (hs : 1 < s.re) :
+    LSeriesSummable alternatingEtaCoefficient s :=
+  alternatingDirichletEtaSeries_summable_of_one_lt_re hs
+
+example {s : ℂ} (hs : 1 < s.re) :
+    alternatingDirichletEtaContinuation s = alternatingDirichletEtaSeries s :=
+  alternatingDirichletEtaContinuation_eq_series_of_one_lt_re hs
+
+example {s : ℂ} (hs : s ≠ 1) :
+    DifferentiableAt ℂ alternatingDirichletEtaContinuation s :=
+  differentiableAt_alternatingDirichletEtaContinuation hs
+
+example :
+    ∑ j : ZMod 2, etaResidueCoefficient j = 0 :=
+  etaResidueCoefficient_sum
+
+example :
+    Differentiable ℂ alternatingDirichletEtaContinuation :=
+  differentiable_alternatingDirichletEtaContinuation
+
+
+example {x : ℝ} (hx : 0 < x) :
+    RealAlternatingEtaSeriesConvergesAt x :=
+  realAlternatingEtaSeries_converges_of_pos hx
+
+
+example (x : ℝ) (N : ℕ) :
+    complexAlternatingEtaPartialSum (x : ℂ) N =
+      (realAlternatingEtaPartialSum x N : ℂ) :=
+  complexAlternatingEtaPartialSum_ofReal x N
+
+example {x : ℝ} (hx : 0 < x) :
+    ComplexAlternatingEtaSeriesConvergesAt (x : ℂ) :=
+  complexAlternatingEtaSeries_converges_of_pos_real hx
+
+
+example (s : ℂ) (N : ℕ) :
+    complexAlternatingEtaPartialSum s (2 * N) =
+      complexAlternatingEtaPairedPartialSum s N :=
+  complexAlternatingEtaPartialSum_two_mul s N
+
+
+example {s : ℂ} (hs : s ≠ 0) {t : ℝ} (ht : t ≠ 0) :
+    HasDerivAt (etaCpowKernel s) ((-s) * (t : ℂ) ^ (-s - 1)) t :=
+  hasDerivAt_etaCpowKernel hs ht
+
+example {s : ℂ} (hs : s ≠ 0) {t : ℝ} (ht : 0 < t) :
+    DifferentiableAt ℝ (etaCpowKernel s) t :=
+  differentiableAt_etaCpowKernel_of_pos hs ht
+
+example (s : ℂ) {t : ℝ} (ht : 0 < t) :
+    ‖(-s) * (t : ℂ) ^ (-s - 1)‖ = ‖s‖ * t ^ (-s.re - 1) :=
+  norm_etaCpowKernel_derivative s ht
+
+example {s : ℂ} (hs : 0 < s.re) (n : ℕ) :
+    ‖complexAlternatingEtaPair s n‖ ≤
+      ‖s‖ * ((2 * n + 1 : ℕ) : ℝ) ^ (-s.re - 1) :=
+  norm_complexAlternatingEtaPair_le hs n
+
+example {s : ℂ} (hs : 0 < s.re) :
+    Summable (fun n : ℕ => ‖complexAlternatingEtaPair s n‖) :=
+  summable_norm_complexAlternatingEtaPair hs
+
+example {s : ℂ} (hs : 0 < s.re) :
+    Summable (complexAlternatingEtaPair s) :=
+  summable_complexAlternatingEtaPair hs
+
+example {s : ℂ} (hs : 0 < s.re) :
+    DifferentiableAt ℂ alternatingEtaNaturalValue s :=
+  differentiableAt_alternatingEtaNaturalValue hs
+
+example :
+    DifferentiableOn ℂ alternatingEtaNaturalValue {s : ℂ | 0 < s.re} :=
+  differentiableOn_alternatingEtaNaturalValue
+
+example {s : ℂ} (hs : 0 < s.re) :
+    Filter.Tendsto (complexAlternatingEtaPairedPartialSum s) Filter.atTop
+      (nhds (alternatingEtaNaturalValue s)) :=
+  complexAlternatingEtaPairedPartialSum_tendsto hs
+
+example {s : ℂ} (hs : 0 < s.re) :
+    Filter.Tendsto (fun N => complexAlternatingEtaPartialSum s (2 * N)) Filter.atTop
+      (nhds (alternatingEtaNaturalValue s)) :=
+  complexAlternatingEtaPartialSum_even_tendsto hs
+
+example {s : ℂ} (hs : 0 < s.re) :
+    Filter.Tendsto (fun N : ℕ => ((2 * N + 1 : ℕ) : ℂ) ^ (-s))
+      Filter.atTop (nhds 0) :=
+  complexAlternatingEtaOddRemainder_tendsto_zero hs
+
+example (s : ℂ) (N : ℕ) :
+    complexAlternatingEtaPartialSum s (2 * N + 1) =
+      complexAlternatingEtaPartialSum s (2 * N) +
+        ((2 * N + 1 : ℕ) : ℂ) ^ (-s) :=
+  complexAlternatingEtaPartialSum_two_mul_add_one s N
+
+example {s : ℂ} (hs : 0 < s.re) :
+    Filter.Tendsto (fun N => complexAlternatingEtaPartialSum s (2 * N + 1)) Filter.atTop
+      (nhds (alternatingEtaNaturalValue s)) :=
+  complexAlternatingEtaPartialSum_odd_tendsto hs
+
+example {s : ℂ} (hs : 0 < s.re) :
+    Filter.Tendsto (complexAlternatingEtaPartialSum s) Filter.atTop
+      (nhds (alternatingEtaNaturalValue s)) :=
+  complexAlternatingEtaPartialSum_tendsto hs
+
+example {s : ℂ} (hs : 0 < s.re) :
+    ComplexAlternatingEtaSeriesConvergesAt s :=
+  complexAlternatingEtaSeries_converges_of_pos_re hs
+
+example {s : ℂ} (hs : 1 < s.re) :
+    alternatingEtaNaturalValue s = alternatingDirichletEtaSeries s :=
+  alternatingEtaNaturalValue_eq_series_of_one_lt_re hs
+
+example {s : ℂ} (hs : 1 < s.re) :
+    alternatingEtaNaturalValue s = alternatingDirichletEtaContinuation s :=
+  alternatingEtaNaturalValue_eq_continuation_of_one_lt_re hs
+
+example {s : ℂ} (hs : 0 < s.re) :
+    alternatingEtaNaturalValue s = alternatingDirichletEtaContinuation s :=
+  alternatingEtaNaturalValue_eq_continuation_of_pos_re hs
+
+example :
+    Filter.Tendsto
+      (fun N : ℕ => (harmonic (2 * N) : ℝ) - (harmonic N : ℝ))
+      Filter.atTop (nhds (Real.log 2)) :=
+  tendsto_harmonic_two_mul_sub_harmonic
+
+example (N : ℕ) :
+    realAlternatingEtaPartialSum 1 (2 * N) =
+      (harmonic (2 * N) : ℝ) - (harmonic N : ℝ) :=
+  realAlternatingEtaPartialSum_one_two_mul N
+
+example :
+    alternatingEtaNaturalValue 1 = (Real.log 2 : ℂ) :=
+  alternatingEtaNaturalValue_one
+
+example :
+    alternatingEtaNaturalValue 1 = alternatingDirichletEtaContinuation 1 :=
+  alternatingEtaNaturalValue_eq_continuation_one
+
+example {s : ℂ} (hs : 1 < s.re) :
+    alternatingEtaNaturalValue s = dirichletEtaFactor s * riemannZeta s :=
+  alternatingEtaNaturalValue_eq_factor_mul_zeta_of_one_lt_re hs
+
+example {s : ℂ} (hs : 1 < s.re) :
+    alternatingEtaNaturalValue s = dirichletEta s :=
+  alternatingEtaNaturalValue_eq_dirichletEta_of_one_lt_re hs
+
+example {s : ℂ} (hs : s ≠ 1) :
+    alternatingDirichletEtaContinuation s =
+      dirichletEtaFactor s * riemannZeta s :=
+  alternatingDirichletEtaContinuation_eq_factor_mul_zeta_of_ne_one hs
+
+example :
+    HasDerivAt dirichletEtaFactor (Real.log 2 : ℂ) 1 :=
+  hasDerivAt_dirichletEtaFactor_one
+
+example :
+    alternatingDirichletEtaContinuation 1 = (Real.log 2 : ℂ) :=
+  alternatingDirichletEtaContinuation_one
+
+example (s : ℂ) :
+    alternatingDirichletEtaContinuation s = dirichletEta s :=
+  alternatingDirichletEtaContinuation_eq_dirichletEta s
+
+example {s : ℂ} (hs : 0 < s.re) :
+    alternatingEtaNaturalValue s = dirichletEta s :=
+  alternatingEtaNaturalValue_eq_dirichletEta_of_pos_re hs
+
+example {s : ℂ} (hs : s ≠ 1) :
+    alternatingDirichletEtaContinuation s = dirichletEta s :=
+  alternatingDirichletEtaContinuation_eq_dirichletEta_of_ne_one hs
+
 end RiemannHypothesisLean

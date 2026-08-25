@@ -239,6 +239,78 @@ specified at one. Gate 7 does not construct eta independently from the alternati
 agreement with that series, or prove global analyticity. It also does not prove either equivalent
 RH statement.
 
+## Gate 8: independent alternating eta foundation
+
+`RiemannHypothesisLean.AlternatingEta` starts from period-two coefficient data rather than from
+`riemannZeta`:
+
+| Claim | Lean declaration | Status |
+|---|---|---|
+| Eta residue coefficient on `ZMod 2` | `etaResidueCoefficient` | defined independently |
+| Positive-index coefficient sequence | `alternatingEtaCoefficient` | defined |
+| Naive eta Dirichlet series | `alternatingDirichletEtaSeries` | defined using `LSeries` |
+| Periodic analytic continuation | `alternatingDirichletEtaContinuation` | defined using `ZMod.LFunction` |
+| Series summability for `1 < re(s)` | `alternatingDirichletEtaSeries_summable_of_one_lt_re` | checked |
+| Continuation equals series for `1 < re(s)` | `alternatingDirichletEtaContinuation_eq_series_of_one_lt_re` | checked |
+| Differentiability away from `s = 1` | `differentiableAt_alternatingDirichletEtaContinuation` | checked |
+| Coefficient mean is zero | `etaResidueCoefficient_sum` | checked |
+| Independent continuation is entire | `differentiable_alternatingDirichletEtaContinuation` | checked |
+| Real eta partial sums | `realAlternatingEtaPartialSum` | explicitly defined in natural order |
+| Sequential convergence for every `x > 0` | `realAlternatingEtaSeries_converges_of_pos` | checked by the alternating-series test |
+| Complex natural-order partial sums | `complexAlternatingEtaPartialSum` | explicitly defined |
+| Real-axis agreement of complex and real partial sums | `complexAlternatingEtaPartialSum_ofReal` | checked termwise through `Complex.ofReal_cpow` |
+| Complex-codomain convergence on the positive real axis | `complexAlternatingEtaSeries_converges_of_pos_real` | checked by continuous embedding |
+| Paired complex eta term | `complexAlternatingEtaPair` | explicitly defined |
+| Named natural-order eta value | `alternatingEtaNaturalValue` | defined by the absolutely summable paired series |
+| Even partial sums equal paired partial sums | `complexAlternatingEtaPartialSum_two_mul` | checked by a finite-sum pairing lemma |
+| Odd/even positive `LSeries` term formulas | `alternatingEtaLSeries_term_odd`, `alternatingEtaLSeries_term_even` | checked |
+| Cofinal finite `LSeries`/paired-partial-sum identity | `alternatingEtaLSeries_partialSum_two_mul_add_one` | checked without convergence assumptions |
+| Real-variable complex power kernel | `etaCpowKernel` | defined independently |
+| Derivative of the power kernel | `hasDerivAt_etaCpowKernel` | checked at nonzero inputs |
+| Differentiability on positive inputs | `differentiableAt_etaCpowKernel_of_pos` | checked |
+| Exact derivative norm on positive inputs | `norm_etaCpowKernel_derivative` | checked |
+| Pointwise norm bound for paired eta terms when `0 < re(s)` | `norm_complexAlternatingEtaPair_le` | checked by the mean-value inequality |
+| Summability of paired-term norms when `0 < re(s)` | `summable_norm_complexAlternatingEtaPair` | checked by p-series comparison |
+| Absolute summability of the paired series when `0 < re(s)` | `summable_complexAlternatingEtaPair` | checked |
+| Holomorphy of the natural paired-series value when `0 < re(s)` | `differentiableAt_alternatingEtaNaturalValue`, `differentiableOn_alternatingEtaNaturalValue` | checked by local uniform p-series majorants |
+| Convergence of paired partial sums when `0 < re(s)` | `complexAlternatingEtaPairedPartialSum_tendsto` | checked |
+| Convergence of even eta partial sums when `0 < re(s)` | `complexAlternatingEtaPartialSum_even_tendsto` | checked through finite pairing |
+| Vanishing unpaired term when `0 < re(s)` | `complexAlternatingEtaOddRemainder_tendsto_zero` | checked through the norm formula |
+| Odd/even partial-sum recurrence | `complexAlternatingEtaPartialSum_two_mul_add_one` | checked |
+| Convergence of odd eta partial sums when `0 < re(s)` | `complexAlternatingEtaPartialSum_odd_tendsto` | checked |
+| Even/odd subsequence combination | `tendsto_nat_of_even_odd` | checked |
+| Convergence of all natural-order complex eta partial sums when `0 < re(s)` | `complexAlternatingEtaPartialSum_tendsto` | checked |
+| Natural-order complex eta convergence when `0 < re(s)` | `complexAlternatingEtaSeries_converges_of_pos_re` | checked |
+| Natural value equals naive `LSeries` when `1 < re(s)` | `alternatingEtaNaturalValue_eq_series_of_one_lt_re` | checked by cofinal partial sums and uniqueness of limits |
+| Natural value equals periodic continuation when `1 < re(s)` | `alternatingEtaNaturalValue_eq_continuation_of_one_lt_re` | checked |
+| Natural value equals periodic continuation when `0 < re(s)` | `alternatingEtaNaturalValue_eq_continuation_of_pos_re` | checked by the identity theorem on the connected right half-plane |
+| Natural value has the factorization `(1-2^(1-s))ζ(s)` when `1 < re(s)` | `alternatingEtaNaturalValue_eq_factor_mul_zeta_of_one_lt_re` | checked by odd/even splitting of the absolutely summable zeta series |
+| Natural value equals Gate 7 `dirichletEta` when `1 < re(s)` | `alternatingEtaNaturalValue_eq_dirichletEta_of_one_lt_re` | checked |
+| Periodic continuation equals the zeta-factor expression for `s ≠ 1` | `alternatingDirichletEtaContinuation_eq_factor_mul_zeta_of_ne_one` | checked by analytic continuation on `ℂ \\ {1}` |
+| Periodic continuation equals Gate 7 `dirichletEta` for `s ≠ 1` | `alternatingDirichletEtaContinuation_eq_dirichletEta_of_ne_one` | checked |
+| Eta factor has derivative `log 2` at one | `hasDerivAt_dirichletEtaFactor_one` | checked |
+| Eta factor quotient tends to `log 2` at one | `tendsto_dirichletEtaFactor_div_sub_one` | checked |
+| Factorized eta product tends to `log 2` at one | `tendsto_dirichletEtaFactor_mul_riemannZeta_one` | checked using `riemannZeta_residue_one` |
+| Independent continuation has value `log 2` at one | `alternatingDirichletEtaContinuation_one` | checked by continuity and uniqueness of limits |
+| Periodic continuation equals Gate 7 `dirichletEta` globally | `alternatingDirichletEtaContinuation_eq_dirichletEta` | checked |
+| Natural value equals Gate 7 `dirichletEta` when `0 < re(s)` | `alternatingEtaNaturalValue_eq_dirichletEta_of_pos_re` | checked |
+| Harmonic difference `H_(2N)-H_N` tends to `log 2` | `tendsto_harmonic_two_mul_sub_harmonic` | checked from `Real.tendsto_harmonic_sub_log` |
+| Even alternating harmonic partial sum equals `H_(2N)-H_N` | `realAlternatingEtaPartialSum_one_two_mul` | checked by finite pairing |
+| Even alternating harmonic partial sums tend to `log 2` | `realAlternatingEtaPartialSum_one_even_tendsto` | checked |
+| Natural eta value at one is `log 2` | `alternatingEtaNaturalValue_one` | checked independently of the continuation |
+| Natural value and periodic continuation agree at one | `alternatingEtaNaturalValue_eq_continuation_one` | checked |
+
+The convergence results use explicit `Finset.range` partial sums and `Filter.Tendsto`. They do not
+mislabel conditional convergence as Mathlib's stronger order-independent `Summable` predicate.
+
+The periodic continuation is identified globally with the factorized Gate 7 function, including
+its independently derived value `log 2` at `s = 1`. The natural alternating harmonic series is
+independently linked to the continuation at one. Local uniform majorants make the paired-series
+value holomorphic on `0 < re(s)`, and the identity theorem closes the remaining conditionally
+convergent series/continuation bridge throughout that half-plane. This is a full
+series-interoperability result on the natural convergence domain; it does not by itself prove a
+new zero-free statement or the Riemann hypothesis.
+
 ## Non-goals of the first milestone
 
 - treating numerical verification as a universal proof;

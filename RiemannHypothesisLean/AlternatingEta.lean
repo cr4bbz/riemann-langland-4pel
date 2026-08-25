@@ -29,9 +29,10 @@ The same series calculation gives the classical zeta factorization on `1 < re s`
 theorem identifies the independent periodic continuation with the factorized expression away from
 one. A derivative/residue limit then closes the removable point and identifies the independent
 continuation globally with `dirichletEta`. Harmonic-number asymptotics independently identify
-the natural alternating value at one with `log 2`. Identifying the conditionally convergent
-natural value with the continuation on `0 < re s ≤ 1` away from one remains the explicit Gate 8
-obligation.
+the natural alternating value at one with `log 2`. Finally, local uniform majorants prove that
+the paired-series value is holomorphic on `0 < re s`; the identity theorem then identifies it
+with the independent continuation throughout that half-plane, including the conditionally
+convergent range.
 -/
 
 open Complex Filter
@@ -927,6 +928,14 @@ theorem alternatingDirichletEtaContinuation_eq_dirichletEta (s : ℂ) :
     rw [alternatingDirichletEtaContinuation_one, dirichletEta_one]
   · rw [dirichletEta_of_ne_one hs]
     exact alternatingDirichletEtaContinuation_eq_factor_mul_zeta_of_ne_one hs
+
+/-- The natural-order alternating eta value agrees with the factorized Gate 7 eta
+function throughout its half-plane of convergence. -/
+theorem alternatingEtaNaturalValue_eq_dirichletEta_of_pos_re {s : ℂ}
+    (hs : 0 < s.re) :
+    alternatingEtaNaturalValue s = dirichletEta s :=
+  (alternatingEtaNaturalValue_eq_continuation_of_pos_re hs).trans
+    (alternatingDirichletEtaContinuation_eq_dirichletEta s)
 
 /-- Compatibility form of the global continuation theorem under the explicit hypothesis
 `s ≠ 1`. -/

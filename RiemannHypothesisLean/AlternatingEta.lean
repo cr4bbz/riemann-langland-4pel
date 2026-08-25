@@ -197,6 +197,14 @@ def complexAlternatingEtaPair (s : ℂ) (n : ℕ) : ℂ :=
 def complexAlternatingEtaPairedPartialSum (s : ℂ) (N : ℕ) : ℂ :=
   ∑ n ∈ Finset.range N, complexAlternatingEtaPair s n
 
+/-- The value of the classical eta series in natural order on `0 < re(s)`.
+
+The paired series is absolutely summable there, so its `tsum` gives a canonical name to the
+ordinary limit without incorrectly asserting that the unpaired alternating terms are
+order-independently summable. -/
+def alternatingEtaNaturalValue (s : ℂ) : ℂ :=
+  ∑' n : ℕ, complexAlternatingEtaPair s n
+
 /-- Pairing does not change the even natural-order eta partial sums. -/
 theorem complexAlternatingEtaPartialSum_two_mul (s : ℂ) (N : ℕ) :
     complexAlternatingEtaPartialSum s (2 * N) =
@@ -208,6 +216,35 @@ theorem complexAlternatingEtaPartialSum_two_mul (s : ℂ) (N : ℕ) :
   simp [complexAlternatingEtaPair]
   rw [(show Odd (2 * n + 1) by exact ⟨n, by omega⟩).neg_one_pow]
   ring_nf
+
+/-- The odd positive-index terms of Mathlib's `LSeries` are the positive eta terms. -/
+theorem alternatingEtaLSeries_term_odd (s : ℂ) (n : ℕ) :
+    LSeries.term alternatingEtaCoefficient s (2 * n + 1) =
+      ((2 * n + 1 : ℕ) : ℂ) ^ (-s) := by
+  rw [LSeries.term_of_ne_zero (by omega)]
+  simp [alternatingEtaCoefficient, etaResidueCoefficient, div_eq_mul_inv, ← cpow_neg]
+
+/-- The even positive-index terms of Mathlib's `LSeries` are the negative eta terms. -/
+theorem alternatingEtaLSeries_term_even (s : ℂ) (n : ℕ) :
+    LSeries.term alternatingEtaCoefficient s (2 * n + 2) =
+      -((2 * n + 2 : ℕ) : ℂ) ^ (-s) := by
+  rw [LSeries.term_of_ne_zero (by omega)]
+  simp [alternatingEtaCoefficient, etaResidueCoefficient, div_eq_mul_inv, ← cpow_neg]
+
+/-- The first `2N + 1` Mathlib `LSeries` indices (including its zero term) equal the first
+`N` paired eta terms. This is a finite identity and uses no convergence theorem. -/
+theorem alternatingEtaLSeries_partialSum_two_mul_add_one (s : ℂ) (N : ℕ) :
+    (∑ n ∈ Finset.range (2 * N + 1), LSeries.term alternatingEtaCoefficient s n) =
+      complexAlternatingEtaPairedPartialSum s N := by
+  induction N with
+  | zero =>
+      simp [complexAlternatingEtaPairedPartialSum]
+  | succ N ih =>
+      rw [show 2 * (N + 1) + 1 = (2 * N + 1) + 1 + 1 by omega]
+      rw [Finset.sum_range_succ, Finset.sum_range_succ,
+        complexAlternatingEtaPairedPartialSum, Finset.sum_range_succ]
+      rw [ih, alternatingEtaLSeries_term_odd, alternatingEtaLSeries_term_even]
+      simp [complexAlternatingEtaPair, add_assoc]
 
 /-- The real-variable complex power kernel used to estimate consecutive eta terms. -/
 def etaCpowKernel (s : ℂ) (t : ℝ) : ℂ :=
@@ -307,7 +344,7 @@ theorem summable_complexAlternatingEtaPair {s : ℂ} (hs : 0 < s.re) :
 /-- The paired eta partial sums converge to the sum of the absolutely summable paired series. -/
 theorem complexAlternatingEtaPairedPartialSum_tendsto {s : ℂ} (hs : 0 < s.re) :
     Filter.Tendsto (complexAlternatingEtaPairedPartialSum s) Filter.atTop
-      (nhds (∑' n : ℕ, complexAlternatingEtaPair s n)) := by
+      (nhds (alternatingEtaNaturalValue s)) := by
   simpa [complexAlternatingEtaPairedPartialSum] using
     (summable_complexAlternatingEtaPair hs).hasSum.tendsto_sum_nat
 
@@ -317,7 +354,7 @@ This theorem uses only the exact finite pairing identity and convergence of the 
 does not yet claim convergence of the odd-indexed partial sums. -/
 theorem complexAlternatingEtaPartialSum_even_tendsto {s : ℂ} (hs : 0 < s.re) :
     Filter.Tendsto (fun N => complexAlternatingEtaPartialSum s (2 * N)) Filter.atTop
-      (nhds (∑' n : ℕ, complexAlternatingEtaPair s n)) := by
+      (nhds (alternatingEtaNaturalValue s)) := by
   refine (complexAlternatingEtaPairedPartialSum_tendsto hs).congr' ?_
   exact Filter.Eventually.of_forall fun N =>
     (complexAlternatingEtaPartialSum_two_mul s N).symm
@@ -353,7 +390,7 @@ theorem complexAlternatingEtaPartialSum_two_mul_add_one (s : ℂ) (N : ℕ) :
 `0 < re(s)`. -/
 theorem complexAlternatingEtaPartialSum_odd_tendsto {s : ℂ} (hs : 0 < s.re) :
     Filter.Tendsto (fun N => complexAlternatingEtaPartialSum s (2 * N + 1)) Filter.atTop
-      (nhds (∑' n : ℕ, complexAlternatingEtaPair s n)) := by
+      (nhds (alternatingEtaNaturalValue s)) := by
   have h :=
     (complexAlternatingEtaPartialSum_even_tendsto hs).add
       (complexAlternatingEtaOddRemainder_tendsto_zero hs)
@@ -379,7 +416,7 @@ theorem tendsto_nat_of_even_odd {α : Type*} [PseudoMetricSpace α] {f : ℕ →
 /-- All natural-order complex eta partial sums converge throughout `0 < re(s)`. -/
 theorem complexAlternatingEtaPartialSum_tendsto {s : ℂ} (hs : 0 < s.re) :
     Filter.Tendsto (complexAlternatingEtaPartialSum s) Filter.atTop
-      (nhds (∑' n : ℕ, complexAlternatingEtaPair s n)) :=
+      (nhds (alternatingEtaNaturalValue s)) :=
   tendsto_nat_of_even_odd
     (complexAlternatingEtaPartialSum_even_tendsto hs)
     (complexAlternatingEtaPartialSum_odd_tendsto hs)
@@ -388,8 +425,51 @@ theorem complexAlternatingEtaPartialSum_tendsto {s : ℂ} (hs : 0 < s.re) :
 `s` with positive real part. -/
 theorem complexAlternatingEtaSeries_converges_of_pos_re {s : ℂ} (hs : 0 < s.re) :
     ComplexAlternatingEtaSeriesConvergesAt s :=
-  ⟨∑' n : ℕ, complexAlternatingEtaPair s n,
-    complexAlternatingEtaPartialSum_tendsto hs⟩
+  ⟨alternatingEtaNaturalValue s, complexAlternatingEtaPartialSum_tendsto hs⟩
+
+/-- On the absolute-convergence half-plane, the natural-order eta value agrees with Mathlib's
+naive `LSeries`. The proof compares a cofinal sequence of finite partial sums, rather than
+misusing `Summable` for the conditionally convergent unpaired series. -/
+theorem alternatingEtaNaturalValue_eq_series_of_one_lt_re {s : ℂ}
+    (hs : 1 < s.re) :
+    alternatingEtaNaturalValue s = alternatingDirichletEtaSeries s := by
+  have hindex :
+      Filter.Tendsto (fun N : ℕ => 2 * N + 1) Filter.atTop Filter.atTop := by
+    apply tendsto_atTop.2
+    intro b
+    refine ⟨b, ?_⟩
+    intro a ha
+    omega
+  have hseries :
+      Filter.Tendsto
+        (fun N : ℕ =>
+          ∑ n ∈ Finset.range (2 * N + 1),
+            LSeries.term alternatingEtaCoefficient s n)
+        Filter.atTop (nhds (alternatingDirichletEtaSeries s)) := by
+    exact
+      (alternatingDirichletEtaSeries_summable_of_one_lt_re hs).LSeriesHasSum
+        .tendsto_sum_nat.comp hindex
+  have hnatural :
+      Filter.Tendsto
+        (fun N : ℕ =>
+          ∑ n ∈ Finset.range (2 * N + 1),
+            LSeries.term alternatingEtaCoefficient s n)
+        Filter.atTop (nhds (alternatingEtaNaturalValue s)) := by
+    refine (complexAlternatingEtaPairedPartialSum_tendsto (s := s) (by linarith)).congr' ?_
+    exact Filter.Eventually.of_forall fun N =>
+      (alternatingEtaLSeries_partialSum_two_mul_add_one s N).symm
+  exact tendsto_nhds_unique hnatural hseries
+
+/-- On `1 < re(s)`, the ordinary natural-order eta value also agrees with the independently
+constructed periodic analytic continuation. -/
+theorem alternatingEtaNaturalValue_eq_continuation_of_one_lt_re {s : ℂ}
+    (hs : 1 < s.re) :
+    alternatingEtaNaturalValue s = alternatingDirichletEtaContinuation s := by
+  calc
+    alternatingEtaNaturalValue s = alternatingDirichletEtaSeries s :=
+      alternatingEtaNaturalValue_eq_series_of_one_lt_re hs
+    _ = alternatingDirichletEtaContinuation s :=
+      (alternatingDirichletEtaContinuation_eq_series_of_one_lt_re hs).symm
 
 end
 

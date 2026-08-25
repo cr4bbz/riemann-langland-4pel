@@ -31,9 +31,10 @@ def riemannXi (s : ℂ) : ℂ :=
 theorem differentiable_riemannXi :
     Differentiable ℂ riemannXi := by
   unfold riemannXi
-  exact differentiable_const.mul
-    (differentiable_const.add
-      ((differentiable_id.mul (differentiable_id.sub differentiable_const)).mul
+  exact (differentiable_const (𝕜 := ℂ) (1 / 2 : ℂ)).mul
+    ((differentiable_const (𝕜 := ℂ) (1 : ℂ)).add
+      ((differentiable_id.mul
+        (differentiable_id.sub (differentiable_const (𝕜 := ℂ) (1 : ℂ)))).mul
         differentiable_completedZeta₀))
 
 /-- Riemann's xi function is symmetric under `s ↦ 1 - s`. -/

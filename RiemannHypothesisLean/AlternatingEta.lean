@@ -506,7 +506,7 @@ theorem differentiableAt_alternatingEtaNaturalValue {s : ℂ} (hs : 0 < s.re) :
         norm_complexAlternatingEtaPair_le hwre n
       _ ≤ M * ((2 * n + 1 : ℕ) : ℝ) ^ (-δ - 1) := by
         exact mul_le_mul (le_of_lt hw.2) hpow
-          (Real.rpow_nonneg _ _) hM
+          (Real.rpow_nonneg (by positivity) _) hM
       _ = u n := rfl
   have hd :
       DifferentiableOn ℂ

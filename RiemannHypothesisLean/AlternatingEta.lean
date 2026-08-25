@@ -655,17 +655,24 @@ theorem tendsto_dirichletEtaFactor_div_sub_one :
     Filter.Tendsto
       (fun s : ℂ => dirichletEtaFactor s / (s - 1))
       (nhdsWithin (1 : ℂ) ({1}ᶜ)) (nhds (Real.log 2 : ℂ)) := by
-  simpa [slope_def_field, dirichletEtaFactor] using
-    hasDerivAt_dirichletEtaFactor_one.tendsto_slope
+  have h := hasDerivAt_dirichletEtaFactor_one.tendsto_slope
+  rw [slope_fun_def_field] at h
+  simpa [dirichletEtaFactor] using h
 
 /-- The classical eta product has limit `log 2` at its removable point. -/
 theorem tendsto_dirichletEtaFactor_mul_riemannZeta_one :
     Filter.Tendsto
       (fun s : ℂ => dirichletEtaFactor s * riemannZeta s)
       (nhdsWithin (1 : ℂ) ({1}ᶜ)) (nhds (Real.log 2 : ℂ)) := by
-  have hproduct :=
-    tendsto_dirichletEtaFactor_div_sub_one.mul riemannZeta_residue_one
-  refine (by simpa using hproduct).congr' ?_
+  have hproduct :
+      Filter.Tendsto
+        (fun s : ℂ =>
+          (dirichletEtaFactor s / (s - 1)) *
+            ((s - 1) * riemannZeta s))
+        (nhdsWithin (1 : ℂ) ({1}ᶜ)) (nhds (Real.log 2 : ℂ)) := by
+    simpa using
+      tendsto_dirichletEtaFactor_div_sub_one.mul riemannZeta_residue_one
+  refine hproduct.congr' ?_
   filter_upwards [eventually_mem_nhdsWithin] with s hs
   have hsub : s - 1 ≠ 0 := sub_ne_zero.mpr (by simpa using hs)
   field_simp [hsub]

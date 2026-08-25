@@ -503,11 +503,9 @@ theorem alternatingEtaNaturalValue_eq_factor_mul_zeta_of_one_lt_re {s : ℂ}
         (summable_nat_add_iff 1).2 ha₀
     simpa [a, one_div, ← cpow_neg] using hshift
   have hoddIndex : Function.Injective (fun n : ℕ => 2 * n) := by
-    intro m n h
-    omega
-  have hevenIndex : Function.Injective (fun n : ℕ => 2 * n + 1) := by
-    intro m n h
-    omega
+    simpa [mul_comm] using (mul_right_injective₀ (two_ne_zero' ℕ))
+  have hevenIndex : Function.Injective (fun n : ℕ => 2 * n + 1) :=
+    (add_right_injective 1).comp hoddIndex
   have hodd : Summable (fun n : ℕ => a (2 * n)) :=
     ha.comp_injective hoddIndex
   have heven : Summable (fun n : ℕ => a (2 * n + 1)) :=
@@ -524,7 +522,8 @@ theorem alternatingEtaNaturalValue_eq_factor_mul_zeta_of_one_lt_re {s : ℂ}
       a (2 * n + 1) = (2 : ℂ) ^ (-s) * a n := by
     dsimp [a]
     rw [show 2 * n + 1 + 1 = 2 * (n + 1) by omega]
-    exact natCast_mul_natCast_cpow 2 (n + 1) (-s)
+    simpa only [Nat.cast_mul, Nat.cast_ofNat] using
+      (natCast_mul_natCast_cpow 2 (n + 1) (-s))
   have hevenSum :
       (∑' n : ℕ, a (2 * n + 1)) = (2 : ℂ) ^ (-s) * riemannZeta s := by
     calc

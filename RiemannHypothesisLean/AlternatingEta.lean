@@ -702,7 +702,9 @@ theorem alternatingEtaNaturalValue_eq_continuation_of_pos_re {s : ℂ}
         alternatingDirichletEtaContinuation U :=
     hfAnalytic.eqOn_of_preconnected_of_eventuallyEq hgAnalytic
       (Convex.isPreconnected (convex_halfSpace_re_gt 0))
-      (show (2 : ℂ) ∈ U by norm_num)
+      (show (2 : ℂ) ∈ U by
+        change 0 < (2 : ℂ).re
+        norm_num)
       (eventuallyEq_of_mem
         ((isOpen_lt continuous_const continuous_re).mem_nhds (by norm_num))
         hseries)

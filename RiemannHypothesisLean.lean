@@ -9,6 +9,7 @@ import RiemannHypothesisLean.BridgeAudit
 import RiemannHypothesisLean.DirichletEta
 import RiemannHypothesisLean.AlternatingEta
 import RiemannHypothesisLean.RiemannXi
+import RiemannHypothesisLean.LiCriterion
 import RiemannHypothesisLean.FourPELFeasibility
 
 /-!

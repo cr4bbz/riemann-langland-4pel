@@ -1,5 +1,6 @@
 import Mathlib.Analysis.Calculus.MeanValue
 import Mathlib.Analysis.Calculus.Deriv.Slope
+import Mathlib.Analysis.Complex.Convex
 import Mathlib.Analysis.Complex.SummableUniformlyOn
 import Mathlib.Analysis.PSeries
 import Mathlib.Analysis.Normed.Module.Connected
@@ -673,6 +674,40 @@ theorem alternatingEtaNaturalValue_eq_continuation_of_one_lt_re {s : ℂ}
       alternatingEtaNaturalValue_eq_series_of_one_lt_re hs
     _ = alternatingDirichletEtaContinuation s :=
       (alternatingDirichletEtaContinuation_eq_series_of_one_lt_re hs).symm
+
+/-- The natural-order eta value agrees with the independent analytic continuation
+throughout the half-plane `0 < re(s)`.
+
+Both sides are holomorphic there. They agree on the nonempty open subdomain `1 < re(s)`, so
+the identity theorem propagates the equality across the connected right half-plane. -/
+theorem alternatingEtaNaturalValue_eq_continuation_of_pos_re {s : ℂ}
+    (hs : 0 < s.re) :
+    alternatingEtaNaturalValue s = alternatingDirichletEtaContinuation s := by
+  let U : Set ℂ := {z : ℂ | 0 < z.re}
+  have hUopen : IsOpen U :=
+    isOpen_lt continuous_const continuous_re
+  have hfAnalytic :
+      AnalyticOnNhd ℂ alternatingEtaNaturalValue U :=
+    DifferentiableOn.analyticOnNhd
+      differentiableOn_alternatingEtaNaturalValue hUopen
+  have hgAnalytic :
+      AnalyticOnNhd ℂ alternatingDirichletEtaContinuation U :=
+    DifferentiableOn.analyticOnNhd
+      differentiable_alternatingDirichletEtaContinuation.differentiableOn hUopen
+  have hseries (z : ℂ) (hz : 1 < z.re) :
+      alternatingEtaNaturalValue z = alternatingDirichletEtaContinuation z :=
+    alternatingEtaNaturalValue_eq_continuation_of_one_lt_re hz
+  have heq :
+      Set.EqOn alternatingEtaNaturalValue
+        alternatingDirichletEtaContinuation U :=
+    hfAnalytic.eqOn_of_preconnected_of_eventuallyEq hgAnalytic
+      (Convex.isPreconnected (convex_halfSpace_re_gt 0))
+      (show (2 : ℂ) ∈ U by norm_num)
+      (eventuallyEq_of_mem
+        ((isOpen_lt continuous_const continuous_re).mem_nhds (by norm_num))
+        hseries)
+  exact heq hs
+
 
 /-- On the absolute-convergence half-plane, the natural eta value has the classical
 factorization `(1 - 2^(1-s)) * ζ(s)`.

@@ -31,7 +31,10 @@ def riemannXi (s : ℂ) : ℂ :=
 theorem differentiable_riemannXi :
     Differentiable ℂ riemannXi := by
   unfold riemannXi
-  fun_prop
+  exact differentiable_const.mul
+    (differentiable_const.add
+      ((differentiable_id.mul (differentiable_id.sub differentiable_const)).mul
+        differentiable_completedZeta₀))
 
 /-- Riemann's xi function is symmetric under `s ↦ 1 - s`. -/
 theorem riemannXi_one_sub (s : ℂ) :
@@ -66,7 +69,7 @@ theorem riemannXi_eq_zero_iff_completedRiemannZeta_eq_zero {s : ℂ}
     (hs0 : s ≠ 0) (hs1 : s ≠ 1) :
     riemannXi s = 0 ↔ completedRiemannZeta s = 0 := by
   rw [riemannXi_eq_completedRiemannZeta hs0 hs1]
-  simp [hs0, hs1, sub_ne_zero.mpr hs1]
+  simp [hs0, sub_ne_zero.mpr hs1]
 
 /-- On the positive-real-part domain away from the pole, xi and ordinary zeta
 have exactly the same zero predicate. -/

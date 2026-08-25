@@ -272,6 +272,7 @@ RH statement.
 | Pointwise norm bound for paired eta terms when `0 < re(s)` | `norm_complexAlternatingEtaPair_le` | checked by the mean-value inequality |
 | Summability of paired-term norms when `0 < re(s)` | `summable_norm_complexAlternatingEtaPair` | checked by p-series comparison |
 | Absolute summability of the paired series when `0 < re(s)` | `summable_complexAlternatingEtaPair` | checked |
+| Holomorphy of the natural paired-series value when `0 < re(s)` | `differentiableAt_alternatingEtaNaturalValue`, `differentiableOn_alternatingEtaNaturalValue` | checked by local uniform p-series majorants |
 | Convergence of paired partial sums when `0 < re(s)` | `complexAlternatingEtaPairedPartialSum_tendsto` | checked |
 | Convergence of even eta partial sums when `0 < re(s)` | `complexAlternatingEtaPartialSum_even_tendsto` | checked through finite pairing |
 | Vanishing unpaired term when `0 < re(s)` | `complexAlternatingEtaOddRemainder_tendsto_zero` | checked through the norm formula |
@@ -282,6 +283,7 @@ RH statement.
 | Natural-order complex eta convergence when `0 < re(s)` | `complexAlternatingEtaSeries_converges_of_pos_re` | checked |
 | Natural value equals naive `LSeries` when `1 < re(s)` | `alternatingEtaNaturalValue_eq_series_of_one_lt_re` | checked by cofinal partial sums and uniqueness of limits |
 | Natural value equals periodic continuation when `1 < re(s)` | `alternatingEtaNaturalValue_eq_continuation_of_one_lt_re` | checked |
+| Natural value equals periodic continuation when `0 < re(s)` | `alternatingEtaNaturalValue_eq_continuation_of_pos_re` | checked by the identity theorem on the connected right half-plane |
 | Natural value has the factorization `(1-2^(1-s))ζ(s)` when `1 < re(s)` | `alternatingEtaNaturalValue_eq_factor_mul_zeta_of_one_lt_re` | checked by odd/even splitting of the absolutely summable zeta series |
 | Natural value equals Gate 7 `dirichletEta` when `1 < re(s)` | `alternatingEtaNaturalValue_eq_dirichletEta_of_one_lt_re` | checked |
 | Periodic continuation equals the zeta-factor expression for `s ≠ 1` | `alternatingDirichletEtaContinuation_eq_factor_mul_zeta_of_ne_one` | checked by analytic continuation on `ℂ \\ {1}` |
@@ -291,6 +293,7 @@ RH statement.
 | Factorized eta product tends to `log 2` at one | `tendsto_dirichletEtaFactor_mul_riemannZeta_one` | checked using `riemannZeta_residue_one` |
 | Independent continuation has value `log 2` at one | `alternatingDirichletEtaContinuation_one` | checked by continuity and uniqueness of limits |
 | Periodic continuation equals Gate 7 `dirichletEta` globally | `alternatingDirichletEtaContinuation_eq_dirichletEta` | checked |
+| Natural value equals Gate 7 `dirichletEta` when `0 < re(s)` | `alternatingEtaNaturalValue_eq_dirichletEta_of_pos_re` | checked |
 | Harmonic difference `H_(2N)-H_N` tends to `log 2` | `tendsto_harmonic_two_mul_sub_harmonic` | checked from `Real.tendsto_harmonic_sub_log` |
 | Even alternating harmonic partial sum equals `H_(2N)-H_N` | `realAlternatingEtaPartialSum_one_two_mul` | checked by finite pairing |
 | Even alternating harmonic partial sums tend to `log 2` | `realAlternatingEtaPartialSum_one_even_tendsto` | checked |
@@ -300,12 +303,13 @@ RH statement.
 The convergence results use explicit `Finset.range` partial sums and `Filter.Tendsto`. They do not
 mislabel conditional convergence as Mathlib's stronger order-independent `Summable` predicate.
 
-This is not yet the full classical series-interoperability theorem. The periodic continuation is
-now identified globally with the factorized Gate 7 function, including its independently derived
-value `log 2` at `s = 1`. The natural alternating harmonic series is now independently linked to the continuation at one.
-Equality of the conditionally convergent natural value with that continuation on
-`0 < re(s) ≤ 1` and `s ≠ 1` remains an explicit obligation. No critical-strip zero bridge is
-inferred from the natural-series construction yet.
+The periodic continuation is identified globally with the factorized Gate 7 function, including
+its independently derived value `log 2` at `s = 1`. The natural alternating harmonic series is
+independently linked to the continuation at one. Local uniform majorants make the paired-series
+value holomorphic on `0 < re(s)`, and the identity theorem closes the remaining conditionally
+convergent series/continuation bridge throughout that half-plane. This is a full
+series-interoperability result on the natural convergence domain; it does not by itself prove a
+new zero-free statement or the Riemann hypothesis.
 
 ## Non-goals of the first milestone
 

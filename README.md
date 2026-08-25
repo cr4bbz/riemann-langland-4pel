@@ -71,8 +71,9 @@ natural-order partial sums are now defined and proved to agree with the real con
 embedded real axis. Lean also verifies that every even complex partial sum is exactly a finite
 sum of the paired terms `(2n+1)^(-s) - (2n+2)^(-s)`. The real-variable kernel
 `t ↦ t^(-s)` is now formalized, together with its derivative and the exact norm of that
-derivative for positive `t`. A summable norm estimate for the pairs, extension to arbitrary
-complex `s` with `0 < re(s)`, and identification with the factorized
+derivative for positive `t`. The mean-value inequality now yields the checked pointwise bound
+`‖pair(s,n)‖ ≤ ‖s‖(2n+1)^(-re(s)-1)` whenever `0 < re(s)`. Summability of this
+majorant, extension to arbitrary complex `s` in that half-plane, and identification with the factorized
 Gate 7 eta remain explicit open Gate 8
 obligations.
 

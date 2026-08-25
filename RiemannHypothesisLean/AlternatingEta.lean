@@ -1,3 +1,4 @@
+import Mathlib.Analysis.Calculus.MeanValue
 import Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics
 import Mathlib.Analysis.SpecificLimits.Normed
 import Mathlib.NumberTheory.LSeries.ZMod
@@ -231,6 +232,50 @@ theorem norm_etaCpowKernel_derivative (s : ℂ) {t : ℝ} (ht : 0 < t) :
     ‖(-s) * (t : ℂ) ^ (-s - 1)‖ = ‖s‖ * t ^ (-s.re - 1) := by
   rw [norm_mul, norm_neg, Complex.norm_cpow_eq_rpow_re_of_pos ht]
   simp
+
+/-- A single paired eta term is bounded by the first point of its unit interval raised to
+`-re(s)-1`. This is the pointwise estimate needed before comparison with a convergent
+p-series. -/
+theorem norm_complexAlternatingEtaPair_le {s : ℂ} (hs : 0 < s.re) (n : ℕ) :
+    ‖complexAlternatingEtaPair s n‖ ≤
+      ‖s‖ * ((2 * n + 1 : ℕ) : ℝ) ^ (-s.re - 1) := by
+  let a : ℝ := ((2 * n + 1 : ℕ) : ℝ)
+  let b : ℝ := ((2 * n + 2 : ℕ) : ℝ)
+  have ha : 0 < a := by
+    dsimp [a]
+    positivity
+  have hab : a ≤ b := by
+    dsimp [a, b]
+    exact_mod_cast (by omega : 2 * n + 1 ≤ 2 * n + 2)
+  have hs0 : s ≠ 0 := by
+    intro h
+    subst s
+    norm_num at hs
+  have hdiff : ∀ t ∈ Set.Icc a b, DifferentiableAt ℝ (etaCpowKernel s) t := by
+    intro t ht
+    exact differentiableAt_etaCpowKernel_of_pos hs0 (ha.trans_le ht.1)
+  have hbound : ∀ t ∈ Set.Icc a b,
+      ‖deriv (etaCpowKernel s) t‖ ≤ ‖s‖ * a ^ (-s.re - 1) := by
+    intro t ht
+    have htpos : 0 < t := ha.trans_le ht.1
+    rw [(hasDerivAt_etaCpowKernel (s := s) hs0 htpos.ne').deriv,
+      norm_etaCpowKernel_derivative s htpos]
+    apply mul_le_mul_of_nonneg_left _ (norm_nonneg s)
+    exact Real.rpow_le_rpow_of_nonpos ha.le ht.1 (by linarith)
+  have hmv :
+      ‖etaCpowKernel s a - etaCpowKernel s b‖ ≤
+        (‖s‖ * a ^ (-s.re - 1)) * ‖a - b‖ :=
+    (convex_Icc a b).norm_image_sub_le_of_norm_deriv_le hdiff hbound
+      (right_mem_Icc.mpr hab) (left_mem_Icc.mpr hab)
+  have hstep : ‖a - b‖ = 1 := by
+    have : a - b = -1 := by
+      dsimp [a, b]
+      push_cast
+      ring
+    rw [this]
+    norm_num
+  rw [hstep, mul_one] at hmv
+  simpa [complexAlternatingEtaPair, etaCpowKernel, a, b] using hmv
 
 end
 

@@ -266,6 +266,7 @@ RH statement.
 | Derivative of the power kernel | `hasDerivAt_etaCpowKernel` | checked at nonzero inputs |
 | Differentiability on positive inputs | `differentiableAt_etaCpowKernel_of_pos` | checked |
 | Exact derivative norm on positive inputs | `norm_etaCpowKernel_derivative` | checked |
+| Pointwise norm bound for paired eta terms when `0 < re(s)` | `norm_complexAlternatingEtaPair_le` | checked by the mean-value inequality |
 
 The convergence results use explicit `Finset.range` partial sums and `Filter.Tendsto`. It does not
 mislabel conditional convergence as Mathlib's stronger order-independent `Summable` predicate.

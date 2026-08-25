@@ -88,8 +88,9 @@ entire. Explicit natural-order real partial sums now converge for every real exp
 The complex partial sums are defined independently and agree with those real sums on the embedded
 real axis. Even complex partial sums are now exactly rewritten as finite sums of the pairs
 `(2n+1)^(-s) - (2n+2)^(-s)`. The real-variable kernel `t ↦ t^(-s)`, its derivative, and the
-exact derivative norm on positive inputs are also checked as the analytic basis for estimating
-those pairs. This does not yet draw the missing full complex edge: a summable
+exact derivative norm on positive inputs are also checked. The mean-value inequality now supplies
+the pointwise estimate `‖pair(s,n)‖ ≤ ‖s‖(2n+1)^(-re(s)-1)` for `0 < re(s)`.
+This does not yet draw the missing full complex edge: a summable
 norm estimate for those pairs, partial-sum convergence for all `0 < re(s)`, and equality with the
 factorized `dirichletEta` have not been proved. A classical
 positivity criterion remains a separate future expansion family.

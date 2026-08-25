@@ -195,4 +195,9 @@ example (s : ℂ) {t : ℝ} (ht : 0 < t) :
     ‖(-s) * (t : ℂ) ^ (-s - 1)‖ = ‖s‖ * t ^ (-s.re - 1) :=
   norm_etaCpowKernel_derivative s ht
 
+example {s : ℂ} (hs : 0 < s.re) (n : ℕ) :
+    ‖complexAlternatingEtaPair s n‖ ≤
+      ‖s‖ * ((2 * n + 1 : ℕ) : ℝ) ^ (-s.re - 1) :=
+  norm_complexAlternatingEtaPair_le hs n
+
 end RiemannHypothesisLean

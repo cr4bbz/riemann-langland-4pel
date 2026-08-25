@@ -221,15 +221,21 @@ theorem complexAlternatingEtaPartialSum_two_mul (s : ℂ) (N : ℕ) :
 theorem alternatingEtaLSeries_term_odd (s : ℂ) (n : ℕ) :
     LSeries.term alternatingEtaCoefficient s (2 * n + 1) =
       ((2 * n + 1 : ℕ) : ℂ) ^ (-s) := by
+  have hmod : ((2 * n + 1 : ℕ) : ZMod 2) = 1 := by
+    norm_num
   rw [LSeries.term_of_ne_zero (by omega)]
-  simp [alternatingEtaCoefficient, etaResidueCoefficient, div_eq_mul_inv, ← cpow_neg]
+  rw [alternatingEtaCoefficient, hmod, etaResidueCoefficient_one]
+  simp [div_eq_mul_inv, ← cpow_neg]
 
 /-- The even positive-index terms of Mathlib's `LSeries` are the negative eta terms. -/
 theorem alternatingEtaLSeries_term_even (s : ℂ) (n : ℕ) :
     LSeries.term alternatingEtaCoefficient s (2 * n + 2) =
       -((2 * n + 2 : ℕ) : ℂ) ^ (-s) := by
+  have hmod : ((2 * n + 2 : ℕ) : ZMod 2) = 0 := by
+    norm_num
   rw [LSeries.term_of_ne_zero (by omega)]
-  simp [alternatingEtaCoefficient, etaResidueCoefficient, div_eq_mul_inv, ← cpow_neg]
+  rw [alternatingEtaCoefficient, hmod, etaResidueCoefficient_zero]
+  simp [div_eq_mul_inv, ← cpow_neg]
 
 /-- The first `2N + 1` Mathlib `LSeries` indices (including its zero term) equal the first
 `N` paired eta terms. This is a finite identity and uses no convergence theorem. -/
@@ -240,9 +246,12 @@ theorem alternatingEtaLSeries_partialSum_two_mul_add_one (s : ℂ) (N : ℕ) :
   | zero =>
       simp [complexAlternatingEtaPairedPartialSum]
   | succ N ih =>
+      unfold complexAlternatingEtaPairedPartialSum at ih ⊢
       rw [show 2 * (N + 1) + 1 = (2 * N + 1) + 1 + 1 by omega]
-      rw [Finset.sum_range_succ, Finset.sum_range_succ,
-        complexAlternatingEtaPairedPartialSum, Finset.sum_range_succ]
+      conv_lhs =>
+        rw [Finset.sum_range_succ, Finset.sum_range_succ]
+      conv_rhs =>
+        rw [Finset.sum_range_succ]
       rw [ih, alternatingEtaLSeries_term_odd, alternatingEtaLSeries_term_even]
       simp [complexAlternatingEtaPair, add_assoc]
 
@@ -435,10 +444,8 @@ theorem alternatingEtaNaturalValue_eq_series_of_one_lt_re {s : ℂ}
     alternatingEtaNaturalValue s = alternatingDirichletEtaSeries s := by
   have hindex :
       Filter.Tendsto (fun N : ℕ => 2 * N + 1) Filter.atTop Filter.atTop := by
-    apply tendsto_atTop.2
-    intro b
-    refine ⟨b, ?_⟩
-    intro a ha
+    refine tendsto_atTop.2 fun b => ?_
+    filter_upwards [eventually_ge_atTop b] with a ha
     omega
   have hseries :
       Filter.Tendsto
@@ -447,8 +454,8 @@ theorem alternatingEtaNaturalValue_eq_series_of_one_lt_re {s : ℂ}
             LSeries.term alternatingEtaCoefficient s n)
         Filter.atTop (nhds (alternatingDirichletEtaSeries s)) := by
     exact
-      (alternatingDirichletEtaSeries_summable_of_one_lt_re hs).LSeriesHasSum
-        .tendsto_sum_nat.comp hindex
+      ((alternatingDirichletEtaSeries_summable_of_one_lt_re hs).LSeriesHasSum
+        .tendsto_sum_nat).comp hindex
   have hnatural :
       Filter.Tendsto
         (fun N : ℕ =>

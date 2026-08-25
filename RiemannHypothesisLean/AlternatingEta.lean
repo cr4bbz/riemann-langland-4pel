@@ -173,6 +173,39 @@ theorem complexAlternatingEtaSeries_converges_of_pos_real {x : ℝ} (hx : 0 < x)
   exact Filter.Eventually.of_forall fun N ↦
     (complexAlternatingEtaPartialSum_ofReal x N).symm
 
+
+/-- A finite sum with an even number of terms is the sum of its consecutive pairs. -/
+theorem sum_range_two_mul_eq_sum_pairs {α : Type*} [AddCommMonoid α]
+    (f : ℕ → α) (N : ℕ) :
+    ∑ n ∈ Finset.range (2 * N), f n =
+      ∑ n ∈ Finset.range N, (f (2 * n) + f (2 * n + 1)) := by
+  induction N with
+  | zero =>
+      simp
+  | succ N ih =>
+      rw [show 2 * (N + 1) = 2 * N + 1 + 1 by omega]
+      rw [Finset.sum_range_succ, Finset.sum_range_succ, Finset.sum_range_succ, ih]
+      simp [add_assoc]
+
+/-- The `n`th paired complex eta term. -/
+def complexAlternatingEtaPair (s : ℂ) (n : ℕ) : ℂ :=
+  ((2 * n + 1 : ℕ) : ℂ) ^ (-s) - ((2 * n + 2 : ℕ) : ℂ) ^ (-s)
+
+/-- The first `N` paired complex eta terms. -/
+def complexAlternatingEtaPairedPartialSum (s : ℂ) (N : ℕ) : ℂ :=
+  ∑ n ∈ Finset.range N, complexAlternatingEtaPair s n
+
+/-- Pairing does not change the even natural-order eta partial sums. -/
+theorem complexAlternatingEtaPartialSum_two_mul (s : ℂ) (N : ℕ) :
+    complexAlternatingEtaPartialSum s (2 * N) =
+      complexAlternatingEtaPairedPartialSum s N := by
+  unfold complexAlternatingEtaPartialSum complexAlternatingEtaPairedPartialSum
+  rw [sum_range_two_mul_eq_sum_pairs]
+  apply Finset.sum_congr rfl
+  intro n hn
+  simp [complexAlternatingEtaPair]
+  ring
+
 end
 
 end RiemannHypothesisLean

@@ -75,8 +75,9 @@ derivative for positive `t`. The mean-value inequality now yields the checked po
 `‖pair(s,n)‖ ≤ ‖s‖(2n+1)^(-re(s)-1)` whenever `0 < re(s)`. Lean also checks that
 this majorant is summable by comparison with a p-series, hence the paired complex series is
 absolutely summable on that half-plane. Its paired partial sums and therefore every even
-natural-order eta partial sum now converge to the paired-series sum. The vanishing remainder
-needed for all natural indices and identification with the factorized
+natural-order eta partial sum now converge to the paired-series sum. The remaining unpaired term
+is checked to tend to zero, so the odd partial sums converge to the same value. Combining the two
+parity subsequences for all natural indices and identification with the factorized
 Gate 7 eta remain explicit open Gate 8
 obligations.
 

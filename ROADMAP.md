@@ -115,7 +115,9 @@ of either equivalent RH formulation.
 - [x] Prove the pointwise mean-value bound for each paired term when `0 < re(s)`.
 - [x] Prove a summable norm bound for the paired terms when `0 < re(s)`.
 - [x] Prove convergence of the paired and even natural-order partial sums.
-- [ ] Prove the unpaired final term tends to zero.
+- [x] Prove the unpaired final term tends to zero.
+- [x] Prove convergence of the odd natural-order partial sums to the same limit.
+- [ ] Combine the two parity subsequences.
 - [ ] Extend partial-sum convergence to arbitrary complex `s` with `0 < re(s)`.
 - [ ] Identify the independent continuation with the factorized `dirichletEta`.
 - [ ] Derive the value `log 2` at `s = 1` from the independent construction.

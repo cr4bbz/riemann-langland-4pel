@@ -218,4 +218,20 @@ example {s : ℂ} (hs : 0 < s.re) :
       (nhds (∑' n : ℕ, complexAlternatingEtaPair s n)) :=
   complexAlternatingEtaPartialSum_even_tendsto hs
 
+example {s : ℂ} (hs : 0 < s.re) :
+    Filter.Tendsto (fun N : ℕ => ((2 * N + 1 : ℕ) : ℂ) ^ (-s))
+      Filter.atTop (nhds 0) :=
+  complexAlternatingEtaOddRemainder_tendsto_zero hs
+
+example (s : ℂ) (N : ℕ) :
+    complexAlternatingEtaPartialSum s (2 * N + 1) =
+      complexAlternatingEtaPartialSum s (2 * N) +
+        ((2 * N + 1 : ℕ) : ℂ) ^ (-s) :=
+  complexAlternatingEtaPartialSum_two_mul_add_one s N
+
+example {s : ℂ} (hs : 0 < s.re) :
+    Filter.Tendsto (fun N => complexAlternatingEtaPartialSum s (2 * N + 1)) Filter.atTop
+      (nhds (∑' n : ℕ, complexAlternatingEtaPair s n)) :=
+  complexAlternatingEtaPartialSum_odd_tendsto hs
+
 end RiemannHypothesisLean

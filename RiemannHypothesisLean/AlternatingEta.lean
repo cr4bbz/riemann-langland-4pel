@@ -322,6 +322,42 @@ theorem complexAlternatingEtaPartialSum_even_tendsto {s : ℂ} (hs : 0 < s.re) :
   exact Filter.Eventually.of_forall fun N =>
     (complexAlternatingEtaPartialSum_two_mul s N).symm
 
+/-- The unpaired positive eta term after the first `2N` terms tends to zero when
+`0 < re(s)`. -/
+theorem complexAlternatingEtaOddRemainder_tendsto_zero {s : ℂ} (hs : 0 < s.re) :
+    Filter.Tendsto (fun N : ℕ => ((2 * N + 1 : ℕ) : ℂ) ^ (-s)) Filter.atTop (nhds 0) := by
+  rw [tendsto_zero_iff_norm_tendsto_zero]
+  have hbase :
+      Filter.Tendsto (fun N : ℕ => ((2 * N + 1 : ℕ) : ℝ)) Filter.atTop Filter.atTop := by
+    change Filter.Tendsto (fun N : ℕ => (2 : ℝ) * (N : ℝ) + 1)
+      Filter.atTop Filter.atTop
+    apply tendsto_atTop_add_const_right
+    exact tendsto_natCast_atTop_atTop.const_mul_atTop zero_lt_two
+  convert (tendsto_rpow_neg_atTop hs).comp hbase using 1
+  ext N
+  rw [Complex.norm_natCast_cpow_of_pos (by omega)]
+  simp
+
+/-- Adding the next term to an even eta partial sum produces the following odd partial sum. -/
+theorem complexAlternatingEtaPartialSum_two_mul_add_one (s : ℂ) (N : ℕ) :
+    complexAlternatingEtaPartialSum s (2 * N + 1) =
+      complexAlternatingEtaPartialSum s (2 * N) +
+        ((2 * N + 1 : ℕ) : ℂ) ^ (-s) := by
+  unfold complexAlternatingEtaPartialSum
+  rw [Finset.sum_range_succ]
+  simp
+
+/-- The odd natural-order eta partial sums converge to the same paired-series sum when
+`0 < re(s)`. -/
+theorem complexAlternatingEtaPartialSum_odd_tendsto {s : ℂ} (hs : 0 < s.re) :
+    Filter.Tendsto (fun N => complexAlternatingEtaPartialSum s (2 * N + 1)) Filter.atTop
+      (nhds (∑' n : ℕ, complexAlternatingEtaPair s n)) := by
+  have h :=
+    (complexAlternatingEtaPartialSum_even_tendsto hs).add
+      (complexAlternatingEtaOddRemainder_tendsto_zero hs)
+  simpa only [add_zero] using h.congr' (Filter.Eventually.of_forall fun N =>
+    (complexAlternatingEtaPartialSum_two_mul_add_one s N).symm)
+
 end
 
 end RiemannHypothesisLean

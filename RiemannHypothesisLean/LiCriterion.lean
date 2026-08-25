@@ -33,7 +33,7 @@ def liDerivativeKernel (n : ℕ) (s : ℂ) : ℂ :=
 /-- The principal logarithm of xi is analytic at one. -/
 theorem analyticAt_log_riemannXi_one :
     AnalyticAt ℂ (fun s : ℂ => log (riemannXi s)) 1 := by
-  apply differentiable_riemannXi.analyticAt.clog
+  apply (differentiable_riemannXi.analyticAt 1).clog
   rw [riemannXi_one]
   norm_num [mem_slitPlane_iff]
 

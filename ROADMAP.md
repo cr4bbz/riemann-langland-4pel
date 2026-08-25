@@ -114,6 +114,7 @@ of either equivalent RH formulation.
 - [x] Prove its derivative and exact derivative norm on positive real inputs.
 - [x] Prove the pointwise mean-value bound for each paired term when `0 < re(s)`.
 - [x] Prove a summable norm bound for the paired terms when `0 < re(s)`.
+- [x] Prove local uniform majorants and holomorphy of the paired-series value on `0 < re(s)`.
 - [x] Prove convergence of the paired and even natural-order partial sums.
 - [x] Prove the unpaired final term tends to zero.
 - [x] Prove convergence of the odd natural-order partial sums to the same limit.
@@ -129,9 +130,11 @@ of either equivalent RH formulation.
 - [x] Identify the independent periodic continuation globally with factorized `dirichletEta`.
 - [x] Prove `H_(2N)-H_N → log 2` and identify the even alternating harmonic partial sums with that difference.
 - [x] Prove the natural eta value at one is `log 2` and equals the periodic continuation there.
-- [ ] Identify the conditionally convergent natural value with the periodic continuation on `0 < re(s) ≤ 1` away from one.
+- [x] Identify the conditionally convergent natural value with the periodic continuation on `0 < re(s) ≤ 1` away from one by the identity theorem.
+- [x] Identify the natural value with Gate 7 `dirichletEta` throughout `0 < re(s)`.
 
-The independent periodic continuation is now identified globally with Gate 7, including the
-removable point, and the natural alternating harmonic series is independently connected to it at
-one. The remaining series-level gap is the rest of the conditionally convergent part of the right
-half-plane.
+Gate 8 now supplies a checked interoperability chain on the full natural convergence domain:
+natural-order alternating partial sums converge to the paired-series value, that value is
+holomorphic and equals the independent periodic continuation on `0 < re(s)`, and the continuation
+equals Gate 7 `dirichletEta` globally. This closes Gate 8 without asserting the Riemann
+hypothesis.

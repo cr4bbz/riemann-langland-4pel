@@ -200,4 +200,12 @@ example {s : ℂ} (hs : 0 < s.re) (n : ℕ) :
       ‖s‖ * ((2 * n + 1 : ℕ) : ℝ) ^ (-s.re - 1) :=
   norm_complexAlternatingEtaPair_le hs n
 
+example {s : ℂ} (hs : 0 < s.re) :
+    Summable (fun n : ℕ => ‖complexAlternatingEtaPair s n‖) :=
+  summable_norm_complexAlternatingEtaPair hs
+
+example {s : ℂ} (hs : 0 < s.re) :
+    Summable (complexAlternatingEtaPair s) :=
+  summable_complexAlternatingEtaPair hs
+
 end RiemannHypothesisLean

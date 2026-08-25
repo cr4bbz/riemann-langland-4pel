@@ -1,4 +1,5 @@
 import Mathlib.Analysis.Calculus.MeanValue
+import Mathlib.Analysis.PSeries
 import Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics
 import Mathlib.Analysis.SpecificLimits.Normed
 import Mathlib.NumberTheory.LSeries.ZMod
@@ -276,6 +277,32 @@ theorem norm_complexAlternatingEtaPair_le {s : ℂ} (hs : 0 < s.re) (n : ℕ) :
     norm_num
   rw [hstep, mul_one] at hmv
   simpa [complexAlternatingEtaPair, etaCpowKernel, a, b] using hmv
+
+/-- The norms of the paired eta terms are summable throughout the half-plane `0 < re(s)`.
+
+The comparison series is the odd-index subsequence of the real p-series with exponent
+`-re(s)-1 < -1`. -/
+theorem summable_norm_complexAlternatingEtaPair {s : ℂ} (hs : 0 < s.re) :
+    Summable (fun n : ℕ => ‖complexAlternatingEtaPair s n‖) := by
+  refine Summable.of_nonneg_of_le (fun n => norm_nonneg _) (fun n =>
+    norm_complexAlternatingEtaPair_le hs n) ?_
+  have hpow : Summable (fun n : ℕ => (n : ℝ) ^ (-s.re - 1)) :=
+    Real.summable_nat_rpow.mpr (by linarith)
+  let g : ℕ → ℕ := fun n => 2 * n + 1
+  have hg : Function.Injective g := by
+    intro m n h
+    dsimp [g] at h
+    omega
+  have hodd : Summable (fun n : ℕ =>
+      ((2 * n + 1 : ℕ) : ℝ) ^ (-s.re - 1)) := by
+    simpa [g, Function.comp_def] using hpow.comp_injective hg
+  exact hodd.mul_left ‖s‖
+
+/-- The paired complex eta series is absolutely summable when `0 < re(s)`. -/
+theorem summable_complexAlternatingEtaPair {s : ℂ} (hs : 0 < s.re) :
+    Summable (complexAlternatingEtaPair s) := by
+  rw [← summable_norm_iff]
+  exact summable_norm_complexAlternatingEtaPair hs
 
 end
 

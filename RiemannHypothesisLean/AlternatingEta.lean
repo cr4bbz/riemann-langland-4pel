@@ -502,17 +502,20 @@ theorem alternatingEtaNaturalValue_eq_factor_mul_zeta_of_one_lt_re {s : ℂ}
       simpa only [Nat.cast_add, Nat.cast_one] using
         (summable_nat_add_iff 1).2 ha₀
     simpa [a, one_div, ← cpow_neg] using hshift
-  have hodd : Summable (fun n : ℕ => a (2 * n)) := by
-    exact ha.comp_injective (by
-      intro m n h
-      omega)
-  have heven : Summable (fun n : ℕ => a (2 * n + 1)) := by
-    exact ha.comp_injective (by
-      intro m n h
-      omega)
+  have hoddIndex : Function.Injective (fun n : ℕ => 2 * n) := by
+    intro m n h
+    omega
+  have hevenIndex : Function.Injective (fun n : ℕ => 2 * n + 1) := by
+    intro m n h
+    omega
+  have hodd : Summable (fun n : ℕ => a (2 * n)) :=
+    ha.comp_injective hoddIndex
+  have heven : Summable (fun n : ℕ => a (2 * n + 1)) :=
+    ha.comp_injective hevenIndex
   have hpair (n : ℕ) :
       complexAlternatingEtaPair s n = a (2 * n) - a (2 * n + 1) := by
     simp [a, complexAlternatingEtaPair]
+    ring_nf
   have hzeta : (∑' n : ℕ, a n) = riemannZeta s := by
     symm
     simpa [a, one_div, ← cpow_neg] using
@@ -521,8 +524,7 @@ theorem alternatingEtaNaturalValue_eq_factor_mul_zeta_of_one_lt_re {s : ℂ}
       a (2 * n + 1) = (2 : ℂ) ^ (-s) * a n := by
     dsimp [a]
     rw [show 2 * n + 1 + 1 = 2 * (n + 1) by omega]
-    push_cast
-    rw [mul_cpow_ofReal_nonneg] <;> positivity
+    exact natCast_mul_natCast_cpow 2 (n + 1) (-s)
   have hevenSum :
       (∑' n : ℕ, a (2 * n + 1)) = (2 : ℂ) ^ (-s) * riemannZeta s := by
     calc
@@ -547,7 +549,7 @@ theorem alternatingEtaNaturalValue_eq_factor_mul_zeta_of_one_lt_re {s : ℂ}
     (∑' n : ℕ, complexAlternatingEtaPair s n) =
         ∑' n : ℕ, (a (2 * n) - a (2 * n + 1)) := tsum_congr hpair
     _ = (∑' n : ℕ, a (2 * n)) - ∑' n : ℕ, a (2 * n + 1) :=
-      tsum_sub hodd heven
+      (hodd.hasSum.sub heven.hasSum).tsum_eq
     _ = (∑' n : ℕ, a n) - 2 * ∑' n : ℕ, a (2 * n + 1) := by
       rw [hsplit]
       ring

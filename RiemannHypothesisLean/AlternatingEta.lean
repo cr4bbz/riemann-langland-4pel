@@ -221,8 +221,10 @@ theorem complexAlternatingEtaPartialSum_two_mul (s : ℂ) (N : ℕ) :
 theorem alternatingEtaLSeries_term_odd (s : ℂ) (n : ℕ) :
     LSeries.term alternatingEtaCoefficient s (2 * n + 1) =
       ((2 * n + 1 : ℕ) : ℂ) ^ (-s) := by
+  have htwo : (2 : ZMod 2) = 0 := by decide
   have hmod : ((2 * n + 1 : ℕ) : ZMod 2) = 1 := by
-    norm_num
+    push_cast
+    simp [htwo]
   rw [LSeries.term_of_ne_zero (by omega)]
   rw [alternatingEtaCoefficient, hmod, etaResidueCoefficient_one]
   simp [div_eq_mul_inv, ← cpow_neg]
@@ -231,8 +233,10 @@ theorem alternatingEtaLSeries_term_odd (s : ℂ) (n : ℕ) :
 theorem alternatingEtaLSeries_term_even (s : ℂ) (n : ℕ) :
     LSeries.term alternatingEtaCoefficient s (2 * n + 2) =
       -((2 * n + 2 : ℕ) : ℂ) ^ (-s) := by
+  have htwo : (2 : ZMod 2) = 0 := by decide
   have hmod : ((2 * n + 2 : ℕ) : ZMod 2) = 0 := by
-    norm_num
+    push_cast
+    simp [htwo]
   rw [LSeries.term_of_ne_zero (by omega)]
   rw [alternatingEtaCoefficient, hmod, etaResidueCoefficient_zero]
   simp [div_eq_mul_inv, ← cpow_neg]
@@ -253,7 +257,8 @@ theorem alternatingEtaLSeries_partialSum_two_mul_add_one (s : ℂ) (N : ℕ) :
       conv_rhs =>
         rw [Finset.sum_range_succ]
       rw [ih, alternatingEtaLSeries_term_odd, alternatingEtaLSeries_term_even]
-      simp [complexAlternatingEtaPair, add_assoc]
+      simp only [complexAlternatingEtaPair, sub_eq_add_neg]
+      ac_rfl
 
 /-- The real-variable complex power kernel used to estimate consecutive eta terms. -/
 def etaCpowKernel (s : ℂ) (t : ℝ) : ℂ :=
@@ -447,15 +452,16 @@ theorem alternatingEtaNaturalValue_eq_series_of_one_lt_re {s : ℂ}
     refine tendsto_atTop.2 fun b => ?_
     filter_upwards [eventually_ge_atTop b] with a ha
     omega
+  have hsum :
+      LSeriesHasSum alternatingEtaCoefficient s (alternatingDirichletEtaSeries s) := by
+    exact (alternatingDirichletEtaSeries_summable_of_one_lt_re hs).LSeriesHasSum
   have hseries :
       Filter.Tendsto
         (fun N : ℕ =>
           ∑ n ∈ Finset.range (2 * N + 1),
             LSeries.term alternatingEtaCoefficient s n)
         Filter.atTop (nhds (alternatingDirichletEtaSeries s)) := by
-    exact
-      ((alternatingDirichletEtaSeries_summable_of_one_lt_re hs).LSeriesHasSum
-        .tendsto_sum_nat).comp hindex
+    exact hsum.tendsto_sum_nat.comp hindex
   have hnatural :
       Filter.Tendsto
         (fun N : ℕ =>

@@ -1,4 +1,5 @@
 import Mathlib.Analysis.Calculus.MeanValue
+import Mathlib.Analysis.Calculus.Deriv.Slope
 import Mathlib.Analysis.PSeries
 import Mathlib.Analysis.Normed.Module.Connected
 import Mathlib.Analysis.SpecialFunctions.Pow.Deriv
@@ -633,13 +634,73 @@ theorem alternatingDirichletEtaContinuation_eq_factor_mul_zeta_of_ne_one {s : �
         hseries)
   exact heq hs
 
+/-- At the removable point, the eta factor has derivative `log 2`. -/
+theorem hasDerivAt_dirichletEtaFactor_one :
+    HasDerivAt dirichletEtaFactor (Real.log 2 : ℂ) 1 := by
+  have hexponent :
+      HasDerivAt (fun s : ℂ => 1 - s) (-1) 1 :=
+    (hasDerivAt_const (x := (1 : ℂ)) (c := (1 : ℂ))).sub (hasDerivAt_id 1)
+  have hpow :
+      HasDerivAt (fun s : ℂ => (2 : ℂ) ^ (1 - s))
+        (-(Real.log 2 : ℂ)) 1 := by
+    simpa [complexLog_two] using
+      hexponent.const_cpow (Or.inl (by norm_num : (2 : ℂ) ≠ 0))
+  simpa [dirichletEtaFactor] using
+    (hasDerivAt_const (x := (1 : ℂ)) (c := (1 : ℂ))).sub hpow
+
+/-- The eta factor divided by `s - 1` tends to `log 2` at the removable point. -/
+theorem tendsto_dirichletEtaFactor_div_sub_one :
+    Filter.Tendsto
+      (fun s : ℂ => dirichletEtaFactor s / (s - 1))
+      (𝓝[≠] (1 : ℂ)) (𝓝 (Real.log 2 : ℂ)) := by
+  simpa [slope_def_field, dirichletEtaFactor] using
+    hasDerivAt_dirichletEtaFactor_one.tendsto_slope
+
+/-- The classical eta product has limit `log 2` at its removable point. -/
+theorem tendsto_dirichletEtaFactor_mul_riemannZeta_one :
+    Filter.Tendsto
+      (fun s : ℂ => dirichletEtaFactor s * riemannZeta s)
+      (𝓝[≠] (1 : ℂ)) (𝓝 (Real.log 2 : ℂ)) := by
+  have hproduct :=
+    tendsto_dirichletEtaFactor_div_sub_one.mul riemannZeta_residue_one
+  refine (by simpa using hproduct).congr' ?_
+  filter_upwards [eventually_mem_nhdsWithin] with s hs
+  have hsub : s - 1 ≠ 0 := sub_ne_zero.mpr (by simpa using hs)
+  field_simp [hsub]
+
+/-- The independently constructed periodic continuation takes the removable value `log 2`. -/
+@[simp]
+theorem alternatingDirichletEtaContinuation_one :
+    alternatingDirichletEtaContinuation 1 = (Real.log 2 : ℂ) := by
+  have hvalue :
+      Filter.Tendsto alternatingDirichletEtaContinuation
+        (𝓝[≠] (1 : ℂ)) (𝓝 (alternatingDirichletEtaContinuation 1)) :=
+    differentiable_alternatingDirichletEtaContinuation.continuous.continuousWithinAt
+  have hlog :
+      Filter.Tendsto alternatingDirichletEtaContinuation
+        (𝓝[≠] (1 : ℂ)) (𝓝 (Real.log 2 : ℂ)) := by
+    refine tendsto_dirichletEtaFactor_mul_riemannZeta_one.congr' ?_
+    filter_upwards [eventually_mem_nhdsWithin] with s hs
+    exact alternatingDirichletEtaContinuation_eq_factor_mul_zeta_of_ne_one
+      (by simpa using hs) |>.symm
+  exact tendsto_nhds_unique hvalue hlog
+
+/-- The independent periodic continuation agrees globally with the factorized Gate 7 eta
+function, including the removable point `s = 1`. -/
+theorem alternatingDirichletEtaContinuation_eq_dirichletEta (s : ℂ) :
+    alternatingDirichletEtaContinuation s = dirichletEta s := by
+  by_cases hs : s = 1
+  · subst s
+    rw [alternatingDirichletEtaContinuation_one, dirichletEta_one]
+  · rw [dirichletEta_of_ne_one hs]
+    exact alternatingDirichletEtaContinuation_eq_factor_mul_zeta_of_ne_one hs
+
 /-- The independent periodic continuation agrees with the factorized Gate 7 eta function at
 every point except the separately assigned removable value `s = 1`. -/
 theorem alternatingDirichletEtaContinuation_eq_dirichletEta_of_ne_one {s : ℂ}
     (hs : s ≠ 1) :
-    alternatingDirichletEtaContinuation s = dirichletEta s := by
-  rw [dirichletEta_of_ne_one hs]
-  exact alternatingDirichletEtaContinuation_eq_factor_mul_zeta_of_ne_one hs
+    alternatingDirichletEtaContinuation s = dirichletEta s :=
+  alternatingDirichletEtaContinuation_eq_dirichletEta s
 
 end
 

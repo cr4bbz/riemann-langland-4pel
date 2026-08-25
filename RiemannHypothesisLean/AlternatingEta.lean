@@ -204,7 +204,7 @@ theorem complexAlternatingEtaPartialSum_two_mul (s : ℂ) (N : ℕ) :
   apply Finset.sum_congr rfl
   intro n hn
   simp [complexAlternatingEtaPair]
-  ring
+  rw [(show Even (n * 2) by exact ⟨n, by omega⟩).neg_one_pow]
 
 end
 

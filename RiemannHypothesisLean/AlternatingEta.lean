@@ -638,21 +638,23 @@ theorem alternatingDirichletEtaContinuation_eq_factor_mul_zeta_of_ne_one {s : �
 theorem hasDerivAt_dirichletEtaFactor_one :
     HasDerivAt dirichletEtaFactor (Real.log 2 : ℂ) 1 := by
   have hexponent :
-      HasDerivAt (fun s : ℂ => 1 - s) (-1) 1 :=
-    (hasDerivAt_const (x := (1 : ℂ)) (c := (1 : ℂ))).sub (hasDerivAt_id 1)
+      HasDerivAt (fun s : ℂ => 1 - s) (-1) 1 := by
+    simpa only [Pi.sub_apply, id_eq, zero_sub] using
+      (hasDerivAt_const (x := (1 : ℂ)) (c := (1 : ℂ))).sub (hasDerivAt_id 1)
   have hpow :
       HasDerivAt (fun s : ℂ => (2 : ℂ) ^ (1 - s))
         (-(Real.log 2 : ℂ)) 1 := by
-    simpa [complexLog_two] using
+    have h :=
       hexponent.const_cpow (Or.inl (by norm_num : (2 : ℂ) ≠ 0))
-  simpa [dirichletEtaFactor] using
+    simpa only [sub_self, cpow_zero, one_mul, mul_neg, mul_one, complexLog_two] using h
+  simpa only [dirichletEtaFactor, Pi.sub_apply, zero_sub, sub_neg_eq_add, zero_add] using
     (hasDerivAt_const (x := (1 : ℂ)) (c := (1 : ℂ))).sub hpow
 
 /-- The eta factor divided by `s - 1` tends to `log 2` at the removable point. -/
 theorem tendsto_dirichletEtaFactor_div_sub_one :
     Filter.Tendsto
       (fun s : ℂ => dirichletEtaFactor s / (s - 1))
-      (𝓝[≠] (1 : ℂ)) (𝓝 (Real.log 2 : ℂ)) := by
+      (nhdsWithin (1 : ℂ) ({1}ᶜ)) (𝓝 (Real.log 2 : ℂ)) := by
   simpa [slope_def_field, dirichletEtaFactor] using
     hasDerivAt_dirichletEtaFactor_one.tendsto_slope
 
@@ -660,7 +662,7 @@ theorem tendsto_dirichletEtaFactor_div_sub_one :
 theorem tendsto_dirichletEtaFactor_mul_riemannZeta_one :
     Filter.Tendsto
       (fun s : ℂ => dirichletEtaFactor s * riemannZeta s)
-      (𝓝[≠] (1 : ℂ)) (𝓝 (Real.log 2 : ℂ)) := by
+      (nhdsWithin (1 : ℂ) ({1}ᶜ)) (𝓝 (Real.log 2 : ℂ)) := by
   have hproduct :=
     tendsto_dirichletEtaFactor_div_sub_one.mul riemannZeta_residue_one
   refine (by simpa using hproduct).congr' ?_
@@ -674,11 +676,11 @@ theorem alternatingDirichletEtaContinuation_one :
     alternatingDirichletEtaContinuation 1 = (Real.log 2 : ℂ) := by
   have hvalue :
       Filter.Tendsto alternatingDirichletEtaContinuation
-        (𝓝[≠] (1 : ℂ)) (𝓝 (alternatingDirichletEtaContinuation 1)) :=
+        (nhdsWithin (1 : ℂ) ({1}ᶜ)) (𝓝 (alternatingDirichletEtaContinuation 1)) :=
     differentiable_alternatingDirichletEtaContinuation.continuous.continuousWithinAt
   have hlog :
       Filter.Tendsto alternatingDirichletEtaContinuation
-        (𝓝[≠] (1 : ℂ)) (𝓝 (Real.log 2 : ℂ)) := by
+        (nhdsWithin (1 : ℂ) ({1}ᶜ)) (𝓝 (Real.log 2 : ℂ)) := by
     refine tendsto_dirichletEtaFactor_mul_riemannZeta_one.congr' ?_
     filter_upwards [eventually_mem_nhdsWithin] with s hs
     exact alternatingDirichletEtaContinuation_eq_factor_mul_zeta_of_ne_one
@@ -699,8 +701,9 @@ theorem alternatingDirichletEtaContinuation_eq_dirichletEta (s : ℂ) :
 every point except the separately assigned removable value `s = 1`. -/
 theorem alternatingDirichletEtaContinuation_eq_dirichletEta_of_ne_one {s : ℂ}
     (hs : s ≠ 1) :
-    alternatingDirichletEtaContinuation s = dirichletEta s :=
-  alternatingDirichletEtaContinuation_eq_dirichletEta s
+    alternatingDirichletEtaContinuation s = dirichletEta s := by
+  rw [dirichletEta_of_ne_one hs]
+  exact alternatingDirichletEtaContinuation_eq_factor_mul_zeta_of_ne_one hs
 
 end
 

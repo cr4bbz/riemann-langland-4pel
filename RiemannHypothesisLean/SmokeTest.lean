@@ -209,6 +209,14 @@ example {s : ℂ} (hs : 0 < s.re) :
   summable_complexAlternatingEtaPair hs
 
 example {s : ℂ} (hs : 0 < s.re) :
+    DifferentiableAt ℂ alternatingEtaNaturalValue s :=
+  differentiableAt_alternatingEtaNaturalValue hs
+
+example :
+    DifferentiableOn ℂ alternatingEtaNaturalValue {s : ℂ | 0 < s.re} :=
+  differentiableOn_alternatingEtaNaturalValue
+
+example {s : ℂ} (hs : 0 < s.re) :
     Filter.Tendsto (complexAlternatingEtaPairedPartialSum s) Filter.atTop
       (nhds (alternatingEtaNaturalValue s)) :=
   complexAlternatingEtaPairedPartialSum_tendsto hs
@@ -250,6 +258,10 @@ example {s : ℂ} (hs : 1 < s.re) :
 example {s : ℂ} (hs : 1 < s.re) :
     alternatingEtaNaturalValue s = alternatingDirichletEtaContinuation s :=
   alternatingEtaNaturalValue_eq_continuation_of_one_lt_re hs
+
+example {s : ℂ} (hs : 0 < s.re) :
+    alternatingEtaNaturalValue s = alternatingDirichletEtaContinuation s :=
+  alternatingEtaNaturalValue_eq_continuation_of_pos_re hs
 
 example :
     Filter.Tendsto
@@ -294,6 +306,10 @@ example :
 example (s : ℂ) :
     alternatingDirichletEtaContinuation s = dirichletEta s :=
   alternatingDirichletEtaContinuation_eq_dirichletEta s
+
+example {s : ℂ} (hs : 0 < s.re) :
+    alternatingEtaNaturalValue s = dirichletEta s :=
+  alternatingEtaNaturalValue_eq_dirichletEta_of_pos_re hs
 
 example {s : ℂ} (hs : s ≠ 1) :
     alternatingDirichletEtaContinuation s = dirichletEta s :=

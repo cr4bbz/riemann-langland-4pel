@@ -177,6 +177,7 @@ theorem tendsto_harmonic_two_mul_sub_harmonic :
     congr 1
     push_cast
     field_simp
+  norm_num [Nat.cast_mul] at hlog
   linarith
 
 

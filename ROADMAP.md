@@ -138,3 +138,24 @@ natural-order alternating partial sums converge to the paired-series value, that
 holomorphic and equals the independent periodic continuation on `0 < re(s)`, and the continuation
 equals Gate 7 `dirichletEta` globally. This closes Gate 8 without asserting the Riemann
 hypothesis.
+
+## Gate 9 — Riemann xi and positivity-criterion foundation
+
+- [x] Audit pinned Mathlib for an existing xi function, Li coefficients, and Li's criterion.
+- [x] Define Riemann's entire xi function from `completedRiemannZeta₀`.
+- [x] Prove `riemannXi` is entire.
+- [x] Prove the functional symmetry `ξ(1-s)=ξ(s)`.
+- [x] Prove the removable-point values `ξ(0)=ξ(1)=1/2`.
+- [x] Identify xi with `(1/2)s(s-1)Λ(s)` away from zero and one.
+- [x] Prove xi and ordinary zeta have the same zero predicate on `0 < re(s)`.
+- [x] Exclude xi zeros from the closed left half-plane.
+- [x] Identify xi zeros exactly with project-level nontrivial zeta zeros.
+- [x] Prove `Statement ↔ XiCriticalLineCriterion`.
+- [ ] Define Li coefficients from iterated derivatives of `log ξ` at one.
+- [ ] Prove the coefficients are real.
+- [ ] Formalize coefficient nonnegativity as a positivity criterion.
+- [ ] Prove, rather than assume, the Li-criterion equivalence with RH.
+
+Pinned Mathlib supplies completed zeta and iterated-derivative infrastructure, but no existing
+formalization of Riemann's xi function, Li coefficients, or Li's criterion was found. The checked
+xi/RH bridge is therefore the foundation for the next work, not yet a positivity theorem.

@@ -114,6 +114,16 @@ conditionally convergent series/continuation edge. Thus the natural value, the i
 periodic continuation, and Gate 7 `dirichletEta` agree throughout `0 < re(s)`. A classical
 positivity criterion remains a separate future expansion family.
 
+Gate 9 adds a new exact analytic node rather than assuming a positivity theorem.
+`riemannXi` is constructed from Mathlib's entire pole-subtracted completed zeta and is proved
+entire and reflection-symmetric. Away from the removable points it is identified with the
+classical completed-zeta product. A reflection/nonvanishing argument excludes xi zeros from the
+closed left half-plane, after which checked zero-predicate bridges identify xi zeros exactly with
+the project's nontrivial zeta zeros. Therefore `Statement ↔ XiCriticalLineCriterion` is now an
+exact edge. There is not yet an edge from Li-coefficient nonnegativity to this xi criterion:
+pinned Mathlib contains neither the coefficients nor Li's theorem, so that remains a genuine
+formalization obligation.
+
 ## Availability findings
 
 The pinned Mathlib surface supplies `riemannZeta`, its functional equation, critical

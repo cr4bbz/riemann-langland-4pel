@@ -504,8 +504,9 @@ theorem alternatingEtaNaturalValue_eq_factor_mul_zeta_of_one_lt_re {s : ℂ}
     simpa [a, one_div, ← cpow_neg] using hshift
   have hoddIndex : Function.Injective (fun n : ℕ => 2 * n) := by
     simpa [mul_comm] using (mul_right_injective₀ (two_ne_zero' ℕ))
-  have hevenIndex : Function.Injective (fun n : ℕ => 2 * n + 1) :=
-    (add_right_injective 1).comp hoddIndex
+  have hevenIndex : Function.Injective (fun n : ℕ => 2 * n + 1) := by
+    simpa [Function.comp_def, add_comm] using
+      ((add_right_injective 1).comp hoddIndex)
   have hodd : Summable (fun n : ℕ => a (2 * n)) :=
     ha.comp_injective hoddIndex
   have heven : Summable (fun n : ℕ => a (2 * n + 1)) :=

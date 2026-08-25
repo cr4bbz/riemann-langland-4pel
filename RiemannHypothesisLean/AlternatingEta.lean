@@ -257,6 +257,16 @@ theorem realAlternatingEtaPartialSum_one_two_mul (N : ℕ) :
   field_simp
   ring
 
+/-- The even natural partial sums of the real alternating harmonic series tend to
+`log 2`. -/
+theorem realAlternatingEtaPartialSum_one_even_tendsto :
+    Filter.Tendsto
+      (fun N : ℕ => realAlternatingEtaPartialSum 1 (2 * N))
+      Filter.atTop (nhds (Real.log 2)) := by
+  refine tendsto_harmonic_two_mul_sub_harmonic.congr' ?_
+  exact Filter.Eventually.of_forall fun N =>
+    (realAlternatingEtaPartialSum_one_two_mul N).symm
+
 /-- The `n`th paired complex eta term. -/
 def complexAlternatingEtaPair (s : ℂ) (n : ℕ) : ℂ :=
   ((2 * n + 1 : ℕ) : ℂ) ^ (-s) - ((2 * n + 2 : ℕ) : ℂ) ^ (-s)
@@ -440,6 +450,30 @@ theorem complexAlternatingEtaPartialSum_even_tendsto {s : ℂ} (hs : 0 < s.re) :
   refine (complexAlternatingEtaPairedPartialSum_tendsto hs).congr' ?_
   exact Filter.Eventually.of_forall fun N =>
     (complexAlternatingEtaPartialSum_two_mul s N).symm
+
+/-- The independently defined natural-order eta value at one is `log 2`.
+
+This result comes from the ordinary alternating harmonic partial sums and the harmonic-number
+asymptotic, not from the analytic continuation. -/
+@[simp]
+theorem alternatingEtaNaturalValue_one :
+    alternatingEtaNaturalValue 1 = (Real.log 2 : ℂ) := by
+  have hcomplex :
+      Filter.Tendsto
+        (fun N : ℕ => (realAlternatingEtaPartialSum 1 (2 * N) : ℂ))
+        Filter.atTop (nhds (Real.log 2 : ℂ)) :=
+    (Complex.continuous_ofReal.tendsto (Real.log 2)).comp
+      realAlternatingEtaPartialSum_one_even_tendsto
+  have heta :
+      Filter.Tendsto
+        (fun N : ℕ => complexAlternatingEtaPartialSum 1 (2 * N))
+        Filter.atTop (nhds (Real.log 2 : ℂ)) := by
+    refine hcomplex.congr' ?_
+    exact Filter.Eventually.of_forall fun N =>
+      (complexAlternatingEtaPartialSum_ofReal 1 (2 * N)).symm
+  exact tendsto_nhds_unique
+    (complexAlternatingEtaPartialSum_even_tendsto (s := 1) (by norm_num))
+    heta
 
 /-- The unpaired positive eta term after the first `2N` terms tends to zero when
 `0 < re(s)`. -/
@@ -753,6 +787,11 @@ theorem alternatingDirichletEtaContinuation_one :
     exact alternatingDirichletEtaContinuation_eq_factor_mul_zeta_of_ne_one
       (by simpa using hs) |>.symm
   exact tendsto_nhds_unique hvalue hlog
+
+/-- At one, the natural alternating series and the independent periodic continuation agree. -/
+theorem alternatingEtaNaturalValue_eq_continuation_one :
+    alternatingEtaNaturalValue 1 = alternatingDirichletEtaContinuation 1 := by
+  rw [alternatingEtaNaturalValue_one, alternatingDirichletEtaContinuation_one]
 
 /-- The independent periodic continuation agrees globally with the factorized Gate 7 eta
 function, including the removable point `s = 1`. -/
